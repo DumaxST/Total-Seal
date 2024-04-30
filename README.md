@@ -1,1 +1,1 @@
-# totalSeal
+# Total-Seal
