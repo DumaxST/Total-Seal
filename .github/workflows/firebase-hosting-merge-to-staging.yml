@@ -5,7 +5,7 @@ name: Deploy to Staging Enviroment
 on:
   workflow_dispatch:
   repository_dispatch:
-    types: [dumax-eld-staging-deploy]
+    types: [dumax-total-seal-staging-deploy]
   pull_request:
     types: [closed]
     branches:
