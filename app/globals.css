@@ -23,3 +23,6 @@
   background: linear-gradient(var(--bg-primary-100),var(--bg-primary-200));
 }
 
+.border-primary{
+  border-color :var(--bg-primary-200);
+}
