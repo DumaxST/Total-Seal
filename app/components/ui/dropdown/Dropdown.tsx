@@ -1,5 +1,7 @@
 'use client'
-import React, {use, useEffect, useState} from 'react'
+import React, { useEffect, useState} from 'react';
+
+import { bodySecondaryFont} from "@/app/config/fonts";
 
 export const Dropdown = () => {
   
@@ -14,6 +16,7 @@ export const Dropdown = () => {
     };
     useEffect(() => {
     }, [isOpen]);
+
     return (
         <div className='relative'>  
             <div className='flex items-center gap-2 cursor-pointer' onClick={toggleDropdown}>
@@ -21,7 +24,7 @@ export const Dropdown = () => {
                     <img className="h-full w-full object-cover  " src="https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=128&q=80" alt="image"/>
                     
                 </button>
-                <p>Total Seal</p>
+                <p className={`${bodySecondaryFont.className}`}>Total Seal</p>
 
             </div>
             {
