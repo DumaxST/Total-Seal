@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #FBFBFB;
+
+  --secondary: #3B83FF; 
+
+  --tertiary: #343434;
+
+  --text-primary: #000000;
+
+  --bg-primary-100: #B7ED05;
+  --bg-primary-200: #80D602;
+ 
+}
+.bg-primary{
+  background: linear-gradient(var(--bg-primary-100),var(--bg-primary-200));
+}
+
+.button:hover{
+  background: linear-gradient(var(--bg-primary-100),var(--bg-primary-200));
+}
+
