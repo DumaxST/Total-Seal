@@ -7,8 +7,8 @@ import styles from './navbar.module.css';
 
 export const Navbar = () => {
   return (
-    <div className={`flex p-4 items-center justify-between text-white ${styles.navbar}`}>
-        <div className='flex items-center gap-2 '>
+    <div className={`flex py-2.5 ps-9 pe-9 items-center justify-between text-white ${styles.navbar}`}>
+        <div className='flex items-center gap-2'>
           <Image 
             src="/images/logo-white.png" 
             width={100}
