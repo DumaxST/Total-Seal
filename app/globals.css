@@ -15,6 +15,9 @@
   --bg-primary-200: #80D602;
  
 }
+body{
+  color: var(--text-primary);
+}
 .bg-primary{
   background: linear-gradient(var(--bg-primary-100),var(--bg-primary-200));
 }

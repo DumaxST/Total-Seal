@@ -5,7 +5,7 @@ import { bodySecondaryFont} from "@/app/config/fonts";
 
 export const Dropdown = () => {
   
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
 
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
