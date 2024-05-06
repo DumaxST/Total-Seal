@@ -27,7 +27,14 @@ interface TableWithFilterProps {
 export const TableWithFilter = ({data , columns}: TableWithFilterProps) => {
   return (
     <>
-        <DataTable value={data}  dataKey="id" >
+        <DataTable 
+            value={data}  
+            dataKey="id" 
+            size="normal"
+            scrollable
+            scrollHeight="700px"
+            className='text-xs'
+            >
             {
                 columns.map((column) =>(
                     <Col 
