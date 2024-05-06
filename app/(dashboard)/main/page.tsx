@@ -1,9 +1,10 @@
 
-import { CardWithIcon, HorizontalBar } from "@/app/components/ui";
+import { CardWithIcon, HorizontalBar, TableWithFilter } from "@/app/components/ui";
 import { Button } from 'primereact/button';
 
 import { CardWrapper } from "@/app/components/wrappers";
-import { headingFont, bodySecondaryFont} from "@/app/config/fonts";
+import { headingFont} from "@/app/config/fonts";
+import {devices, columns} from "@/app/lib/data";
 
 export default function MainPage() {
   return (
@@ -16,6 +17,7 @@ export default function MainPage() {
           icon="unidades"
         />
       </div>
+
       <div className="col-start-2 col-end-3">
         <CardWithIcon
           title="25"
@@ -23,7 +25,13 @@ export default function MainPage() {
           icon="unidad-pipa"
         />
       </div>
-      <div className="col-start-3 col-end-7 bg-lime-800 ">03</div>
+
+      <CardWrapper className="col-start-3 col-end-7 bg-lime-800 ">
+        <h3 className={`${headingFont.className}`}>Últimas alertas</h3>
+        <TableWithFilter 
+          data={devices} 
+          columns={columns}/>
+      </CardWrapper>
 
       <div className="col-start-1 col-end-2 ">
         <CardWithIcon
