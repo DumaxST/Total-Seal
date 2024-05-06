@@ -1,5 +1,20 @@
-import React from 'react'
-import {Icon} from "@/app/components/ui";   
+import React from 'react';
+import { Icon } from "@/app/components/ui";
+
+import { SidebarItem } from '@/app/components/ui';
+
+const menuItems = [
+    {
+        path: "/main",
+        icon: "reports-3",
+        title: "Dashboard",
+    },
+    {
+        path: "/device",
+        icon: "unidades",
+        title: "Unidades",
+    },
+];
 
 export const Sidebar = () => {
   return (
@@ -13,25 +28,12 @@ export const Sidebar = () => {
 
             <div id="nav" className="w-full px-6">
 
-              <a href="#" className="w-full px-2 inline-flex space-x-2 items-center border-b border-gray-300 py-3 hover:bg-white/5 transition ease-linear duration-150">
-                  <div>
-                    <Icon color="" size={20} icon="reports-3" className='bg-primary'/>
 
-                  </div>
-                  <div className="flex flex-col">
-                      <span className="text-sm  leading-5 ">Dashboard</span>
-                  </div>
-              </a>
-
-              <a href="#" className="w-full px-2 inline-flex space-x-2 items-center border-b border-gray-300 py-3 hover:bg-white/5 transition ease-linear duration-150">
-                  <div>
-                    <Icon color="#444" size={20} icon="unidades" />
-                      
-                  </div>
-                  <div className="flex flex-col">
-                      <span className="text-sm leading-5">Unidades</span>
-                  </div>
-              </a>
+             {
+                menuItems.map(item =>(
+                    <SidebarItem key={item.path} {...item} />
+                ))
+             }
 
               
             </div>
