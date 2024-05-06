@@ -1,4 +1,9 @@
-import { CardWithIcon } from "@/app/components/ui";
+
+import { CardWithIcon, HorizontalBar } from "@/app/components/ui";
+import { Button } from 'primereact/button';
+
+import { CardWrapper } from "@/app/components/wrappers";
+import { headingFont, bodySecondaryFont} from "@/app/config/fonts";
 
 export default function MainPage() {
   return (
@@ -36,8 +41,10 @@ export default function MainPage() {
       </div>
 
 
-      <div className="col-start-1 col-end-3 bg-orange-400">02</div>
-
+      <CardWrapper className="col-start-1 col-end-3">
+        <h3 className={`${headingFont.className}`}>Unidades con más alertas - últimos 7 días</h3>
+        <HorizontalBar/>
+      </CardWrapper>
     </div>
   );
 }

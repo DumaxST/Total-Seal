@@ -4,3 +4,4 @@ export * from './dropdown/Dropdown';
 export * from './icon/Icon';
 export * from './sidebarItem/SidebarItem';
 export * from './card/CardWithIcon';
+export * from './horizontalBar/HorizontalBar';

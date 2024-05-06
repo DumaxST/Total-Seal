@@ -6,7 +6,7 @@ interface CardWrapperProps {
 
 export const CardWrapper = ({className, children}:CardWrapperProps) => {
   return (
-    <div className={`max-with-card rounded overflow-hidden shadow-lg p-5 bg-white ${className}`}>
+    <div className={`rounded overflow-hidden shadow-lg p-5 bg-white ${className}`}>
         {children}
     </div>
   )
