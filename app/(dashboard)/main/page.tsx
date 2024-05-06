@@ -1,9 +1,15 @@
+import { CardWithIcon } from "@/app/components/ui";
 
 export default function MainPage() {
   return (
     <div>
 
-      <h1>Dashbboard</h1>
+      <CardWithIcon
+        title="30"
+        subtitle="Unidades"
+        icon="unidades"
+      />
+       
     </div>
   );
 }

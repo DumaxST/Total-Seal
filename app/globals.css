@@ -31,3 +31,15 @@ body{
 .border-primary{
   border-color :var(--bg-primary-200);
 }
+.heading-h2{
+  font-size: 1.5rem;
+}
+.heading-h3{
+  font-size: 0.875rem;
+}
+.mt-10{
+  margin-top: 0.625rem;
+}
+.max-with-card{
+  max-width: 13rem;
+}
