@@ -20,6 +20,8 @@ export const HorizontalBar = ()=> {
                     label: 'Alertas',
                     backgroundColor: documentStyle.getPropertyValue('--secondary-200'),
                     borderColor: documentStyle.getPropertyValue('--secondary-200'),
+                    borderRadius: 3,
+                    barPercentage : 0.3,
                     data: [14, 11, 11, 7, 6]
                 },
                
@@ -32,8 +34,13 @@ export const HorizontalBar = ()=> {
             plugins: {
                 legend: {
                     labels: {
-                        fontColor: textColor
-                    }
+                        fontColor: textColor,
+                        font: {
+                            weight: 700
+                        }
+                        
+                    },
+                    position: 'bottom'
                 }
             },
             scales: {
@@ -41,17 +48,20 @@ export const HorizontalBar = ()=> {
                     ticks: {
                         color: textColorSecondary,
                         font: {
-                            weight: 500
+                            weight: 700
                         }
                     },
                     grid: {
-                        display: false,
+                        display: true,
                         drawBorder: false
                     }
                 },
                 y: {
                     ticks: {
-                        color: textColorSecondary
+                        color: textColorSecondary,
+                        font: {
+                            weight: 700
+                        }
                     },
                     grid: {
                         color: surfaceBorder,
