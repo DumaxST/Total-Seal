@@ -13,7 +13,9 @@
 
   --bg-primary-100: #B7ED05;
   --bg-primary-200: #80D602;
- 
+  
+  --gray-100: #F1F1F1;
+
 }
 body{
   color: var(--text-primary);
