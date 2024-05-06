@@ -1,5 +1,7 @@
 import React from 'react';
 import { Icon } from "@/app/components/ui";
+import { CardWrapper } from "@/app/components/wrappers";
+
 import { headingFont, bodySecondaryFont} from "@/app/config/fonts";
 
 interface CardWithIconProps {
@@ -11,7 +13,7 @@ interface CardWithIconProps {
 export const CardWithIcon = ({title,subtitle, icon}: CardWithIconProps) => {
 
   return (
-    <div className='max-with-card rounded overflow-hidden shadow-lg p-5 bg-white'>
+    <CardWrapper>
         <div className='flex justify-between '>
             <Icon
             color=""
@@ -22,6 +24,6 @@ export const CardWithIcon = ({title,subtitle, icon}: CardWithIconProps) => {
             <h2 className={`heading-h2 ${headingFont.className}`}>{title}</h2>
         </div>
         <h3 className={`heading-h3 mt-10 ${bodySecondaryFont.className}`}>{subtitle}</h3>
-    </div>
+    </CardWrapper>
   )
 }
