@@ -49,7 +49,7 @@ export default function MainPage() {
 
       <div className="col-span-8">
         <CardWrapper>
-          <h3 className={`${headingFont.className}`}>Últimas alertas</h3>
+          <h3 className={`${headingFont.className} pb-4 `}>Últimas alertas</h3>
           <TableWithFilter 
             data={devices} 
             columns={columns}/>

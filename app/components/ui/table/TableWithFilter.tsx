@@ -114,7 +114,7 @@ export const TableWithFilter = ({ data, columns }: TableWithFilterProps) => {
             size="normal"
             scrollable
             scrollHeight="700px"
-            className='text-xs'
+            className='text-xs rounded-lg'
             emptyMessage="Sin datos para los filtros seleccionados"
             paginator
             rows={5}
@@ -129,6 +129,7 @@ export const TableWithFilter = ({ data, columns }: TableWithFilterProps) => {
                         field={column.field}
                         header={column.header}
                         sortable
+                        className='background-gray-100'
                     />
                 ))
             }
