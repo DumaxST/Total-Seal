@@ -13,6 +13,7 @@
   --secondary: #3B83FF; 
   --secondary-200: #4690FF;
   --tertiary: #343434;
+  --fourth:#FF6900;
 
   --text-primary: #000000;
 
@@ -20,6 +21,7 @@
   --bg-primary-200: #80D602;
   
   --gray-100: #F1F1F1;
+
  
 }
 body{
@@ -57,4 +59,7 @@ body{
 }
 .p-sortable-column-icon{
   color: var(--primary);
+}
+.movement-color{
+  color : var(--fourth);
 }

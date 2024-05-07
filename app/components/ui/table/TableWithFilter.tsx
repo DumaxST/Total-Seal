@@ -104,6 +104,26 @@ export const TableWithFilter = ({ data, columns }: TableWithFilterProps) => {
 
 
     }
+    const statusBodyTemplate = (product: Device) => {
+        const colorStatus = getSeverity(product);
+        return <p className={colorStatus}>{product.status }</p>
+    };
+
+    const getSeverity = (product: Device) => {
+        switch (product.status) {
+            case 'Ralentí':
+                return 'success';
+
+            case 'En movimiento':
+                return 'movement-color';
+
+            case 'stop':
+                return 'danger';
+
+            default:
+                return '';
+        }
+    };
 
 
     return (
@@ -123,15 +143,30 @@ export const TableWithFilter = ({ data, columns }: TableWithFilterProps) => {
             paginatorTemplate={template}
         >
             {
-                columns.map((column) => (
-                    <Col
-                        key={column.id}
-                        field={column.field}
-                        header={column.header}
-                        sortable
-                        className='background-gray-100'
-                    />
-                ))
+                columns.map((column) => {
+                    if(column.field === 'status'){
+                        return(
+                            <Col
+                                key={column.id}
+                                field={column.field}
+                                header={column.header}
+                                sortable
+                                className='background-gray-100'
+                                body={statusBodyTemplate}
+                            />
+                        )
+                    }else{
+                        return(
+                        <Col
+                            key={column.id}
+                            field={column.field}
+                            header={column.header}
+                            sortable
+                            className='background-gray-100'
+                        />)
+                    }
+                }
+            )
             }
         </DataTable>
 
