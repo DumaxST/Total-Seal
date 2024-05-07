@@ -14,6 +14,7 @@ import { InputNumber } from 'primereact/inputnumber';
 import { Dropdown } from 'primereact/dropdown';
 import { Tag } from 'primereact/tag';
 import { Button } from 'primereact/button';
+import { Icon } from "@/app/components/ui";
 
 interface Device {
     id: string | number
@@ -32,11 +33,10 @@ interface TableWithFilterProps {
     data: Device[]
     columns: Column[]
 }
-interface optionPaginatorLeft {
-    first: number
-    last: number
-    totalRecords: number
 
+interface Status {
+    className: string
+    icon: string
 }
 export const TableWithFilter = ({ data, columns }: TableWithFilterProps) => {
 
@@ -105,23 +105,27 @@ export const TableWithFilter = ({ data, columns }: TableWithFilterProps) => {
 
     }
     const statusBodyTemplate = (product: Device) => {
-        const colorStatus = getSeverity(product);
-        return <p className={colorStatus}>{product.status }</p>
+        let [colorStatus,icon] = getStatus(product);
+        return <span className={colorStatus}>
+            {product.status }
+            <Icon
+                color='#FF6900'
+                size={15}
+                icon={icon}
+        
+            />
+            </span>
     };
 
-    const getSeverity = (product: Device) => {
+    const getStatus = (product: Device) : [string, string]=> {
         switch (product.status) {
             case 'Ralentí':
-                return 'success';
+                return ['success', '' ];
 
             case 'En movimiento':
-                return 'movement-color';
-
-            case 'stop':
-                return 'danger';
-
+                return ['movement-color', 'icon-vueltaBrusca'];
             default:
-                return '';
+                return ['', ''];
         }
     };
 
