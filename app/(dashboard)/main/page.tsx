@@ -52,7 +52,9 @@ export default function MainPage() {
           <h3 className={`${headingFont.className} pb-4 `}>Últimas alertas</h3>
           <TableWithFilter 
             data={devices} 
-            columns={columns}/>
+            columns={columns}
+            showActions={true}
+            />
         </CardWrapper>
 
       </div>

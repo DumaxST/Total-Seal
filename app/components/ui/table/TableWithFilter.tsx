@@ -9,10 +9,6 @@ import { classNames } from "primereact/utils";
 
 import { DataTable } from 'primereact/datatable';
 import { Column as Col } from 'primereact/column';
-import { InputText } from 'primereact/inputtext';
-import { InputNumber } from 'primereact/inputnumber';
-import { Dropdown } from 'primereact/dropdown';
-import { Tag } from 'primereact/tag';
 import { Button } from 'primereact/button';
 import { Icon } from "@/app/components/ui";
 
@@ -32,13 +28,14 @@ interface Column {
 interface TableWithFilterProps {
     data: Device[]
     columns: Column[]
+    showActions?: boolean
 }
 
 interface Status {
     className: string
     icon: string
 }
-export const TableWithFilter = ({ data, columns }: TableWithFilterProps) => {
+export const TableWithFilter = ({ data, columns, showActions }: TableWithFilterProps) => {
 
     const [rowsPerPage, setRowsPerPage] = useState(10);
     
@@ -129,6 +126,18 @@ export const TableWithFilter = ({ data, columns }: TableWithFilterProps) => {
         }
     };
 
+    const actionBodyTemplate = () => {
+    return (
+        <>
+            <Button
+            //   onClick={() =>handleClickShowHide(rowData.id, rowData.isDisplayedOnMap)}
+              className="text-secondary py-1 px-2"
+              label='Ver actividad'
+              />
+        </>
+    );
+  };
+
 
     return (
 
@@ -171,6 +180,14 @@ export const TableWithFilter = ({ data, columns }: TableWithFilterProps) => {
                     }
                 }
             )
+            }
+            { showActions &&  (
+                <Col
+                className='background-gray-100'
+                header="Acciones"  
+                body={actionBodyTemplate} 
+                exportable={false} />
+                )
             }
         </DataTable>
 
