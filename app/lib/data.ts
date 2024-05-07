@@ -64,7 +64,7 @@ export const devices = [
         codeSeal : '270066'
     },
     {
-        id :'7',
+        id :'9',
         name: 'TRC213',
         trailer : 'Remolque 16',
         date: '19/03/2023 | 06:35:23',
@@ -72,7 +72,7 @@ export const devices = [
         codeSeal : '270066'
     }, 
     {
-        id :'8',
+        id :'10',
         name: 'TRC213',
         trailer : 'Remolque 17',
         date: '19/03/2023 | 06:35:23',

@@ -1,9 +1,9 @@
 
 import { CardWithIcon, HorizontalBar, TableWithFilter } from "@/app/components/ui";
-import { Button } from 'primereact/button';
 
 import { CardWrapper } from "@/app/components/wrappers";
 import { headingFont} from "@/app/config/fonts";
+
 import {devices, columns} from "@/app/lib/data";
 
 export default function MainPage() {
@@ -56,26 +56,6 @@ export default function MainPage() {
         </CardWrapper>
 
       </div>
-      <div className="col-start-1 col-end-2 ">
-       
-      </div>
-
-      <div className="col-start-2 col-end-3 ">
-       
-      </div>
-
-      
-      <div className="col-start-1 col-end-2 ">
-       
-      </div>
-      <div className="col-start-2 col-end-3 ">
-       
-      </div>
-
-
-     
-
-     
 
     </div>
   );
