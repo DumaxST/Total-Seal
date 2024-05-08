@@ -25,4 +25,6 @@
     font-size: .7rem;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
+    background-color: var(--gray-200);
+    border: solid 1px var(--gray-300);
 }

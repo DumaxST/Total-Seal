@@ -204,7 +204,7 @@ export const devices = [
         status: 'En movimiento',
         codeSeal : '270066',
         group: 'Grupo Utilitario',
-        driver: 'Sergio Pérez',
+        driver: 'Sergio Lopez',
         numberOfTrailers: 2,
         lastCodeSeal: '270066',
         lastLocation: '25.752935, -100.5066483'
