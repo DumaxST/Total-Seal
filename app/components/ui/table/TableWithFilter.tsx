@@ -12,6 +12,8 @@ import { Column as Col } from 'primereact/column';
 import { Button } from 'primereact/button';
 import { Icon } from "@/app/components/ui";
 
+import styles from './table.module.css';
+
 interface Device {
     id: string | number
     name: string
@@ -35,6 +37,7 @@ interface Status {
     className: string
     icon: string
 }
+
 export const TableWithFilter = ({ data, columns, showActions }: TableWithFilterProps) => {
 
     const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -47,6 +50,7 @@ export const TableWithFilter = ({ data, columns, showActions }: TableWithFilterP
             </span>
         );
     };
+
     const template = {
         layout: "PrevPageLink PageLinks NextPageLink ",
         PrevPageLink: (options: PaginatorPrevPageLinkOptions) => {
@@ -54,50 +58,35 @@ export const TableWithFilter = ({ data, columns, showActions }: TableWithFilterP
                 <Button 
                     onClick={options.onClick}
                     label='Anterior' 
-                    className='text-xs bg-white rounded-t border-gray-300 text-black'>
-                    <Ripple />
+                    disabled={options.disabled}
+                    className={` bg-white  border-gray-300 text-black rounded-e-none ${styles.tableButton} ${styles.borderTopLeftRadius}  ${styles.borderBottomLeftRadius}`}>
+                   
                 </Button>
             );
         },
         NextPageLink: (options: PaginatorNextPageLinkOptions) => {
             return (
               <Button
-                className='text-xs bg-white rounded-t border-gray-300 text-black'
+                className={` bg-white  border-gray-300 text-black rounded-s-none  ${styles.tableButton} ${styles.borderLeftNone} ${styles.borderRightTopRadius}  ${styles.borderRightBottomRadius}`}
                 onClick={options.onClick}
                 disabled={options.disabled}
                 label='Siguiente'
-              >
-               
-                <Ripple />
-              </Button>
+              />
+              
             );
         },
         PageLinks: (options:PaginatorPageLinksOptions) => {
-            if (
-              (options.view.startPage === options.page &&
-                options.view.startPage !== 0) ||
-              (options.view.endPage === options.page &&
-                options.page + 1 !== options.totalPages)
-            ) {
-              const className = classNames(options.className, { "p-disabled": true });
-      
-              return (
-                <span className={className} style={{ userSelect: "none" }}>
-                  ...
-                </span>
-              );
-            }
-      
+            
             return (
-              <Button
-                className={`text-xs bg-white rounded-t border-gray-300 text-black ${options.className}`}
-                onClick={options.onClick}
-              >
-                {options.page + 1}
-                <Ripple />
-              </Button>
+                <Button 
+                    className={` bg-white rounded-t border-gray-300 text-black  ${styles.tableButton} ${styles.buttonBorderNone} ${styles.borderLeftNone}`}
+                    disabled={ options.className === 'p-disabled' ? true : false} 
+                    onClick={options.onClick}>
+                    {options.page + 1}
+                    
+                </Button>
             );
-          },
+        },
 
 
     }
@@ -147,7 +136,7 @@ export const TableWithFilter = ({ data, columns, showActions }: TableWithFilterP
             size="normal"
             scrollable
             scrollHeight="700px"
-            className='text-xs rounded-lg'
+            className='text-xs'
             emptyMessage="Sin datos para los filtros seleccionados"
             paginator
             rows={5}

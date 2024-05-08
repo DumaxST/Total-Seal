@@ -1,0 +1,23 @@
+.tableButton{
+    font-size: .7rem;
+    padding: .5rem;
+}
+.buttonBorderNone{
+    border-radius: 0rem;
+ 
+}
+.borderLeftNone{
+    border-left: none;
+}
+.borderTopLeftRadius{
+    border-top-left-radius:  .5rem;
+}
+.borderBottomLeftRadius{
+    border-bottom-left-radius:  .5rem;
+}
+.borderRightTopRadius{
+    border-top-right-radius:  .5rem;
+}
+.borderRightBottomRadius{
+    border-bottom-right-radius:  .5rem;
+}
