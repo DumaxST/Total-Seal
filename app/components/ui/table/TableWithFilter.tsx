@@ -1,15 +1,18 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {
-    Paginator, PaginatorPageChangeEvent, PaginatorJumpToPageInputOptions, PaginatorCurrentPageReportOptions, PaginatorRowsPerPageDropdownOptions,
-    PaginatorLastPageLinkOptions, PaginatorNextPageLinkOptions, PaginatorPageLinksOptions, PaginatorPrevPageLinkOptions, PaginatorFirstPageLinkOptions
+     PaginatorCurrentPageReportOptions, PaginatorRowsPerPageDropdownOptions,
+     PaginatorNextPageLinkOptions, PaginatorPageLinksOptions, PaginatorPrevPageLinkOptions
 } from 'primereact/paginator';
-import { Ripple } from "primereact/ripple";
-import { classNames } from "primereact/utils";
 
 import { DataTable } from 'primereact/datatable';
 import { Column as Col } from 'primereact/column';
 import { Button } from 'primereact/button';
+import { Toolbar } from "primereact/toolbar";
+import { InputText } from "primereact/inputtext";
+import { IconField } from "primereact/iconfield";
+import { InputIcon } from "primereact/inputicon";
+
 import { Icon } from "@/app/components/ui";
 
 import styles from './table.module.css';
@@ -31,6 +34,7 @@ interface TableWithFilterProps {
     data: Device[]
     columns: Column[]
     showActions?: boolean
+    showToolbar: boolean
 }
 
 interface Status {
@@ -38,7 +42,7 @@ interface Status {
     icon: string
 }
 
-export const TableWithFilter = ({ data, columns, showActions }: TableWithFilterProps) => {
+export const TableWithFilter = ({ data, columns, showActions, showToolbar }: TableWithFilterProps) => {
 
     const [rowsPerPage, setRowsPerPage] = useState(10);
     
@@ -126,11 +130,43 @@ export const TableWithFilter = ({ data, columns, showActions }: TableWithFilterP
         </>
     );
   };
+  const renderHeaderRight = () => {
+    return (
+      <div className="flex flex-column gap-1">
+        
+        <span className="p-input-icon-left">
+        
+        <p className='font-size-xs'>Buscar</p>
+        <IconField>
+            <InputIcon>
+                <Icon
+                    className='pb-1'
+                    color='#FF6900'
+                    size={20}
+                    icon="icon-find" />
+            </InputIcon>
+           <InputText v-model="value2" className={`${styles.inputSearch}`} />
+        </IconField>
+        </span>
+      </div>
+    );
+  };
+
+  const headerRight = renderHeaderRight();
+
 
 
     return (
-
-        <DataTable
+        <>
+            {
+                showToolbar && (
+                    <Toolbar
+                    className="mb-4 bg-white flex align-items-end border-none"
+                    end={headerRight}
+                />)
+            }
+            
+             <DataTable
             value={data}
             dataKey="id"
             size="normal"
@@ -181,6 +217,9 @@ export const TableWithFilter = ({ data, columns, showActions }: TableWithFilterP
         </DataTable>
 
 
+        
+        </>
+       
 
     )
 }

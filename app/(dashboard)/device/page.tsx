@@ -13,6 +13,7 @@ export default function DevicePage() {
             data={devices} 
             columns={detailedColumns}
             showActions={true}
+            showToolbar={true}
             />
         </CardWrapper>
 

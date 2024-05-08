@@ -54,6 +54,7 @@ export default function MainPage() {
             data={devices} 
             columns={columns}
             showActions={true}
+            showToolbar={false}
             />
         </CardWrapper>
 
