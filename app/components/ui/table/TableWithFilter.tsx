@@ -13,6 +13,7 @@ import { Toolbar } from "primereact/toolbar";
 import { InputText } from "primereact/inputtext";
 import { IconField } from "primereact/iconfield";
 import { InputIcon } from "primereact/inputicon";
+import { Button as ButtonPrimary} from '@/app/components/ui';
 
 import { Icon } from "@/app/components/ui";
 
@@ -127,10 +128,10 @@ export const TableWithFilter = ({ data, columns, showActions, showToolbar }: Tab
     const actionBodyTemplate = () => {
     return (
         <>
-            <Button
-            //   onClick={() =>handleClickShowHide(rowData.id, rowData.isDisplayedOnMap)}
-              className="text-secondary py-1 px-2"
-              label='Ver actividad'
+            <ButtonPrimary
+             //   onClick={() =>handleClickShowHide(rowData.id, rowData.isDisplayedOnMap)}
+             
+              text='Ver actividad'
               />
         </>
     );
@@ -206,20 +207,20 @@ export const TableWithFilter = ({ data, columns, showActions, showToolbar }: Tab
             }
             
              <DataTable
-            value={data}
-            dataKey="id"
-            size="normal"
-            scrollable
-            scrollHeight="700px"
-            className='text-xs'
-            emptyMessage="Sin datos para los filtros seleccionados"
-            paginator
-            rows={5}
-            rowsPerPageOptions={[5, 10, 25, 50]}
-            paginatorLeft={PaginatorLeft}
-            paginatorTemplate={template}
-            filters={filters}
-            globalFilterFields={generateFilterFields(columns)}
+                value={data}
+                dataKey="id"
+                size="normal"
+                scrollable
+                scrollHeight="700px"
+                className='text-xs'
+                emptyMessage="Sin datos para los filtros seleccionados"
+                paginator
+                rows={5}
+                rowsPerPageOptions={[5, 10, 25, 50]}
+                paginatorLeft={PaginatorLeft}
+                paginatorTemplate={template}
+                filters={filters}
+                globalFilterFields={generateFilterFields(columns)}
         >
             {
                 columns.map((column) => {

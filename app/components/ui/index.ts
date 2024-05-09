@@ -6,3 +6,5 @@ export * from './sidebarItem/SidebarItem';
 export * from './card/CardWithIcon';
 export * from './horizontalBar/HorizontalBar';
 export * from './table/TableWithFilter';
+export * from './forms/FormDevice';
+export * from './button/Button';

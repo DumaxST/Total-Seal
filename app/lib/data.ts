@@ -271,4 +271,11 @@ export const detailedColumns = [
         field: 'lastLocation',
         header: 'Última ubicación'
     }
-]
+];
+export const devicesAll = [
+    { name: 'Equipo 1', code: 'dev1' },
+    { name: 'Equipo 2', code: 'dev2' },
+    { name: 'Equipo 3', code: 'dev3' },
+    { name: 'Equipo 4', code: 'dev4' },
+    { name: 'Equipo 5', code: 'dev5' }
+];

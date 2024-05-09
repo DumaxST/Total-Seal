@@ -1,5 +1,5 @@
 
-import { CardWithIcon, HorizontalBar, TableWithFilter } from "@/app/components/ui";
+import { CardWithIcon, HorizontalBar, TableWithFilter, FormDevice } from "@/app/components/ui";
 
 import { CardWrapper } from "@/app/components/wrappers";
 import { headingFont} from "@/app/config/fonts";
@@ -33,11 +33,11 @@ export default function MainPage() {
         />
         </div>
         <div className="col-start-3 col-end-6">
-        <CardWithIcon
-          title="3.5 min"
-          subtitle="Promedio de sellos por unidad"
-          icon="sellos"
-        />
+          <CardWithIcon
+            title="3.5 min"
+            subtitle="Promedio de sellos por unidad"
+            icon="sellos"
+          />
         </div>
         <div className="col-start-1 col-end-6">
           <CardWrapper className="col-start-1 col-end-3">
