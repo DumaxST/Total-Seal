@@ -1,33 +1,69 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+@layer tailwind-base, primereact, tailwind-utilities;
+@import 'primereact/resources/themes/lara-light-blue/theme.css' layer(primereact);
+@layer tailwind-base {
+  @tailwind base;
+}
+@layer tailwind-utilities {
+  @tailwind components;
+  @tailwind utilities;
+}
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --primary: #FBFBFB;
+
+  --secondary: #3B83FF; 
+  --secondary-200: #4690FF;
+  --tertiary: #343434;
+  --fourth:#FF6900;
+
+  --text-primary: #000000;
+
+  --bg-primary-100: #B7ED05;
+  --bg-primary-200: #80D602;
+  
+  --gray-100: #F1F1F1;
+
+ 
+}
+body{
+  color: var(--text-primary);
+}
+.bg-primary{
+  background: linear-gradient(var(--bg-primary-100),var(--bg-primary-200));
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.button:hover{
+  background: linear-gradient(var(--bg-primary-100),var(--bg-primary-200));
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.border-primary{
+  border-color :var(--bg-primary-200);
+}
+.background-gray-100{
+  background-color: var(--gray-100);
+}
+.heading-h2{
+  font-size: 1.5rem;
+}
+.heading-h3{
+  font-size: 0.875rem;
+}
+.mt-10{
+  margin-top: 0.625rem;
+}
+.min-with-card{
+  max-width: 13rem;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+th{
+  background-color: var(--tertiary);
+  color: var(--primary);
+}
+.p-sortable-column-icon{
+  color: var(--primary);
+}
+.movement-color{
+  color : var(--fourth);
+}
+.text-secondary{
+  font-size: 0.4rem;
 }

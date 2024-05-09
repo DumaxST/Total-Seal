@@ -1,8 +1,7 @@
+import { CardWithIcon } from "@/app/components/ui";
 
 export default function DevicePage() {
   return (
-    <div>
-      <h1>Device Pages</h1>
-    </div>
+   <div>devicea</div>
   );
 }
