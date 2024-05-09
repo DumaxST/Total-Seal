@@ -1,4 +1,4 @@
-name: Issue transitionated to testing on PR approval
+name:  transitionated to testing on PR approval
 'on':
     pull_request_review:
       types: [submitted]
