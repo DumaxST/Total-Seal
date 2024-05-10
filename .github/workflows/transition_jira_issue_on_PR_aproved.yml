@@ -1,0 +1,94 @@
+name:  transitionated to testing on PR approval
+'on':
+    pull_request_review:
+      types: [submitted]
+
+jobs:
+  issue_transitionated_to_testing_on_pr_approval:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Check if PR is ready
+        id: check_ready
+        run: |
+          ready="not approved"
+          if [[ "${{ github.event.review.state }}" == "approved" ]]; then
+            ready="approved"
+            echo "PR is ready for deployment and JIRA should be transitioned."
+          else
+            echo "PR is not ready for deployment and JIRA issue will not be transitioned."
+          fi
+          echo "::set-output name=ready::${ready}"
+
+      - name: PR is not ready
+        if: steps.check_ready.outputs.ready != 'approved'
+        run: |
+          echo "PR is not ready for deployment; It is in ${{steps.check_ready.outputs.ready}} state. Exiting workflow."
+          exit 1
+          
+      - name: Check if all workflow automations have passed
+        id: check_automations
+        run: |
+          AUTOMATIONS=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/actions/runs?event=pull_request&status=completed" \
+            | jq -r 'if .workflow_runs != null then .workflow_runs[].conclusion else empty end')
+          if [[ "$AUTOMATIONS" =~ "failure" ]]; then
+            echo "Some workflow automations have not passed. Exiting workflow."
+            exit 1
+          else
+            echo "All workflow automations have passed."
+          fi
+    
+
+      - name: Extract PR Number
+        id: pr
+        run: echo "::set-output name=number::${{ github.event.pull_request.number }}"
+      
+      - name: Extract JIRA Issue ID
+        id: jira_issue_id
+        run: |
+          FULL_STRING="${{ github.event.pull_request.head.ref }}"
+          JIRAISSUEID=$(echo $FULL_STRING | awk -F'-' '{print $2"-"$3}')
+          echo "JIRA Issue ID: $JIRAISSUEID"
+          echo "JIRAISSUEID=$JIRAISSUEID" >> $GITHUB_ENV
+
+      - name: Update JIRA Issue
+        env:
+          JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+          JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+        run: |
+          PR_NUMBER=${{ steps.pr.outputs.number }}
+          # Extract JIRA issue key from PR title or branch name
+          JIRA_ISSUE_KEY=${{env.JIRAISSUEID}}
+          # If JIRA issue key is found
+          if [ ! -z "$JIRA_ISSUE_KEY" ]; then
+            # JIRA API call to update the issue
+            curl --http1.1 -X PUT \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Basic $(echo -n $JIRA_USER_EMAIL:$JIRA_API_TOKEN | base64)" \
+            ${{vars.JIRA_BASE_URL}}/rest/api/2/issue/${{ env.JIRAISSUEID }} \
+            -d '{
+              "update": {
+                "customfield_10058": "$PR_NUMBER"
+              }
+            }'
+          fi
+
+      - name: Check if PR is ready
+        run: |
+            PR_NUMBER=${{ steps.pr.outputs.number }}
+            if [[ "${{ github.event.review.state }}" == "approved" ]]; then
+              echo "Pull request is ready to be merged => Transitioning JIRA issue ${{ env.JIRAISSUEID }} to Testing."
+              # Transition the JIRA issue.
+              TRANSITION_ID=$(curl -X GET -H "Content-Type: application/json" \
+                  -u ${{ secrets.JIRA_USER_EMAIL }}:${{ secrets.JIRA_API_TOKEN }} \
+                  ${{vars.JIRA_BASE_URL}}/rest/api/3/issue/${{ env.JIRAISSUEID }}/transitions | jq -r '.transitions[] | select(.name=="Functional Testing") | .id')
+              echo "Transition ID: $TRANSITION_ID"
+              curl -X POST -H "Content-Type: application/json" \
+                  -d '{"transition":{"id":"'$TRANSITION_ID'"}}' \
+                  -u ${{ secrets.JIRA_USER_EMAIL }}:${{ secrets.JIRA_API_TOKEN }} \
+                  ${{vars.JIRA_BASE_URL}}/rest/api/3/issue/${{ env.JIRAISSUEID }}/transitions
+            else
+                echo "Pull request is not ready to be merged."
+            fi
