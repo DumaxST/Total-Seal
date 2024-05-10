@@ -18,12 +18,15 @@ jobs:
 
     steps:
 
+      
       - name: Extract JIRA Issue ID
         id: jira_issue_id
         run: |
-          FULL_STRING="${{ github.head_ref }}"
-          JIRAISSUEID=$(echo $FULL_STRING | cut -d'-' -f1,2)
+          FULL_STRING="${{ github.event.pull_request.head.ref }}"
+          JIRAISSUEID=$(echo $FULL_STRING | awk -F'-' '{print $2"-"$3}')
+          echo "JIRA Issue ID: $JIRAISSUEID"
           echo "JIRAISSUEID=$JIRAISSUEID" >> $GITHUB_ENV
+          
       - name: Login
         uses: atlassian/gajira-login@v3
         env:

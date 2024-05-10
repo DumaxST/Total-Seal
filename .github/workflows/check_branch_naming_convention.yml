@@ -1,0 +1,29 @@
+name: Check Branch Naming Convention
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  check-branch-name:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check branch naming convention
+        run: |
+          PR_BRANCH=${{ github.head_ref }}
+          BASE_BRANCH=${{ github.base_ref }}
+
+          if [[ $BASE_BRANCH == "master" && $PR_BRANCH != epic-* ]]; then
+            echo "To merge into master, the branch should have the prefix 'epic-'."
+            exit 1
+          fi
+
+          if [[ $BASE_BRANCH == epic-* && $PR_BRANCH != story-* ]]; then
+            echo "To merge into a branch with 'epic-' prefix, the branch should have the prefix 'story-'."
+            exit 1
+          fi
+
+          if [[ $BASE_BRANCH == story-* && $PR_BRANCH != subtask-* ]]; then
+            echo "To merge into a branch with 'story-' prefix, the branch should have the prefix 'subtask-'."
+            exit 1
+          fi
