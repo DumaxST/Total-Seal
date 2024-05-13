@@ -1,0 +1,30 @@
+.tableButton{
+    font-size: .7rem;
+    padding: .5rem;
+}
+.buttonBorderNone{
+    border-radius: 0rem;
+ 
+}
+.borderLeftNone{
+    border-left: none;
+}
+.borderTopLeftRadius{
+    border-top-left-radius:  .5rem;
+}
+.borderBottomLeftRadius{
+    border-bottom-left-radius:  .5rem;
+}
+.borderRightTopRadius{
+    border-top-right-radius:  .5rem;
+}
+.borderRightBottomRadius{
+    border-bottom-right-radius:  .5rem;
+}
+.inputSearch {
+    font-size: .7rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    background-color: var(--gray-200);
+    border: solid 1px var(--gray-300);
+}

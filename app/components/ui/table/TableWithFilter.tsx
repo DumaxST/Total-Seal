@@ -1,16 +1,23 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
-    Paginator, PaginatorPageChangeEvent, PaginatorJumpToPageInputOptions, PaginatorCurrentPageReportOptions, PaginatorRowsPerPageDropdownOptions,
-    PaginatorLastPageLinkOptions, PaginatorNextPageLinkOptions, PaginatorPageLinksOptions, PaginatorPrevPageLinkOptions, PaginatorFirstPageLinkOptions
+     PaginatorCurrentPageReportOptions, PaginatorRowsPerPageDropdownOptions,
+     PaginatorNextPageLinkOptions, PaginatorPageLinksOptions, PaginatorPrevPageLinkOptions
 } from 'primereact/paginator';
-import { Ripple } from "primereact/ripple";
-import { classNames } from "primereact/utils";
+import { FilterMatchMode } from 'primereact/api';
 
-import { DataTable } from 'primereact/datatable';
+import { DataTable, DataTableFilterMeta } from 'primereact/datatable';
 import { Column as Col } from 'primereact/column';
 import { Button } from 'primereact/button';
+import { Toolbar } from "primereact/toolbar";
+import { InputText } from "primereact/inputtext";
+import { IconField } from "primereact/iconfield";
+import { InputIcon } from "primereact/inputicon";
+import { Button as ButtonPrimary} from '@/app/components/ui';
+
 import { Icon } from "@/app/components/ui";
+
+import styles from './table.module.css';
 
 interface Device {
     id: string | number
@@ -29,16 +36,22 @@ interface TableWithFilterProps {
     data: Device[]
     columns: Column[]
     showActions?: boolean
+    showToolbar: boolean
 }
 
 interface Status {
     className: string
     icon: string
 }
-export const TableWithFilter = ({ data, columns, showActions }: TableWithFilterProps) => {
+
+export const TableWithFilter = ({ data, columns, showActions, showToolbar }: TableWithFilterProps) => {
 
     const [rowsPerPage, setRowsPerPage] = useState(10);
-    
+    const [globalFilterValue, setGlobalFilterValue] = useState<string>('');
+
+    const [filters, setFilters] = useState<DataTableFilterMeta>({
+        global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    });
     const PaginatorLeft = (options: PaginatorCurrentPageReportOptions) => {
         return (
             <span className='text-xs'>
@@ -47,6 +60,7 @@ export const TableWithFilter = ({ data, columns, showActions }: TableWithFilterP
             </span>
         );
     };
+
     const template = {
         layout: "PrevPageLink PageLinks NextPageLink ",
         PrevPageLink: (options: PaginatorPrevPageLinkOptions) => {
@@ -54,50 +68,35 @@ export const TableWithFilter = ({ data, columns, showActions }: TableWithFilterP
                 <Button 
                     onClick={options.onClick}
                     label='Anterior' 
-                    className='text-xs bg-white rounded-t border-gray-300 text-black'>
-                    <Ripple />
+                    disabled={options.disabled}
+                    className={` bg-white  border-gray-300 text-black rounded-e-none ${styles.tableButton} ${styles.borderTopLeftRadius}  ${styles.borderBottomLeftRadius}`}>
+                   
                 </Button>
             );
         },
         NextPageLink: (options: PaginatorNextPageLinkOptions) => {
             return (
               <Button
-                className='text-xs bg-white rounded-t border-gray-300 text-black'
+                className={` bg-white  border-gray-300 text-black rounded-s-none  ${styles.tableButton} ${styles.borderLeftNone} ${styles.borderRightTopRadius}  ${styles.borderRightBottomRadius}`}
                 onClick={options.onClick}
                 disabled={options.disabled}
                 label='Siguiente'
-              >
-               
-                <Ripple />
-              </Button>
+              />
+              
             );
         },
         PageLinks: (options:PaginatorPageLinksOptions) => {
-            if (
-              (options.view.startPage === options.page &&
-                options.view.startPage !== 0) ||
-              (options.view.endPage === options.page &&
-                options.page + 1 !== options.totalPages)
-            ) {
-              const className = classNames(options.className, { "p-disabled": true });
-      
-              return (
-                <span className={className} style={{ userSelect: "none" }}>
-                  ...
-                </span>
-              );
-            }
-      
+            
             return (
-              <Button
-                className={`text-xs bg-white rounded-t border-gray-300 text-black ${options.className}`}
-                onClick={options.onClick}
-              >
-                {options.page + 1}
-                <Ripple />
-              </Button>
+                <Button 
+                    className={` bg-white rounded-t border-gray-300 text-black  ${styles.tableButton} ${styles.buttonBorderNone} ${styles.borderLeftNone}`}
+                    disabled={ options.className === 'p-disabled' ? true : false} 
+                    onClick={options.onClick}>
+                    {options.page + 1}
+                    
+                </Button>
             );
-          },
+        },
 
 
     }
@@ -129,31 +128,99 @@ export const TableWithFilter = ({ data, columns, showActions }: TableWithFilterP
     const actionBodyTemplate = () => {
     return (
         <>
-            <Button
-            //   onClick={() =>handleClickShowHide(rowData.id, rowData.isDisplayedOnMap)}
-              className="text-secondary py-1 px-2"
-              label='Ver actividad'
+            <ButtonPrimary
+             //   onClick={() =>handleClickShowHide(rowData.id, rowData.isDisplayedOnMap)}
+             
+              text='Ver actividad'
               />
         </>
     );
   };
+  const renderHeaderRight = () => {
+    return (
+      <div className="flex flex-column gap-1">
+        
+        <span className="p-input-icon-left">
+        
+        <p className='font-size-xs'>Buscar</p>
+        <IconField>
+            <InputIcon>
+                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="14" height="14" viewBox="0 0 50 50">
+                    <path d="M 21 3 C 11.621094 3 4 10.621094 4 20 C 4 29.378906 11.621094 37 21 37 C 24.710938 37 28.140625 35.804688 30.9375 33.78125 L 44.09375 46.90625 L 46.90625 44.09375 L 33.90625 31.0625 C 36.460938 28.085938 38 24.222656 38 20 C 38 10.621094 30.378906 3 21 3 Z M 21 5 C 29.296875 5 36 11.703125 36 20 C 36 28.296875 29.296875 35 21 35 C 12.703125 35 6 28.296875 6 20 C 6 11.703125 12.703125 5 21 5 Z"></path>
+                </svg>
+            </InputIcon>
+           <InputText 
+                v-model="value2" 
+                className={`${styles.inputSearch}`}  
+                value={globalFilterValue}
+                onChange={onGlobalFilterChange} 
+            />
+        </IconField>
+        </span>
+      </div>
+    );
+  };
+  const onGlobalFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    let _filters = { ...filters };
 
+    // @ts-ignore
+    _filters['global'].value = value;
+
+    setFilters(_filters);
+    setGlobalFilterValue(value);
+};
+  const headerRight = renderHeaderRight();
+
+  const generateFilterFields = (columns) => {
+   
+    return columns.map((column) => {
+       return column.field;
+     })
+ 
+ };
+ const generateFilters = (columns) => {
+   const hashFilters = columns.reduce((hash, { field }) => {
+     hash[field] = { value: null, matchMode: FilterMatchMode.EQUALS };
+     return hash;
+   }, {});
+   hashFilters["global"] = {
+     value: null,
+     matchMode: FilterMatchMode.STARTS_WITH,
+   };
+   setFilters(hashFilters);
+ };
+
+ useEffect(() => {
+    generateFilterFields(columns);
+    generateFilters(columns);
+  }, [columns]); 
 
     return (
-
-        <DataTable
-            value={data}
-            dataKey="id"
-            size="normal"
-            scrollable
-            scrollHeight="700px"
-            className='text-xs rounded-lg'
-            emptyMessage="Sin datos para los filtros seleccionados"
-            paginator
-            rows={5}
-            rowsPerPageOptions={[5, 10, 25, 50]}
-            paginatorLeft={PaginatorLeft}
-            paginatorTemplate={template}
+        <>
+            {
+                showToolbar && (
+                    <Toolbar
+                    className="mb-4 bg-white flex align-items-end border-none"
+                    end={headerRight}
+                />)
+            }
+            
+             <DataTable
+                value={data}
+                dataKey="id"
+                size="normal"
+                scrollable
+                scrollHeight="700px"
+                className='text-xs'
+                emptyMessage="Sin datos para los filtros seleccionados"
+                paginator
+                rows={5}
+                rowsPerPageOptions={[5, 10, 25, 50]}
+                paginatorLeft={PaginatorLeft}
+                paginatorTemplate={template}
+                filters={filters}
+                globalFilterFields={generateFilterFields(columns)}
         >
             {
                 columns.map((column) => {
@@ -189,9 +256,9 @@ export const TableWithFilter = ({ data, columns, showActions }: TableWithFilterP
                 exportable={false} />
                 )
             }
-        </DataTable>
-
-
+        </DataTable>        
+        </>
+       
 
     )
 }
