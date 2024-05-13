@@ -1,5 +1,4 @@
 import {headingFont} from '@/app/config/fonts';
-import {Icon } from "@/app/components/ui";
 
 export default function LoginPage() {
   return (
@@ -11,19 +10,18 @@ export default function LoginPage() {
       <div className="form__group">
         <label htmlFor="username">Nombre de usuario</label>
         
-        <input id="username" type="text" />
+        <input id="username" type="text" className='rounded background-gray-200 border border-slate-200 outline-transparent py-2 px-1.5 '/>
       </div>
 
-      <div className={`form__group styles.password_wrapper`}>
+      <div className={`form__group`}>
         <label htmlFor="password">Contraseña</label>
-        <input id="password" type="password" className={`form__control`}/>
-        <Icon color="#444" size={25} icon="visualize" className={`password_icon`}/>
+        <input id="password" type="password" className='rounded background-gray-200 border border-slate-200 outline-transparent py-2 px-1.5 '/>
 
       </div>
 
       <div className='flex  flex-row-reverse'>
         
-        <button className="styles.button">Acceder</button>
+        <button className="border text-white  py-2 px-16 background-secondary">Acceder</button>
       </div>
 
     </form>
