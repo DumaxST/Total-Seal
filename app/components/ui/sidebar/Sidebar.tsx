@@ -24,7 +24,7 @@ export const Sidebar = () => {
                <h1 className="text-sm uppercase">Menú</h1>
             </div>
 
-            <hr  className='pb-2 pt-2 h-10 border-l-2 border-primary'/>
+            <hr  className='pb-2 pt-2 h-10 border-primary'/>
 
             <div id="nav" className="w-full px-6">
 
