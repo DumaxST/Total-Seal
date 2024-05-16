@@ -14,6 +14,7 @@ import { InputText } from "primereact/inputtext";
 import { IconField } from "primereact/iconfield";
 import { InputIcon } from "primereact/inputicon";
 import { Button as ButtonPrimary} from '@/app/components/ui';
+import Link from 'next/link'
 
 import { Icon } from "@/app/components/ui";
 
@@ -136,13 +137,13 @@ export const TableWithFilter = ({ data, columns, showActions, showToolbar }: Tab
 
     const actionBodyTemplate = () => {
     return (
-        <>
+        <Link href="/device/12">
             <ButtonPrimary
              //   onClick={() =>handleClickShowHide(rowData.id, rowData.isDisplayedOnMap)}
              
               text='Ver actividad'
               />
-        </>
+        </Link>
     );
   };
   const renderHeaderRight = () => {
