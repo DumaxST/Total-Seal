@@ -212,6 +212,137 @@ export const devices = [
 
 ];
 
+export const detailDevice =    {
+            id :'1',
+            name: 'Unidad Pipa de Gas 2',
+            trailers : [
+                {   
+                    id: '1',
+                    name: 'Remolque 1',
+                    compartments : [
+                       {
+                        id: '12',
+                        name: 'Compartimiento 1',
+                        valve_box : 'open',
+                         wafer: 'close',
+                        dome: 'close',
+                        content: 'with_content'
+                       },
+                       {
+                        id: '13',
+                        name: 'Compartimiento 2',
+                        valve_box : 'close',
+                         wafer: 'close',
+                        dome: 'open',
+                        content: 'with_content'
+                       },
+                    //    {
+                    //     id: '14',
+                    //     name: 'Compartimiento 3',
+                    //     valve_box : 'open',
+                    //      wafer: 'close',
+                    //     dome: 'close',
+                    //     content: 'with_content'
+                    //    }
+                       
+                    ]
+
+                },],
+            data:[
+                {
+                    date: '19/03/2023 | 06:35:23',
+                    codeSeal : '270066',
+                    numberCompartment:1,
+                    motorStatus: 'Detenido',
+                    capacityDevice: '30 000', 
+                    lastLocation: '25.752935, -100.5066483'
+                },
+                {
+                    date: '19/03/2023 | 06:35:23',
+                    codeSeal : '270066',
+                    numberCompartment:1,
+                    motorStatus: 'Detenido',
+                    capacityDevice: '30 000', 
+                    lastLocation: '25.752935, -100.5066483'
+                },
+                {
+                    date: '19/03/2023 | 06:35:23',
+                    codeSeal : '270066',
+                    numberCompartment:1,
+                    motorStatus: 'Detenido',
+                    capacityDevice: '30 000', 
+                    lastLocation: '25.752935, -100.5066483'
+                },
+                {
+                    date: '19/03/2023 | 06:35:23',
+                    codeSeal : '270066',
+                    numberCompartment:1,
+                    motorStatus: 'Detenido',
+                    capacityDevice: '30 000', 
+                    lastLocation: '25.752935, -100.5066483'
+                },
+                {
+                    date: '19/03/2023 | 06:35:23',
+                    codeSeal : '270066',
+                    numberCompartment:1,
+                    motorStatus: 'Detenido',
+                    capacityDevice: '30 000', 
+                    lastLocation: '25.752935, -100.5066483'
+                },
+                {
+                    date: '19/03/2023 | 06:35:23',
+                    codeSeal : '270066',
+                    numberCompartment:1,
+                    motorStatus: 'Detenido',
+                    capacityDevice: '30 000', 
+                    lastLocation: '25.752935, -100.5066483'
+                },
+                {
+                    date: '19/03/2023 | 06:35:23',
+                    codeSeal : '270066',
+                    numberCompartment:1,
+                    motorStatus: 'Detenido',
+                    capacityDevice: '30 000', 
+                    lastLocation: '25.752935, -100.5066483'
+                }
+
+            ] 
+        
+    };
+   
+export const detailDeviceColumns = [
+    {
+        id: '1',
+        field: 'date',
+        header: 'Fecha'
+    },
+    {
+        id: '2',
+        field: 'codeSeal',
+        header: 'Código de sello'
+    },
+    {
+        id: '3',
+        field: 'numberCompartment',
+        header: 'Compartimiento'
+    },
+    {
+        id: '4',
+        field: 'motorStatus',
+        header: 'Estado del motor'
+    },
+    {
+        id: '5',
+        field: 'capacityDevice',
+        header: 'Capacidad de la unidad'
+    },
+    {
+        id: '6',
+        field: 'lastLocation',
+        header: 'Últimas coordenadas'
+    }
+];
+
 export const columns = [
     {
         id: '1',

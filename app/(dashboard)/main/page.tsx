@@ -1,5 +1,5 @@
 
-import { CardWithIcon, HorizontalBar, TableWithFilter, FormDevice } from "@/app/components/ui";
+import { CardWithIcon, HorizontalBar, TableWithFilter } from "@/app/components/ui";
 
 import { CardWrapper } from "@/app/components/wrappers";
 import { headingFont} from "@/app/config/fonts";
