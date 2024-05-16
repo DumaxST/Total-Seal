@@ -27,13 +27,21 @@ interface Device {
     status: string
     codeSeal: string
 }
+interface DeviceDetails{
+    date: string
+    codeSeal: string
+    numberCompartment: string
+    motorStatus: string
+    capacityDevice: string
+    lastLocation: string
+}
 interface Column {
     id: string | number
     field: string
     header: string
 }
 interface TableWithFilterProps {
-    data: Device[]
+    data: Device[] | DeviceDetails[]
     columns: Column[]
     showActions?: boolean
     showToolbar: boolean

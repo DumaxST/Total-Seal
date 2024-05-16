@@ -8,3 +8,4 @@ export * from './horizontalBar/HorizontalBar';
 export * from './table/TableWithFilter';
 export * from './forms/FormDevice';
 export * from './button/Button';
+export * from './card/CardDetailDevice';

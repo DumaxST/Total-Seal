@@ -1,0 +1,24 @@
+.boxPrimary{
+    border: solid 1px #FFA9A9;
+    color: #970000;
+}                      
+.buttonPrimary{
+    background-color: #FFA9A9;
+}
+
+
+.boxSecondary{
+    border: solid 1px #005D14;
+    color: #005D14;
+}                      
+.buttonSecondary{
+    background-color: #2FFF61;
+}
+
+.boxTertiary{
+    border: solid 1px #001863;
+    color: #001863;
+}
+.buttonTertiary{
+    background-color: #5881FF;
+}
