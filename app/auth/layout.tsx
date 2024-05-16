@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {headingFont} from '@/app/config/fonts';
 
 import Image  from "next/image";
-import {Icon } from "@/app/components/ui";
-
 
 export default function AuthLayout({children}: {children: React.ReactNode}) {
 

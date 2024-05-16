@@ -8,6 +8,7 @@ import { CardWrapper } from "@/app/components/wrappers";
 
 import { TabView, TabPanel } from 'primereact/tabview';
 import {detailDevice, detailDeviceColumns} from "@/app/lib/data";;
+import Link from 'next/link'
 
 interface Device {
   id: string;
@@ -29,8 +30,8 @@ interface Compartment {
   content: string;
 }
 
-export default function DetailLayout({children}: {children: React.ReactNode}) {
-  console.log(detailDevice.data)
+export default function DeviceLayout({children}: {children: React.ReactNode}) {
+ 
   return (
     <div>
         <div className="flex flex-row justify-between mb-5">
@@ -45,7 +46,10 @@ export default function DetailLayout({children}: {children: React.ReactNode}) {
             />
 
           </div>
-          <Button text='Regresar'/>
+          <Link href="/main">
+            <Button text='Regresar'/>
+          </Link>
+          
         </div>
         
         <CardWrapper>
