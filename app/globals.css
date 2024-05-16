@@ -87,13 +87,6 @@ th{
 .movement-color{
   color : var(--fourth);
 }
-
-.p-multiselect{
-  font-size: .8rem;
-}
-.p-multiselect-items{
-  font-size: .7rem;
-}
 .text-secondary{
   font-size: 0.4rem;
 }
@@ -177,3 +170,12 @@ th{
   top:2rem;
 
 }
+
+
+.p-multiselect{
+  font-size: .8rem;
+}
+.p-multiselect-items{
+  font-size: .7rem;
+}
+
