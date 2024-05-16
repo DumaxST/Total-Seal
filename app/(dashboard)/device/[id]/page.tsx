@@ -29,7 +29,7 @@ interface Compartment {
   content: string;
 }
 
-export default function DetailLayout({children}: {children: React.ReactNode}) {
+export default function DeviceLayout({children}: {children: React.ReactNode}) {
   console.log(detailDevice.data)
   return (
     <div>

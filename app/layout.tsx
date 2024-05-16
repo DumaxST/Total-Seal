@@ -15,18 +15,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              const style = document.createElement('style')
-              style.innerHTML = '@layer tailwind-base, primereact, tailwind-utilities;'
-              style.setAttribute('type', 'text/css')
-              document.querySelector('head').prepend(style)
-            `,
-          }}
-        />
-      </head>
+    
       <body className={bodyFont.className}>
         {children}
       </body>
