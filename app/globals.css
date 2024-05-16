@@ -156,8 +156,8 @@ th{
   color: var(--secondary);
   padding-top: 1rem;
   padding-bottom: 1rem;
-  padding-right: 4rem;
-  padding-left: 4rem;
+  padding-right: 2rem;
+  padding-left: 2rem;
   background-color: var(--primary);
   font-weight: bold;
 }
