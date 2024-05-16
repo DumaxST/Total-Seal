@@ -26,7 +26,7 @@ jobs:
           JIRAISSUEID=$(echo $FULL_STRING | awk -F'-' '{print $2"-"$3}')
           echo "JIRA Issue ID: $JIRAISSUEID"
           echo "JIRAISSUEID=$JIRAISSUEID" >> $GITHUB_ENV
-          
+
       - name: Login
         uses: atlassian/gajira-login@v3
         env:
@@ -74,7 +74,7 @@ jobs:
                     "type": "paragraph",
                     "content": [
                       {
-                        "text": "Preview Branch Channel: ${{steps.firebase-deploy.outputs.details_url}}/login/lqdU1ErwDswdjSTiVEWp \n Expire in 3 days: ${{steps.firebase-deploy.outputs.expire_time}}",
+                        "text": "Preview Branch Channel: ${{steps.firebase-deploy.outputs.details_url}} \n Expire in 3 days: ${{steps.firebase-deploy.outputs.expire_time}}",
                         "type": "text"
                       }
                     ]
