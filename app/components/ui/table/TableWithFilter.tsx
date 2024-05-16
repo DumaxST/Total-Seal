@@ -116,6 +116,7 @@ export const TableWithFilter = ({ data, columns, showActions, showToolbar }: Tab
                 color='#FF6900'
                 size={15}
                 icon={icon}
+                className='ml-1'
         
             />
             </span>
@@ -127,7 +128,7 @@ export const TableWithFilter = ({ data, columns, showActions, showToolbar }: Tab
                 return ['success', '' ];
 
             case 'En movimiento':
-                return ['movement-color', 'icon-vueltaBrusca'];
+                return ['movement-color', 'alerta'];
             default:
                 return ['', ''];
         }

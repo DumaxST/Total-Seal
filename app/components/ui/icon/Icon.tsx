@@ -1,5 +1,5 @@
 import React from 'react'
-import IcomoonReact, { iconList } from "icomoon-react";
+import IcomoonReact from "icomoon-react";
 import iconSet from "@/public/icons/selection.json";
 
 type IconProps = {
@@ -10,7 +10,7 @@ type IconProps = {
 
 }
 export const Icon = (props: IconProps) => {
-    const { color, size = "100%", icon, className = "" } = props;
+    const { color, size = "100", icon, className = "" } = props;
 
     return (
       <IcomoonReact

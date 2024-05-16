@@ -32,7 +32,7 @@ export const Dropdown = () => {
             }
            
            
-            <div className={`${isOpen ? "block" : "hidden"} absolute right-0 mt-2 py-2 w-48 bg-white rounded-lg  shadow-xl`}>
+            <div className={`${isOpen ? "block" : "hidden"} z-10 absolute right-0 mt-2 py-2 w-48 bg-white rounded-lg  shadow-xl`}>
                 <a href="#" className='block px-4 py-2 text-gray-800 hover:text-white button'>Configuración</a>
                 <a href="#" className='block px-4 py-2  text-gray-800  hover:text-white button'>Salir</a>
             </div>

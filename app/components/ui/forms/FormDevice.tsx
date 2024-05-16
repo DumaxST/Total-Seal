@@ -24,6 +24,7 @@ export const FormDevice = ({data }: FormDeviceProps) => {
                 display="chip" 
                 maxSelectedLabels={3} 
                 className='heading-h3'
+                filter
             />
 
         </div>

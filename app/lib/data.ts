@@ -404,9 +404,9 @@ export const detailedColumns = [
     }
 ];
 export const devicesAll = [
-    { name: 'Equipo 1', code: 'dev1' },
-    { name: 'Equipo 2', code: 'dev2' },
-    { name: 'Equipo 3', code: 'dev3' },
-    { name: 'Equipo 4', code: 'dev4' },
-    { name: 'Equipo 5', code: 'dev5' }
+    {  name: 'TRC213', code: 'dev1' },
+    {  name: 'TRC214', code: 'dev2' },
+    {  name: 'TRC215', code: 'dev3' },
+    {  name: 'TRC216', code: 'dev4' },
+    {  name: 'TRC217', code: 'dev5' }
 ];
