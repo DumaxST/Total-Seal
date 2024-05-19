@@ -24,7 +24,8 @@ export default function DevicePage() {
             data={devices} 
             columns={detailedColumns}
             showActions={true}
-            showToolbar={true}
+            textButtonAction="Ver actividad"
+            linkHref="/device/12"
             />
         </CardWrapper>
 

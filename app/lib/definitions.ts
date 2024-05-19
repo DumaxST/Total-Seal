@@ -6,7 +6,17 @@ export interface Device {
     status: string
     codeSeal: string
 }
+
 export interface DeviceDropdown {
     name: string
     code: string
+}
+export interface deviceDetail{
+    date: string
+    codeSeal: string
+    numberCompartment: number,
+    motorStatus: string
+    capacityDevice: string
+     lastLocation: number[]
+   
 }

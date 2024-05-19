@@ -255,7 +255,7 @@ export const detailDevice =    {
                     numberCompartment:1,
                     motorStatus: 'Detenido',
                     capacityDevice: '30 000', 
-                    lastLocation: '25.752935, -100.5066483'
+                    lastLocation: [25.752935, -100.5066483]
                 },
                 {
                     date: '19/03/2023 | 06:35:23',
@@ -263,7 +263,7 @@ export const detailDevice =    {
                     numberCompartment:1,
                     motorStatus: 'Detenido',
                     capacityDevice: '30 000', 
-                    lastLocation: '25.752935, -100.5066483'
+                    lastLocation: [25.752935, -100.5066483]
                 },
                 {
                     date: '19/03/2023 | 06:35:23',
@@ -271,7 +271,8 @@ export const detailDevice =    {
                     numberCompartment:1,
                     motorStatus: 'Detenido',
                     capacityDevice: '30 000', 
-                    lastLocation: '25.752935, -100.5066483'
+                    lastLocation: [25.752935, -100.5066483]
+
                 },
                 {
                     date: '19/03/2023 | 06:35:23',
@@ -279,31 +280,31 @@ export const detailDevice =    {
                     numberCompartment:1,
                     motorStatus: 'Detenido',
                     capacityDevice: '30 000', 
-                    lastLocation: '25.752935, -100.5066483'
+                    lastLocation: [25.752935, -100.5066483]
                 },
                 {
                     date: '19/03/2023 | 06:35:23',
                     codeSeal : '270066',
                     numberCompartment:1,
                     motorStatus: 'Detenido',
-                    capacityDevice: '30 000', 
-                    lastLocation: '25.752935, -100.5066483'
+                    capacityDevice: '30 000',
+                    lastLocation: [25.752935, -100.5066483]
                 },
                 {
                     date: '19/03/2023 | 06:35:23',
                     codeSeal : '270066',
                     numberCompartment:1,
                     motorStatus: 'Detenido',
-                    capacityDevice: '30 000', 
-                    lastLocation: '25.752935, -100.5066483'
+                    capacityDevice: '30 000',
+                    lastLocation: [25.752935, -100.5066483]
                 },
                 {
                     date: '19/03/2023 | 06:35:23',
                     codeSeal : '270066',
                     numberCompartment:1,
                     motorStatus: 'Detenido',
-                    capacityDevice: '30 000', 
-                    lastLocation: '25.752935, -100.5066483'
+                    capacityDevice: '30 000',
+                    lastLocation: [25.752935, -100.5066483]
                 }
 
             ] 

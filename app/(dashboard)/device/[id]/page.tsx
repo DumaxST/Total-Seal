@@ -9,29 +9,13 @@ import { CardWrapper } from "@/app/components/wrappers";
 import { TabView, TabPanel } from 'primereact/tabview';
 import {detailDevice, detailDeviceColumns} from "@/app/lib/data";;
 import Link from 'next/link'
+import { Button as ButtonPrimary} from '@/app/components/ui';
 
-interface Device {
-  id: string;
-  name: string;
-  trailers: Trailer[];
 
-}
-interface Trailer {
-  id: string;
-  name: string;
-  compartments: Compartment[];
-}
-interface Compartment {
-  id: string;
-  name: string;
-  valve_box: string;
-  wafer: string;
-  dome: string;
-  content: string;
-}
+export default function DeviceLayout() {
+  const {data} = detailDevice;
 
-export default function DeviceLayout({children}: {children: React.ReactNode}) {
- 
+   
   return (
     <div>
         <div className="flex flex-row justify-between mb-5">
@@ -102,12 +86,13 @@ export default function DeviceLayout({children}: {children: React.ReactNode}) {
                   ))
                 }
                 <p className={`mb-6 mt-5 text-center ${bodySecondaryFont.className}`}> <span className={`text-sm ${headingFont.className} pe-4`}>Última actividad:</span> 20/02/2024 | 13:06 | 29°C</p>
+
                 <TableWithFilter 
-                data={detailDevice.data} 
-                columns={detailDeviceColumns}
-                showActions={true}
-                showToolbar={false}
-                className="my-6"
+                  data={data} 
+                  columns={detailDeviceColumns}
+                  showActions={true}
+                  textButtonAction="Ver mapa"
+                  linkHref="/device/12"
                 />
         </CardWrapper>
        

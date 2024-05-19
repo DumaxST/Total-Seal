@@ -36,16 +36,48 @@ interface DeviceDetails{
     capacityDevice: string
     lastLocation: string
 }
+interface Compartment{
+    id: string
+    name: string
+    valve_box: string
+    wafer: string
+    dome: string
+    content: string
+}
+interface CompartmentDetail{
+    date: string
+    codeSeal: string
+    numberCompartment: string
+    motorStatus: string
+}
+interface Trailer{
+    id: string
+    name: string
+    compartments: Compartment[]
+
+}
+interface detailDeviceById{
+   date: string
+   codeSeal: string
+   numberCompartment: number,
+   motorStatus: string
+   capacityDevice: string
+    lastLocation: number[]
+  
+}
+
 interface Column {
     id: string | number
     field: string
     header: string
 }
 interface TableWithFilterProps {
-    data: Device[] | DeviceDetails[]
+    data: Device[] | detailDeviceById[]
     columns: Column[]
+    showToolbar?: boolean
     showActions?: boolean
-    showToolbar: boolean
+    textButtonAction?: string
+    linkHref?: string
 }
 
 interface Status {
@@ -53,9 +85,9 @@ interface Status {
     icon: string
 }
 
-export const TableWithFilter = ({ data, columns, showActions, showToolbar }: TableWithFilterProps) => {
+export const TableWithFilter = ( props: TableWithFilterProps) => {
+    const { data, columns,showToolbar= false, showActions = false , textButtonAction= '' , linkHref=''} = props;
 
-    const [rowsPerPage, setRowsPerPage] = useState(10);
     const [globalFilterValue, setGlobalFilterValue] = useState<string>('');
 
     const [filters, setFilters] = useState<DataTableFilterMeta>({
@@ -135,13 +167,13 @@ export const TableWithFilter = ({ data, columns, showActions, showToolbar }: Tab
         }
     };
 
-    const actionBodyTemplate = () => {
+    const actionBodyTemplate = (textButtonAction:string, linkHref:string) => {
     return (
         <Link href="/device/12">
             <ButtonPrimary
              //   onClick={() =>handleClickShowHide(rowData.id, rowData.isDisplayedOnMap)}
              
-              text='Ver actividad'
+              text={textButtonAction}
               />
         </Link>
     );
@@ -262,7 +294,7 @@ export const TableWithFilter = ({ data, columns, showActions, showToolbar }: Tab
                 <Col
                 className='background-gray-100'
                 header="Acciones"  
-                body={actionBodyTemplate} 
+                body={ ()=> actionBodyTemplate(textButtonAction, linkHref)} 
                 exportable={false} />
                 )
             }
