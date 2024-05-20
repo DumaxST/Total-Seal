@@ -11,8 +11,8 @@ export default function AuthLayout({children}: {children: React.ReactNode}) {
         <h1 className={`${headingFont.className} heroLeftTitle text-7xl`}>Total Seal</h1>
         <Image 
           src="/images/logo-white.png" 
-          width={180}
-          height={48}
+          width={100}
+          height={20}
           alt="hero" />
     </section>
     {children}
