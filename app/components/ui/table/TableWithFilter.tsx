@@ -19,52 +19,7 @@ import Link from 'next/link'
 import { Icon } from "@/app/components/ui";
 
 import styles from './table.module.css';
-
-interface Device {
-    id: string | number
-    name: string
-    trailer: string
-    date: string
-    status: string
-    codeSeal: string
-}
-interface DeviceDetails{
-    date: string
-    codeSeal: string
-    numberCompartment: string
-    motorStatus: string
-    capacityDevice: string
-    lastLocation: string
-}
-interface Compartment{
-    id: string
-    name: string
-    valve_box: string
-    wafer: string
-    dome: string
-    content: string
-}
-interface CompartmentDetail{
-    date: string
-    codeSeal: string
-    numberCompartment: string
-    motorStatus: string
-}
-interface Trailer{
-    id: string
-    name: string
-    compartments: Compartment[]
-
-}
-interface detailDeviceById{
-   date: string
-   codeSeal: string
-   numberCompartment: number,
-   motorStatus: string
-   capacityDevice: string
-    lastLocation: number[]
-  
-}
+import {Device, DetailDevice} from '@/app/lib';
 
 interface Column {
     id: string | number
@@ -72,17 +27,12 @@ interface Column {
     header: string
 }
 interface TableWithFilterProps {
-    data: Device[] | detailDeviceById[]
+    data: Device[] | DetailDevice[]
     columns: Column[]
     showToolbar?: boolean
     showActions?: boolean
     textButtonAction?: string
     linkHref?: string
-}
-
-interface Status {
-    className: string
-    icon: string
 }
 
 export const TableWithFilter = ( props: TableWithFilterProps) => {
@@ -171,8 +121,7 @@ export const TableWithFilter = ( props: TableWithFilterProps) => {
     return (
         <Link href={`${linkHref}`} key={`${linkHref}`} >
             <ButtonPrimary
-                className ="min-w-32"
-             //   onClick={() =>handleClickShowHide(rowData.id, rowData.isDisplayedOnMap)}
+              className ="min-w-32"
               text={textButtonAction}
               />
         </Link>
@@ -214,14 +163,14 @@ export const TableWithFilter = ( props: TableWithFilterProps) => {
 };
   const headerRight = renderHeaderRight();
 
-  const generateFilterFields = (columns) => {
+  const generateFilterFields = (columns: any[]) => {
    
     return columns.map((column) => {
        return column.field;
      })
  
  };
- const generateFilters = (columns) => {
+ const generateFilters = (columns: any[]) => {
    const hashFilters = columns.reduce((hash, { field }) => {
      hash[field] = { value: null, matchMode: FilterMatchMode.EQUALS };
      return hash;
@@ -259,7 +208,7 @@ export const TableWithFilter = ( props: TableWithFilterProps) => {
                 paginator
                 rows={5}
                 rowsPerPageOptions={[5, 10, 25, 50]}
-                paginatorLeft={PaginatorLeft}
+                paginatorLeft={<>{PaginatorLeft}</>}
                 paginatorTemplate={template}
                 filters={filters}
                 globalFilterFields={generateFilterFields(columns)}

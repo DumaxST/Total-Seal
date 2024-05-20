@@ -11,12 +11,23 @@ export interface DeviceDropdown {
     name: string
     code: string
 }
-export interface deviceDetail{
+export interface DetailDevice{
+    id: string | number
     date: string
     codeSeal: string
     numberCompartment: number,
     motorStatus: string
     capacityDevice: string
-     lastLocation: number[]
+    lastLocation: number[]
    
 }
+interface DetailDeviceB{
+    date: string
+    codeSeal: string
+    numberCompartment: number,
+    motorStatus: string
+    capacityDevice: string
+    lastLocation: number[]
+   
+ }
+ 

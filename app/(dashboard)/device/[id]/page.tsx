@@ -21,9 +21,10 @@ export default function DeviceLayout() {
         
         <HeaderSection
         title={detailDevice.name}
+        showIcon={true}
         textButton="Regresar"
         link="/main"
-      />
+        />
         <CardWrapper>
                 {
                   detailDevice.trailers.map( (trailer) => (

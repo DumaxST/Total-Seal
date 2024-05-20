@@ -22,8 +22,13 @@ export const Dropdown = () => {
     return (
         <div className='relative'>  
             <div className='flex items-center gap-2 cursor-pointer' onClick={toggleDropdown}>
-                <button  className='block h-8 w-8 rounded-full overflow-hidden border-2 border-gray-600 focus:outline-none focus:border-white'>
-                    <img className="h-full w-full object-cover  " src="https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=128&q=80" alt="image"/>
+                <button  className='block h-8 w-8 rounded-full overflow-hidden border-2 border-gray-600 focus:outline-none focus:border-white bg-white'>
+                       <Icon
+                    color="#80D602"
+                    size={20}
+                    icon="users"
+                    className={` `}/>
+                  
                     
                 </button>
                 <p className={`${bodySecondaryFont.className}`}>Total Seal</p>
