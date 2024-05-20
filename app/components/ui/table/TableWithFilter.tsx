@@ -106,6 +106,7 @@ export const TableWithFilter = ( props: TableWithFilterProps) => {
     };
 
     const getStatus = (product: Device) : [string, string]=> {
+        // TODO: refactor property icon, to be dynamic
         switch (product.status) {
             case 'Ralentí':
                 return ['success', '' ];
