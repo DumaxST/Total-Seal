@@ -235,21 +235,14 @@ export const detailDevice =    {
                          wafer: 'close',
                         dome: 'open',
                         content: 'with_content'
-                       },
-                    //    {
-                    //     id: '14',
-                    //     name: 'Compartimiento 3',
-                    //     valve_box : 'open',
-                    //      wafer: 'close',
-                    //     dome: 'close',
-                    //     content: 'with_content'
-                    //    }
+                       }
                        
                     ]
 
                 },],
             data:[
                 {
+                    id: '1',
                     date: '19/03/2023 | 06:35:23',
                     codeSeal : '270066',
                     numberCompartment:1,
@@ -258,6 +251,7 @@ export const detailDevice =    {
                     lastLocation: [25.752935, -100.5066483]
                 },
                 {
+                    id: '2',
                     date: '19/03/2023 | 06:35:23',
                     codeSeal : '270066',
                     numberCompartment:1,
@@ -266,6 +260,7 @@ export const detailDevice =    {
                     lastLocation: [25.752935, -100.5066483]
                 },
                 {
+                    id:'3',
                     date: '19/03/2023 | 06:35:23',
                     codeSeal : '270066',
                     numberCompartment:1,
@@ -275,6 +270,7 @@ export const detailDevice =    {
 
                 },
                 {
+                    id: '4',
                     date: '19/03/2023 | 06:35:23',
                     codeSeal : '270066',
                     numberCompartment:1,
@@ -283,6 +279,7 @@ export const detailDevice =    {
                     lastLocation: [25.752935, -100.5066483]
                 },
                 {
+                    id: '5',
                     date: '19/03/2023 | 06:35:23',
                     codeSeal : '270066',
                     numberCompartment:1,
@@ -291,6 +288,7 @@ export const detailDevice =    {
                     lastLocation: [25.752935, -100.5066483]
                 },
                 {
+                    id: '6',
                     date: '19/03/2023 | 06:35:23',
                     codeSeal : '270066',
                     numberCompartment:1,
@@ -299,6 +297,7 @@ export const detailDevice =    {
                     lastLocation: [25.752935, -100.5066483]
                 },
                 {
+                    id: '7',
                     date: '19/03/2023 | 06:35:23',
                     codeSeal : '270066',
                     numberCompartment:1,

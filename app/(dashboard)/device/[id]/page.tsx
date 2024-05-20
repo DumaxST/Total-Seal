@@ -1,40 +1,29 @@
 
-'use client';
+
 
 import { headingFont, bodySecondaryFont} from "@/app/config/fonts";
-import { Icon, Button, CardDetailDevice, TableWithFilter } from "@/app/components/ui";
+import { CardDetailDevice, TableWithFilter, HeaderSection } from "@/app/components/ui";
+
 import { CardWrapper } from "@/app/components/wrappers";
 
 
 import { TabView, TabPanel } from 'primereact/tabview';
 import {detailDevice, detailDeviceColumns} from "@/app/lib/data";;
-import Link from 'next/link'
+
 
 
 export default function DeviceLayout() {
   const {data} = detailDevice;
-
+ console.log(detailDevice)
    
   return (
     <>
-        <div className="flex flex-row justify-between mb-5">
-          <div className="flex flex-row gap-5">
-
-            <h2 className={`heading-h2 ${headingFont.className}`}>Unidades</h2>
-            <Icon
-              color=""
-              size={30}
-              icon="unidad-individual"
-              className={`bg-primary  rounded p-1.5`}
-            />
-
-          </div>
-          <Link href="/main">
-            <Button text='Regresar'/>
-          </Link>
-          
-        </div>
         
+        <HeaderSection
+        title={detailDevice.name}
+        textButton="Regresar"
+        link="/main"
+      />
         <CardWrapper>
                 {
                   detailDevice.trailers.map( (trailer) => (
@@ -71,13 +60,7 @@ export default function DeviceLayout() {
                                   <h2 className={`text-sm ${headingFont.className}`}>Código de Sello</h2>
                                   <p className={` text-4xl	 ${bodySecondaryFont.className}`}>270066</p>
                                 </div>
-                                            
-
-                              
-                              
-                                
                               </div>
-                          
                             </TabPanel>
                           ))
                         }

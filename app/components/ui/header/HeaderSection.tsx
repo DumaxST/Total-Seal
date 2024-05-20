@@ -14,10 +14,10 @@ interface HeaderSectionProps {
 }
 
 
-const HeaderSection = (props: HeaderSectionProps) => {
+export const HeaderSection = (props: HeaderSectionProps) => {
    
     const { title, showIcon = false, icon = '', textButton, link } = props
-    console.log(showIcon)
+  
     return (
         <div className="flex flex-row justify-between mb-5">
             <div className="flex flex-row gap-5">
@@ -41,4 +41,3 @@ const HeaderSection = (props: HeaderSectionProps) => {
     )
 }
 
-export default HeaderSection

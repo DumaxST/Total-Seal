@@ -1,7 +1,6 @@
-import { headingFont, bodySecondaryFont } from "@/app/config/fonts";
-import { MapContainer } from "@/app/components/ui";
+
+import { MapContainer,HeaderSection } from "@/app/components/ui";
 import { CardWrapper } from "@/app/components/wrappers";
-import HeaderSection from "@/app/components/ui/header/HeaderSection";
 
 
 export default function MapPage() {
