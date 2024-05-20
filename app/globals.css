@@ -79,6 +79,12 @@ body{
 th{
   background-color: var(--tertiary);
   color: var(--primary);
+  padding: 0.5rem 1rem;
+  font-size: 0.9em;
+}
+td{
+  padding: 0.5rem 1rem;
+
 }
 .p-sortable-column-icon{
   color: var(--primary);

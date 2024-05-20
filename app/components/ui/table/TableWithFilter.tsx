@@ -171,6 +171,7 @@ export const TableWithFilter = ( props: TableWithFilterProps) => {
     return (
         <Link href={`${linkHref}`} key={`${linkHref}`} >
             <ButtonPrimary
+                className ="min-w-32"
              //   onClick={() =>handleClickShowHide(rowData.id, rowData.isDisplayedOnMap)}
               text={textButtonAction}
               />

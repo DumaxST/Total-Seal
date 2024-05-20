@@ -9,7 +9,7 @@ export default function DashbboardLayout({children}: {children: React.ReactNode}
         </div>
         <div className="flex flex-row">
           <Sidebar/>
-          <div className="p-2 w-full text-slate-900">
+          <div className="p-4 w-full text-slate-900">
             {children}
           </div>
         </div>
