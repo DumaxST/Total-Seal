@@ -21,7 +21,7 @@ export const MapContainer = () => {
       }, [marker]);
 
     return (
-        <APIProvider apiKey="AIzaSyCLEeCSi1aL91F7BgDUtNb-BwyZeu3S-IM">
+        <APIProvider apiKey={`${process.env.NEXT_PUBLIC_API_KEY}`}>
             <Map
                 defaultCenter={{ lat: 25.698425, lng: -100.34507 }}
                 defaultZoom={12}
