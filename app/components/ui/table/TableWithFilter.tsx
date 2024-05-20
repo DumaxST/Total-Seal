@@ -19,43 +19,25 @@ import Link from 'next/link'
 import { Icon } from "@/app/components/ui";
 
 import styles from './table.module.css';
+import {Device, DetailDevice} from '@/app/lib';
 
-interface Device {
-    id: string | number
-    name: string
-    trailer: string
-    date: string
-    status: string
-    codeSeal: string
-}
-interface DeviceDetails{
-    date: string
-    codeSeal: string
-    numberCompartment: string
-    motorStatus: string
-    capacityDevice: string
-    lastLocation: string
-}
 interface Column {
     id: string | number
     field: string
     header: string
 }
 interface TableWithFilterProps {
-    data: Device[] | DeviceDetails[]
+    data: Device[] | DetailDevice[]
     columns: Column[]
+    showToolbar?: boolean
     showActions?: boolean
-    showToolbar: boolean
+    textButtonAction?: string
+    linkHref?: string
 }
 
-interface Status {
-    className: string
-    icon: string
-}
+export const TableWithFilter = ( props: TableWithFilterProps) => {
+    const { data, columns,showToolbar= false, showActions = false , textButtonAction= '' , linkHref=''} = props;
 
-export const TableWithFilter = ({ data, columns, showActions, showToolbar }: TableWithFilterProps) => {
-
-    const [rowsPerPage, setRowsPerPage] = useState(10);
     const [globalFilterValue, setGlobalFilterValue] = useState<string>('');
 
     const [filters, setFilters] = useState<DataTableFilterMeta>({
@@ -135,13 +117,12 @@ export const TableWithFilter = ({ data, columns, showActions, showToolbar }: Tab
         }
     };
 
-    const actionBodyTemplate = () => {
+    const actionBodyTemplate = (textButtonAction:string, linkHref:string) => {
     return (
-        <Link href="/device/12">
+        <Link href={`${linkHref}`} key={`${linkHref}`} >
             <ButtonPrimary
-             //   onClick={() =>handleClickShowHide(rowData.id, rowData.isDisplayedOnMap)}
-             
-              text='Ver actividad'
+              className ="min-w-32"
+              text={textButtonAction}
               />
         </Link>
     );
@@ -182,14 +163,14 @@ export const TableWithFilter = ({ data, columns, showActions, showToolbar }: Tab
 };
   const headerRight = renderHeaderRight();
 
-  const generateFilterFields = (columns) => {
+  const generateFilterFields = (columns: any[]) => {
    
     return columns.map((column) => {
        return column.field;
      })
  
  };
- const generateFilters = (columns) => {
+ const generateFilters = (columns: any[]) => {
    const hashFilters = columns.reduce((hash, { field }) => {
      hash[field] = { value: null, matchMode: FilterMatchMode.EQUALS };
      return hash;
@@ -227,7 +208,7 @@ export const TableWithFilter = ({ data, columns, showActions, showToolbar }: Tab
                 paginator
                 rows={5}
                 rowsPerPageOptions={[5, 10, 25, 50]}
-                paginatorLeft={PaginatorLeft}
+                paginatorLeft={<>{PaginatorLeft}</>}
                 paginatorTemplate={template}
                 filters={filters}
                 globalFilterFields={generateFilterFields(columns)}
@@ -262,7 +243,7 @@ export const TableWithFilter = ({ data, columns, showActions, showToolbar }: Tab
                 <Col
                 className='background-gray-100'
                 header="Acciones"  
-                body={actionBodyTemplate} 
+                body={ ()=> actionBodyTemplate(textButtonAction, linkHref)} 
                 exportable={false} />
                 )
             }

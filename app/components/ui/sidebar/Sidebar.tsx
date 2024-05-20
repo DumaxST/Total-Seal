@@ -26,7 +26,7 @@ export const Sidebar = () => {
 
             <hr  className='pb-2 pt-2  border-primary'/>
 
-            <div id="nav" className="w-full px-6">
+            <div id="nav" className="w-full px-4">
 
 
              {

@@ -1,57 +1,30 @@
 
-'use client';
+
 
 import { headingFont, bodySecondaryFont} from "@/app/config/fonts";
-import { Icon, Button, CardDetailDevice, TableWithFilter } from "@/app/components/ui";
+import { CardDetailDevice, TableWithFilter, HeaderSection } from "@/app/components/ui";
+
 import { CardWrapper } from "@/app/components/wrappers";
 
 
 import { TabView, TabPanel } from 'primereact/tabview';
 import {detailDevice, detailDeviceColumns} from "@/app/lib/data";;
-import Link from 'next/link'
 
-interface Device {
-  id: string;
-  name: string;
-  trailers: Trailer[];
 
-}
-interface Trailer {
-  id: string;
-  name: string;
-  compartments: Compartment[];
-}
-interface Compartment {
-  id: string;
-  name: string;
-  valve_box: string;
-  wafer: string;
-  dome: string;
-  content: string;
-}
 
-export default function DeviceLayout({children}: {children: React.ReactNode}) {
+export default function DeviceLayout() {
+  const {data} = detailDevice;
  
+   
   return (
-    <div>
-        <div className="flex flex-row justify-between mb-5">
-          <div className="flex flex-row gap-5">
-
-            <h2 className={`heading-h2 ${headingFont.className}`}>Unidades</h2>
-            <Icon
-              color=""
-              size={30}
-              icon="unidad-individual"
-              className={`bg-primary  rounded p-1.5`}
-            />
-
-          </div>
-          <Link href="/main">
-            <Button text='Regresar'/>
-          </Link>
-          
-        </div>
+    <>
         
+        <HeaderSection
+        title={detailDevice.name}
+        showIcon={true}
+        textButton="Regresar"
+        link="/main"
+        />
         <CardWrapper>
                 {
                   detailDevice.trailers.map( (trailer) => (
@@ -88,13 +61,7 @@ export default function DeviceLayout({children}: {children: React.ReactNode}) {
                                   <h2 className={`text-sm ${headingFont.className}`}>Código de Sello</h2>
                                   <p className={` text-4xl	 ${bodySecondaryFont.className}`}>270066</p>
                                 </div>
-                                            
-
-                              
-                              
-                                
                               </div>
-                          
                             </TabPanel>
                           ))
                         }
@@ -102,16 +69,17 @@ export default function DeviceLayout({children}: {children: React.ReactNode}) {
                   ))
                 }
                 <p className={`mb-6 mt-5 text-center ${bodySecondaryFont.className}`}> <span className={`text-sm ${headingFont.className} pe-4`}>Última actividad:</span> 20/02/2024 | 13:06 | 29°C</p>
+
                 <TableWithFilter 
-                data={detailDevice.data} 
-                columns={detailDeviceColumns}
-                showActions={true}
-                showToolbar={false}
-                className="my-6"
+                  data={data} 
+                  columns={detailDeviceColumns}
+                  showActions={true}
+                  textButtonAction="Ver mapa"
+                  linkHref="/map"
                 />
         </CardWrapper>
        
 
-    </div>
+    </>
   );
 }
