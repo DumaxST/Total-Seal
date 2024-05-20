@@ -14,7 +14,7 @@ import {detailDevice, detailDeviceColumns} from "@/app/lib/data";;
 
 export default function DeviceLayout() {
   const {data} = detailDevice;
- console.log(detailDevice)
+ 
    
   return (
     <>
