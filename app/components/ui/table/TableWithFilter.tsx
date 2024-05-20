@@ -169,10 +169,9 @@ export const TableWithFilter = ( props: TableWithFilterProps) => {
 
     const actionBodyTemplate = (textButtonAction:string, linkHref:string) => {
     return (
-        <Link href="/device/12">
+        <Link href={`${linkHref}`}>
             <ButtonPrimary
              //   onClick={() =>handleClickShowHide(rowData.id, rowData.isDisplayedOnMap)}
-             
               text={textButtonAction}
               />
         </Link>

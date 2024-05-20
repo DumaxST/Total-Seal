@@ -9,7 +9,6 @@ import { CardWrapper } from "@/app/components/wrappers";
 import { TabView, TabPanel } from 'primereact/tabview';
 import {detailDevice, detailDeviceColumns} from "@/app/lib/data";;
 import Link from 'next/link'
-import { Button as ButtonPrimary} from '@/app/components/ui';
 
 
 export default function DeviceLayout() {
@@ -17,7 +16,7 @@ export default function DeviceLayout() {
 
    
   return (
-    <div>
+    <>
         <div className="flex flex-row justify-between mb-5">
           <div className="flex flex-row gap-5">
 
@@ -92,11 +91,11 @@ export default function DeviceLayout() {
                   columns={detailDeviceColumns}
                   showActions={true}
                   textButtonAction="Ver mapa"
-                  linkHref="/device/12"
+                  linkHref="/map"
                 />
         </CardWrapper>
        
 
-    </div>
+    </>
   );
 }
