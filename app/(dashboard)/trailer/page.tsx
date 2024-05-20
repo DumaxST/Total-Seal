@@ -8,7 +8,7 @@ export default function MapPage() {
   return (
     <>
       <HeaderSection
-        title="Mapa"
+        title="Agregar evento "
         textButton="Regresar"
         link="/main"
         showIcon={false}
