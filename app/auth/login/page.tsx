@@ -1,4 +1,6 @@
+'use client'
 import {headingFont} from '@/app/config/fonts';
+import Link from 'next/link'
 
 export default function LoginPage() {
   return (
@@ -19,12 +21,19 @@ export default function LoginPage() {
 
       </div>
 
-      <div className='flex  flex-row-reverse'>
-        
-        <button className="border text-white  py-2 px-16 background-secondary">Acceder</button>
-      </div>
+      {/* <div className='flex  flex-row-reverse'> */}
+        <Link  href="/main" className="border text-white  py-2 px-16 background-secondary">
+           
+            
+            Acceder
+          
+            
+          
+          </Link>
+      {/* </div> */}
 
     </form>
+    
   </section>
 
   );

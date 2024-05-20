@@ -1,5 +1,4 @@
 @layer tailwind-base, primereact, tailwind-utilities;
-@import 'primereact/resources/themes/lara-light-blue/theme.css' layer(primereact);
 
 @layer tailwind-base {
   @tailwind base;
@@ -156,8 +155,8 @@ th{
   color: var(--secondary);
   padding-top: 1rem;
   padding-bottom: 1rem;
-  padding-right: 4rem;
-  padding-left: 4rem;
+  padding-right: 1rem;
+  padding-left: 1rem;
   background-color: var(--primary);
   font-weight: bold;
 }

@@ -3,6 +3,7 @@ import React, { useEffect, useState} from 'react';
 
 import { bodySecondaryFont} from "@/app/config/fonts";
 import Link from 'next/link'
+import { Icon } from "@/app/components/ui";
 
 export const Dropdown = () => {
   
@@ -34,8 +35,22 @@ export const Dropdown = () => {
            
            
             <div className={`${isOpen ? "block" : "hidden"} z-10 absolute right-0 mt-2 py-2 w-48 bg-white rounded-lg  shadow-xl`}>
-                <Link href="#" className='block px-4 py-2 text-gray-800 hover:text-white button'>Configuración</Link>
-                <Link href="/auth/login" className='block px-4 py-2  text-gray-800  hover:text-white button'>Salir</Link>
+                <Link href="#" className='block px-4 py-2 text-gray-800 hover:text-white button'>
+                <Icon
+                    color="#3B83FF"
+                    size={30}
+                    icon="icon-gear"
+                    className={` rounded p-1.5`}/>
+                    Configuración
+                </Link>
+                <Link href="/auth/login" className='block px-4 py-2  text-gray-800  hover:text-white button'>
+                <Icon
+                    color="#3B83FF"
+                    size={30}
+                    icon="icon-logout"
+                    className={` rounded p-1.5`}/>
+                    Salir
+                </Link>
             </div>
         </div>
     )
