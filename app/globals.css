@@ -177,4 +177,6 @@ th{
 .p-multiselect-items{
   font-size: .7rem;
 }
-
+.h-60{
+  height: 75vh;
+}

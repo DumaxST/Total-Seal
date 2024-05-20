@@ -21,11 +21,11 @@ export const MapContainer = () => {
       }, [marker]);
 
     return (
-        <APIProvider apiKey={`${process.env.MAP_KEY}`}>
+        <APIProvider apiKey="AIzaSyCLEeCSi1aL91F7BgDUtNb-BwyZeu3S-IM">
             <Map
                 defaultCenter={{ lat: 25.698425, lng: -100.34507 }}
                 defaultZoom={12}
-                className='w-full h-96'
+                className='w-full h-full'
             >
                 <Marker ref={markerRef} position={{ lat: 25.698425, lng: -100.34507 }} />
             </Map>
