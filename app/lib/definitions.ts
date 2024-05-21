@@ -30,4 +30,22 @@ interface DetailDeviceB{
     lastLocation: number[]
    
  }
- 
+ // AddDevice
+
+ export interface DeviceOption {
+    name : string
+    code : string
+ }
+
+export interface SensorStatus {
+    name : string
+    code : string
+}
+export interface DeviceForm{
+    name: string
+    valve_box: string
+    wafer: string
+    dome: string
+    content: string
+    codeSeal : string
+}

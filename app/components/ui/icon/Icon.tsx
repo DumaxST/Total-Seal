@@ -10,7 +10,7 @@ type IconProps = {
 
 }
 export const Icon = (props: IconProps) => {
-    const { color, size = "100", icon, className = "" } = props;
+    const { color, size = "100", icon='', className = "" } = props;
 
     return (
       <IcomoonReact

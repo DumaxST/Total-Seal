@@ -1,5 +1,5 @@
 
-import { MapContainer,HeaderSection } from "@/app/components/ui";
+import { AddDevice,HeaderSection } from "@/app/components/ui";
 import { CardWrapper } from "@/app/components/wrappers";
 
 
@@ -8,7 +8,7 @@ export default function MapPage() {
   return (
     <>
       <HeaderSection
-        title="Mapa"
+        title="Agregar evento "
         textButton="Regresar"
         link="/main"
         showIcon={false}
@@ -16,8 +16,8 @@ export default function MapPage() {
       
       <CardWrapper className="flex justify-center items-center h-60">
            
-            
-                <MapContainer/>
+            <AddDevice/>
+  
 
             
       </CardWrapper>
