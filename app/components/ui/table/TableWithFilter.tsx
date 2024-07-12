@@ -13,6 +13,7 @@ import { Toolbar } from "primereact/toolbar";
 import { InputText } from "primereact/inputtext";
 import { IconField } from "primereact/iconfield";
 import { InputIcon } from "primereact/inputicon";
+
 import { Button as ButtonPrimary} from '@/app/components/ui';
 import Link from 'next/link'
 
@@ -185,7 +186,7 @@ export const TableWithFilter = ( props: TableWithFilterProps) => {
 
  useEffect(() => {
     generateFilterFields(columns);
-    generateFilters(columns);
+    generateFilters(columns);s
   }, [columns]); 
 
     return (

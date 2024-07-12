@@ -1,9 +1,9 @@
-import { classNames } from 'primereact/utils'
 import React from 'react'
 
 interface ButtonProps {
     text: string
-    className?: string
+    className?: string,
+    children?: React.ReactNode; 
 }
 export const Button = ({text, className}:ButtonProps) => {
   return (
