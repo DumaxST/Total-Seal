@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@vis.gl/react-google-maps": "^1.0.0",
+    "axios": "^1.7.2",
     "chart.js": "^4.4.2",
     "classnames": "^2.5.1",
     "firebase": "^10.12.0",

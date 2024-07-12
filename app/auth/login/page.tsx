@@ -1,6 +1,5 @@
 
 import {headingFont} from '@/app/config/fonts';
-import Link from 'next/link'
 import { FormLogin } from '../../ui/auth/FormLogin';
 
 export default function LoginPage() {

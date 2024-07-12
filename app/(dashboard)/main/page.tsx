@@ -1,15 +1,31 @@
 
-import { CardWithIcon, HorizontalBar, TableWithFilter } from "@/app/components/ui";
 
 import { CardWrapper } from "@/app/components/wrappers";
 import { headingFont} from "@/app/config/fonts";
 
-import {devices, columns} from "@/app/lib/data";
 
-export default function MainPage() {
+async function getDevices(){
+  const res = await fetch("https://lite.dumaxst.com:5000/v1/seal_devices", {
+    method: 'GET',
+    headers: {
+      'x-Api-Key': '3bSSz0cnFxoF+RrsPlyHfm7BfNeEUumm+ws0shMzd0A=',
+      'Uuid': 'RESTFul-API',
+      'App': 'RESTFul-API',
+      'Content-Type': 'application/json'
+    }
+  })
+  
+  const data = await res.json();
+  
+  return data
+}
+export default async function MainPage() {
+  
+ const device =  getDevices()
+
   return (
     <div className="grid grid-cols-12 gap-4">
-
+{/* 
       <div className="grid grid-cols-subgrid gap-4 col-span-4">
         <div className="col-start-1 col-end-3">
           <CardWithIcon
@@ -45,19 +61,19 @@ export default function MainPage() {
             <HorizontalBar/>
           </CardWrapper>
          </div>
-      </div>
+      </div> */}
 
-      <div className="col-span-8">
+      <div className="col-span-12">
         <CardWrapper>
           <h3 className={`${headingFont.className} pb-4 `}>Últimas alertas</h3>
-          <TableWithFilter 
+          {/* <TableWithFilter 
             data={devices} 
             columns={columns}
             showActions={true}
             textButtonAction="Ver actividad"
             linkHref="/device/12"
 
-            />
+            /> */}
         </CardWrapper>
 
       </div>

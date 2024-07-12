@@ -14,7 +14,6 @@ import { InputText } from "primereact/inputtext";
 import { IconField } from "primereact/iconfield";
 import { InputIcon } from "primereact/inputicon";
 
-import { Button as ButtonPrimary} from '@/app/components/ui';
 import Link from 'next/link'
 
 import { Icon } from "@/app/components/ui";
@@ -122,10 +121,10 @@ export const TableWithFilter = ( props: TableWithFilterProps) => {
     const actionBodyTemplate = (textButtonAction:string, linkHref:string) => {
     return (
         <Link href={`${linkHref}`} key={`${linkHref}`} >
-            <ButtonPrimary
-              className ="min-w-32"
-              text={textButtonAction}
-              />
+            <Button>
+            {textButtonAction}
+            </Button>
+             
         </Link>
     );
   };
@@ -186,7 +185,7 @@ export const TableWithFilter = ( props: TableWithFilterProps) => {
 
  useEffect(() => {
     generateFilterFields(columns);
-    generateFilters(columns);s
+    generateFilters(columns);
   }, [columns]); 
 
     return (
