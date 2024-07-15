@@ -1,6 +1,4 @@
 
-
-
 import { headingFont, bodySecondaryFont} from "@/app/config/fonts";
 import { CardDetailDevice, TableWithFilter, HeaderSection } from "@/app/components/ui";
 
@@ -8,7 +6,7 @@ import { CardWrapper } from "@/app/components/wrappers";
 
 
 import { TabView, TabPanel } from 'primereact/tabview';
-import {detailDevice, detailDeviceColumns} from "@/app/lib/data";;
+import {detailDevice, detailDeviceColumns} from "@/app/lib/data";
 
 
 
@@ -25,7 +23,7 @@ export default function DeviceLayout() {
         textButton="Regresar"
         link="/main"
         />
-        <CardWrapper>
+        {/* <CardWrapper>
                 {
                   detailDevice.trailers.map( (trailer) => (
                     <TabView key={trailer.id} className="shadow-lg" >
@@ -78,7 +76,7 @@ export default function DeviceLayout() {
                   linkHref="/map"
                 />
         </CardWrapper>
-       
+        */}
 
     </>
   );

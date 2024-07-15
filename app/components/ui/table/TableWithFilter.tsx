@@ -217,18 +217,7 @@ export const TableWithFilter = ( props: TableWithFilterProps) => {
         >
             {
                 columns.map((column) => {
-                    if(column.field === 'status'){
-                        return(
-                            <Col
-                                key={column.id}
-                                field={column.field}
-                                header={column.header}
-                                sortable
-                                className='background-gray-100'
-                                body={statusBodyTemplate}
-                            />
-                        )
-                    }else{
+                   
                         return(
                         <Col
                             key={column.id}
@@ -237,7 +226,6 @@ export const TableWithFilter = ( props: TableWithFilterProps) => {
                             sortable
                             className='background-gray-100'
                         />)
-                    }
                 }
             )
             }

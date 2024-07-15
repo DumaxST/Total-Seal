@@ -217,7 +217,7 @@ export const devices = [
 
 export const detailDevice =    {
             id :'1',
-            name: 'Unidad Pipa de Gas 2',
+            name: 'PROTANKER2',
             trailers : [
                 {   
                     id: '1',
