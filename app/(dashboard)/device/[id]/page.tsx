@@ -7,6 +7,7 @@ import { CardWrapper } from "@/app/components/wrappers";
 import { DetailDevice } from '../../../ui/device/DetailDevice';
 
 import { getItemFromCookies } from "@/app/utils/cookies";
+import { Suspense } from "react";
 
 interface Props{
   params: {id:string}
@@ -16,7 +17,7 @@ export default async function DeviceLayout({params}:Props) {
   const response =  await fetch("https://lite.dumaxst.com/v1/users/settings", {
     method: 'GET',
     headers: {
-      'X-Api-Key': "GPCZeUzVrpsIypnhF2FX+28NVNH2ZebhnBUVLHvbn3Q=",
+      'X-Api-Key': "KFQ6sVywS7dG2in8FUEy27dRu3AYmlqR/HgpUOgVAVA=",
       'Content-Type': 'application/json',
       'Uuid': 'RESTFul-API',
       "App": "RESTFul API"
@@ -26,14 +27,13 @@ export default async function DeviceLayout({params}:Props) {
   const data = await response.json();
   
 
-  const detailDevice = getItemFromCookies(params.id, 'devices');
+  const detailDevice = await getItemFromCookies(params.id, 'devices');
+  console.log(detailDevice)
+  
 
   return (
     <>
-        {
-          detailDevice === undefined ? 
-            <p>Device not found</p>  :
-            <>
+        
             <HeaderSection
               title={detailDevice?.device ?? ''}
               showIcon={true}
@@ -41,12 +41,14 @@ export default async function DeviceLayout({params}:Props) {
               link="/main"
             />
             <CardWrapper>
-              {detailDevice !== null && <DetailDevice imei={params.id} code={data.user_preferences.code} device={{...detailDevice}}/>}
+            <Suspense fallback={<p> cargando.... </p>}>
+              {detailDevice !== null && <DetailDevice imei={params.id} code={data.user_preferences.code} device={detailDevice}/>}
+            </Suspense>
             </CardWrapper>
-            </>
-        }
+    </>
        
-        {/* <CardWrapper>
+       
+        /* <CardWrapper>
                 {
                   detailDevice.trailers.map( (trailer) => (
                     <TabView key={trailer.id} className="shadow-lg" >
@@ -99,8 +101,8 @@ export default async function DeviceLayout({params}:Props) {
                   linkHref="/map"
                 />
         </CardWrapper>
-        */}
+        */
 
-    </>
+   
   );
 }

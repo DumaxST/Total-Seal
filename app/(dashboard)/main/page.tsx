@@ -12,14 +12,14 @@ async function getDevices(token:string){
   const res = await fetch("https://lite.dumaxst.com:5000/v1/seal_devices", {
     method: 'GET',
     headers: {
-      'X-Api-Key': "GPCZeUzVrpsIypnhF2FX+28NVNH2ZebhnBUVLHvbn3Q=",
+      'X-Api-Key': "KFQ6sVywS7dG2in8FUEy27dRu3AYmlqR/HgpUOgVAVA=",
       'Content-Type': 'application/json',
       'Uuid': 'RESTFul-API',
       "App": "RESTFul API"
     }
   })
   const data= await res.json();
-  
+  console.log(data)
   return data.seal_devices
 }
 export default async function MainPage() {
@@ -27,7 +27,7 @@ export default async function MainPage() {
   const token = cookieStore.get('token')?.value  ??"";
  
  const devices = await getDevices(token);
-
+  console.log(devices)
   return (
     <div className="grid grid-cols-12 gap-4">
 {/* 

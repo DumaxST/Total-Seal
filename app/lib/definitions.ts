@@ -48,9 +48,9 @@ export interface ColumnsProps{
 }
 
 export interface ParsedString {
-    id: string;
-    number: string;
-    hash: string;
+    typeMessage: string;
+    imei: string;
+    idConnection: string;
   }
 export interface Item {
     id:string

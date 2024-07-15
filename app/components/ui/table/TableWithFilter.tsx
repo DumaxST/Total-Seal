@@ -167,10 +167,10 @@ export const TableWithFilter = ( props: TableWithFilterProps) => {
     generateFilters(columns);
   }, [columns]); 
   useEffect(()=>{
-    if(data.length !== 0){
+    
         setCookie('devices', data)
-    }
-  },[props])
+    
+  },[])
     return (
         <>
             {
