@@ -1,15 +1,36 @@
-
-import { CardWithIcon, HorizontalBar, TableWithFilter } from "@/app/components/ui";
-
+import { Suspense } from 'react';
+import { TableWithFilter } from "@/app/components/ui";
 import { CardWrapper } from "@/app/components/wrappers";
 import { headingFont} from "@/app/config/fonts";
+import { cookies } from 'next/headers'
+import { devicesColumns } from '@/app/lib/data';
+import TableSkeleton from '@/app/ui/auth/skeletons/TableSkeleton';
 
-import {devices, columns} from "@/app/lib/data";
 
-export default function MainPage() {
+async function getDevices(token:string){
+  
+  const res = await fetch("https://lite.dumaxst.com:5000/v1/seal_devices", {
+    method: 'GET',
+    headers: {
+      'X-Api-Key': "GPCZeUzVrpsIypnhF2FX+28NVNH2ZebhnBUVLHvbn3Q=",
+      'Content-Type': 'application/json',
+      'Uuid': 'RESTFul-API',
+      "App": "RESTFul API"
+    }
+  })
+  const data= await res.json();
+  
+  return data.seal_devices
+}
+export default async function MainPage() {
+  const cookieStore = cookies()
+  const token = cookieStore.get('token')?.value  ??"";
+ 
+ const devices = await getDevices(token);
+
   return (
     <div className="grid grid-cols-12 gap-4">
-
+{/* 
       <div className="grid grid-cols-subgrid gap-4 col-span-4">
         <div className="col-start-1 col-end-3">
           <CardWithIcon
@@ -45,20 +66,21 @@ export default function MainPage() {
             <HorizontalBar/>
           </CardWrapper>
          </div>
-      </div>
+      </div> */}
 
-      <div className="col-span-8">
-        <CardWrapper>
-          <h3 className={`${headingFont.className} pb-4 `}>Últimas alertas</h3>
-          <TableWithFilter 
-            data={devices} 
-            columns={columns}
-            showActions={true}
-            textButtonAction="Ver actividad"
-            linkHref="/device/12"
-
-            />
-        </CardWrapper>
+      <div className="col-span-12">
+          <CardWrapper>
+            <h3 className={`${headingFont.className} pb-4 `}>Últimas alertas</h3>
+            <Suspense fallback={<TableSkeleton  columns={devicesColumns} />} >
+              <TableWithFilter 
+                data={devices} 
+                columns={devicesColumns}
+                showActions={true}
+                textButtonAction="Ver actividad"
+                linkHref="/device"
+                />
+              </Suspense>
+          </CardWrapper>
 
       </div>
 

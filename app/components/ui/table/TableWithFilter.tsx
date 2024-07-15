@@ -13,13 +13,14 @@ import { Toolbar } from "primereact/toolbar";
 import { InputText } from "primereact/inputtext";
 import { IconField } from "primereact/iconfield";
 import { InputIcon } from "primereact/inputicon";
-import { Button as ButtonPrimary} from '@/app/components/ui';
+
 import Link from 'next/link'
 
 import { Icon } from "@/app/components/ui";
 
 import styles from './table.module.css';
 import {Device, DetailDevice} from '@/app/lib';
+import { setCookie } from 'cookies-next';
 
 interface Column {
     id: string | number
@@ -91,40 +92,18 @@ export const TableWithFilter = ( props: TableWithFilterProps) => {
 
 
     }
-    const statusBodyTemplate = (product: Device) => {
-        let [colorStatus,icon] = getStatus(product);
-        return <span className={colorStatus}>
-            {product.status }
-            <Icon
-                color='#FF6900'
-                size={15}
-                icon={icon}
-                className='ml-1'
-        
-            />
-            </span>
-    };
+   
 
-    const getStatus = (product: Device) : [string, string]=> {
-        // TODO: refactor property icon, to be dynamic
-        switch (product.status) {
-            case 'Ralentí':
-                return ['success', '' ];
+           
 
-            case 'En movimiento':
-                return ['movement-color', 'alerta'];
-            default:
-                return ['', ''];
-        }
-    };
-
-    const actionBodyTemplate = (textButtonAction:string, linkHref:string) => {
+    const actionBodyTemplate = (textButtonAction:string, linkHref:string, id:string) => {
     return (
-        <Link href={`${linkHref}`} key={`${linkHref}`} >
-            <ButtonPrimary
-              className ="min-w-32"
-              text={textButtonAction}
-              />
+        <Link href={`${linkHref}/${id}`} key={`${linkHref}`} className="flex justify-end" >
+
+            <Button>
+            {textButtonAction}
+            </Button>
+             
         </Link>
     );
   };
@@ -187,7 +166,11 @@ export const TableWithFilter = ( props: TableWithFilterProps) => {
     generateFilterFields(columns);
     generateFilters(columns);
   }, [columns]); 
-
+  useEffect(()=>{
+    if(data.length !== 0){
+        setCookie('devices', data)
+    }
+  },[props])
     return (
         <>
             {
@@ -216,18 +199,7 @@ export const TableWithFilter = ( props: TableWithFilterProps) => {
         >
             {
                 columns.map((column) => {
-                    if(column.field === 'status'){
-                        return(
-                            <Col
-                                key={column.id}
-                                field={column.field}
-                                header={column.header}
-                                sortable
-                                className='background-gray-100'
-                                body={statusBodyTemplate}
-                            />
-                        )
-                    }else{
+                   
                         return(
                         <Col
                             key={column.id}
@@ -236,7 +208,6 @@ export const TableWithFilter = ( props: TableWithFilterProps) => {
                             sortable
                             className='background-gray-100'
                         />)
-                    }
                 }
             )
             }
@@ -244,7 +215,7 @@ export const TableWithFilter = ( props: TableWithFilterProps) => {
                 <Col
                 className='background-gray-100'
                 header="Acciones"  
-                body={ ()=> actionBodyTemplate(textButtonAction, linkHref)} 
+                body={ (data)=> actionBodyTemplate(textButtonAction, linkHref, data.imei)} 
                 exportable={false} />
                 )
             }

@@ -14,12 +14,8 @@ export default function MapPage() {
         showIcon={false}
       />
       
-      <CardWrapper className="flex justify-center items-center h-60">
-           
-            
-                <MapContainer/>
-
-            
+      <CardWrapper className="flex justify-center items-center h-60">   
+        <MapContainer/>
       </CardWrapper>
     </>
   );

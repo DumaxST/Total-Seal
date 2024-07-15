@@ -1,9 +1,11 @@
 "use client"
 import React from 'react'
 import { headingFont } from "@/app/config/fonts";
-import { Icon, Button } from "@/app/components/ui";
+import { Icon } from "@/app/components/ui";
+
 
 import Link from "next/link";
+import { Button } from '../../Button';
 
 interface HeaderSectionProps {
     title: string
@@ -16,7 +18,7 @@ interface HeaderSectionProps {
 
 export const HeaderSection = (props: HeaderSectionProps) => {
    
-    const { title, showIcon, icon = '', textButton, link } = props
+    const { title='', showIcon, icon = '', textButton, link } = props
   
     return (
         <div className="flex flex-row justify-between mb-5">
@@ -37,7 +39,9 @@ export const HeaderSection = (props: HeaderSectionProps) => {
                 
             </div>
             <Link href={link}>
-                <Button text={textButton} />
+                <Button>
+                    {textButton}
+                </Button>
             </Link>
         </div>
     )
