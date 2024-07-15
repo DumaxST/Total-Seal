@@ -4,9 +4,10 @@ import { parseString } from '@/app/utils/main';
 import React, { useEffect, useState } from 'react';
 
 import { TabView, TabPanel } from 'primereact/tabview';
-import { CardWrapper } from "@/app/components/wrappers";
+
 import { CardDetailDevice } from '@/app/components/ui';
 import { bodySecondaryFont, headingFont } from '@/app/config/fonts';
+import { validateImeiFromCookie } from '@/app/utils/cookies';
 
 
 interface DeviceProps {
@@ -14,11 +15,38 @@ interface DeviceProps {
     code: string, 
     device: Device
 }
-
+async function getDetail(imei:string){
+    const response =  await fetch("https://lite.dumaxst.com/v1/users/settings", {
+        method: 'POST',
+        headers: {
+          'X-Api-Key': "GPCZeUzVrpsIypnhF2FX+28NVNH2ZebhnBUVLHvbn3Q=",
+          'Content-Type': 'application/json',
+          'Uuid': 'RESTFul-API',
+          "App": "RESTFul API"
+        },
+        body: JSON.stringify({
+            "imeis": [imei]
+        }),
+      });
+    
+      const data = await response.json();
+      
+    
+     
+    
+      
+}
 export const DetailDevice = ({imei,code, device}:DeviceProps) =>{
-   console.log(device)
-    const [deviceProps, setDevice] = useState<Device>(device );
-
+   
+    const [deviceProps, setDevice] = useState<Device>(device);
+   const validateData = async (imei:string) => {
+        const device = await validateImeiFromCookie(imei, 'devices')
+        if(device){
+            //Hacemos el request para traer ultima conexion
+         const response =  await getDetail(imei)
+           // setDevice(device)
+        }
+   }    
     useEffect(() => {
         // Create WebSocket connection
         const socket = new WebSocket(`${process.env.NEXT_PUBLIC_WEBSOCKET_URL}/${code}/ws`);
@@ -26,22 +54,27 @@ export const DetailDevice = ({imei,code, device}:DeviceProps) =>{
         // Connection opened
         socket.addEventListener('open', (event) => {
             console.log('Connected to WebSocket');
+            console.log(event)
         });
 
         socket.addEventListener('message', (event) => {
             
-            const { id, number, hash }: ParsedString =  parseString(event.data)
-          //  const updatedDevice: Device = JSON.parse(event.data);
-
+            const { typeMessage, imei, idConnection }: ParsedString =  parseString(event.data)
+            console.log(event)
+            validateData(imei)
         });
 
       }, []);
+
+      useEffect(() => {
+        setDevice(device)
+        }, []);
     return(
          
                 
                     <TabView className="shadow-lg" >
                         {
-                            deviceProps.tanks.map( (tank:Tank) => (
+                            deviceProps.tanks.map( (tank:Tank, indx) => (
                                 <TabPanel key={tank.tanknumber} header={`Tanque ${tank.tanknumber}`}>
                                     <div className="grid lg:grid-cols-5 md:grid-cols-2 gap-4">
                                        

@@ -9,11 +9,11 @@ const menuItems = [
         icon: "reports-3",
         title: "Dashboard",
     },
-    {
-        path: "/devices",
-        icon: "unidades",
-        title: "Unidades",
-    },
+    // {
+    //     path: "/devices",
+    //     icon: "unidades",
+    //     title: "Unidades",
+    // },
 ];
 
 export const Sidebar = () => {
