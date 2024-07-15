@@ -1,19 +1,18 @@
 
-import { headingFont, bodySecondaryFont} from "@/app/config/fonts";
-import { CardDetailDevice, TableWithFilter, HeaderSection } from "@/app/components/ui";
+
+import {  HeaderSection } from "@/app/components/ui";
 
 import { CardWrapper } from "@/app/components/wrappers";
 
-
-import { TabView, TabPanel } from 'primereact/tabview';
-import {detailDevice, detailDeviceColumns} from "@/app/lib/data";
 import { DetailDevice } from '../../../ui/device/DetailDevice';
 
+import { getItemFromCookies } from "@/app/utils/cookies";
 
 interface Props{
   params: {id:string}
 }
 export default async function DeviceLayout({params}:Props) {
+  //Esto se puede cambiar al login para refactor
   const response =  await fetch("https://lite.dumaxst.com/v1/users/settings", {
     method: 'GET',
     headers: {
@@ -25,19 +24,28 @@ export default async function DeviceLayout({params}:Props) {
   });
 
   const data = await response.json();
+  
+
+  const detailDevice = getItemFromCookies(params.id, 'devices');
 
   return (
     <>
-        
-        <HeaderSection
-        title={detailDevice.name}
-        showIcon={true}
-        textButton="Regresar"
-        link="/main"
-        />
-        <CardWrapper>
-          <DetailDevice imei={params.id} code ={data.user_preferences.code}/>
-        </CardWrapper>
+        {
+          detailDevice === undefined ? 
+            <p>Device not found</p>  :
+            <>
+            <HeaderSection
+              title={detailDevice?.device ?? ''}
+              showIcon={true}
+              textButton="Regresar"
+              link="/main"
+            />
+            <CardWrapper>
+              {detailDevice !== null && <DetailDevice imei={params.id} code={data.user_preferences.code} device={{...detailDevice}}/>}
+            </CardWrapper>
+            </>
+        }
+       
         {/* <CardWrapper>
                 {
                   detailDevice.trailers.map( (trailer) => (

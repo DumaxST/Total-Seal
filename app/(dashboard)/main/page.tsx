@@ -19,10 +19,7 @@ async function getDevices(token:string){
     }
   })
   const data= await res.json();
-  console.log(data.seal_devices)
-
- // const data = await res.json();
-
+  
   return data.seal_devices
 }
 export default async function MainPage() {
@@ -81,7 +78,6 @@ export default async function MainPage() {
                 showActions={true}
                 textButtonAction="Ver actividad"
                 linkHref="/device"
-
                 />
               </Suspense>
           </CardWrapper>

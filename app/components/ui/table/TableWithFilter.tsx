@@ -20,6 +20,7 @@ import { Icon } from "@/app/components/ui";
 
 import styles from './table.module.css';
 import {Device, DetailDevice} from '@/app/lib';
+import { setCookie } from 'cookies-next';
 
 interface Column {
     id: string | number
@@ -91,32 +92,9 @@ export const TableWithFilter = ( props: TableWithFilterProps) => {
 
 
     }
-    const statusBodyTemplate = (product: Device) => {
-        let [colorStatus,icon] = getStatus(product);
-        return <span className={colorStatus}>
-            {product.status }
-            <Icon
-                color='#FF6900'
-                size={15}
-                icon={icon}
-                className='ml-1'
-        
-            />
-            </span>
-    };
+   
 
-    const getStatus = (product: Device) : [string, string]=> {
-        // TODO: refactor property icon, to be dynamic
-        switch (product.status) {
-            case 'Ralentí':
-                return ['success', '' ];
-
-            case 'En movimiento':
-                return ['movement-color', 'alerta'];
-            default:
-                return ['', ''];
-        }
-    };
+           
 
     const actionBodyTemplate = (textButtonAction:string, linkHref:string, id:string) => {
     return (
@@ -188,7 +166,11 @@ export const TableWithFilter = ( props: TableWithFilterProps) => {
     generateFilterFields(columns);
     generateFilters(columns);
   }, [columns]); 
-
+  useEffect(()=>{
+    if(data.length !== 0){
+        setCookie('devices', data)
+    }
+  },[props])
     return (
         <>
             {

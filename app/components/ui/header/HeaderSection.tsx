@@ -18,7 +18,7 @@ interface HeaderSectionProps {
 
 export const HeaderSection = (props: HeaderSectionProps) => {
    
-    const { title, showIcon, icon = '', textButton, link } = props
+    const { title='', showIcon, icon = '', textButton, link } = props
   
     return (
         <div className="flex flex-row justify-between mb-5">
