@@ -7,13 +7,25 @@ import { CardWrapper } from "@/app/components/wrappers";
 
 import { TabView, TabPanel } from 'primereact/tabview';
 import {detailDevice, detailDeviceColumns} from "@/app/lib/data";
+import { DetailDevice } from '../../../ui/device/DetailDevice';
 
 
+interface Props{
+  params: {id:string}
+}
+export default async function DeviceLayout({params}:Props) {
+  const response =  await fetch("https://lite.dumaxst.com/v1/users/settings", {
+    method: 'GET',
+    headers: {
+      'X-Api-Key': "GPCZeUzVrpsIypnhF2FX+28NVNH2ZebhnBUVLHvbn3Q=",
+      'Content-Type': 'application/json',
+      'Uuid': 'RESTFul-API',
+      "App": "RESTFul API"
+    }
+  });
 
-export default function DeviceLayout() {
-  const {data} = detailDevice;
- 
-   
+  const data = await response.json();
+
   return (
     <>
         
@@ -23,6 +35,9 @@ export default function DeviceLayout() {
         textButton="Regresar"
         link="/main"
         />
+        <CardWrapper>
+          <DetailDevice imei={params.id} code ={data.user_preferences.code}/>
+        </CardWrapper>
         {/* <CardWrapper>
                 {
                   detailDevice.trailers.map( (trailer) => (

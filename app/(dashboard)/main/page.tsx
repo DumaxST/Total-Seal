@@ -28,8 +28,7 @@ async function getDevices(token:string){
 export default async function MainPage() {
   const cookieStore = cookies()
   const token = cookieStore.get('token')?.value  ??"";
-  console.log("main")
-  console.log(token)
+ 
  const devices = await getDevices(token);
 
   return (
