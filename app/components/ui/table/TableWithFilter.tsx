@@ -118,9 +118,10 @@ export const TableWithFilter = ( props: TableWithFilterProps) => {
         }
     };
 
-    const actionBodyTemplate = (textButtonAction:string, linkHref:string) => {
+    const actionBodyTemplate = (textButtonAction:string, linkHref:string, id:string) => {
     return (
-        <Link href={`${linkHref}`} key={`${linkHref}`} >
+        <Link href={`${linkHref}/${id}`} key={`${linkHref}`} className="flex justify-end" >
+
             <Button>
             {textButtonAction}
             </Button>
@@ -244,7 +245,7 @@ export const TableWithFilter = ( props: TableWithFilterProps) => {
                 <Col
                 className='background-gray-100'
                 header="Acciones"  
-                body={ ()=> actionBodyTemplate(textButtonAction, linkHref)} 
+                body={ (data)=> actionBodyTemplate(textButtonAction, linkHref, data.imei)} 
                 exportable={false} />
                 )
             }

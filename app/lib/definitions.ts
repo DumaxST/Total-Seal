@@ -1,10 +1,9 @@
 export interface Device {
-    id: string | number
-    name: string
-    trailer: string
-    date: string
-    status: string
-    codeSeal: string
+    imei: string
+    report: string
+    device: string
+    tanks:any
+    additionalfields: any
 }
 
 export interface DeviceDropdown {
@@ -48,4 +47,9 @@ export interface DeviceForm{
     dome: string
     content: string
     codeSeal : string
+}
+export interface ColumnsProps{
+    id:string;
+    field: string;
+    header: string;
 }

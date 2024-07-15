@@ -312,7 +312,13 @@ export const detailDevice =    {
             ] 
         
     };
-   
+export const devicesColumns=[
+    {
+        id:'unit',
+        field:'device',
+        header: 'Unidad'
+    }
+]
 export const detailDeviceColumns = [
     {
         id: '1',

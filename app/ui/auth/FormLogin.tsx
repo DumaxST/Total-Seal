@@ -6,7 +6,6 @@ import { Button } from "@/app/components/Button";
 import { login } from "@/app/lib/actions/auth-actions";
 import { redirect } from 'next/navigation';
 
-
 const initialState = {
   success: false,
   errors: null,
@@ -46,7 +45,7 @@ export const FormLogin = () => {
         />
         </label>
 
-        <span className="tex-red-400">{state.message}</span>
+        {/* <span className="tex-red-400">{}</span> */}
         <Button>
           Acceder
         </Button>
