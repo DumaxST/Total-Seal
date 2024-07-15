@@ -3,6 +3,7 @@ import { LoginFormSchema } from "../definitions/auth-definitons";
 import axios from 'axios';
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
+import { createSession } from "../sesion";
 
 export async function login(prevState:any ,formData:FormData) {
     
@@ -10,7 +11,7 @@ export async function login(prevState:any ,formData:FormData) {
         username: formData.get('username'),
         password: formData.get('password')
     })
-    
+    const errorMessage = {message: 'Usuario y/o contaseña inválida'};
     // If any form fields are invalid, return early
     //if (!validatedFields.success) {
       //  return { message: "Error fields" }; 
@@ -19,7 +20,7 @@ export async function login(prevState:any ,formData:FormData) {
         // };
     //}
     // Made request to login
-    try{
+ 
       const response = await fetch('https://lite.dumaxst.com/v1/login', {
         method: 'POST',
         headers: {
@@ -30,17 +31,17 @@ export async function login(prevState:any ,formData:FormData) {
           password: formData.get("password")
         }),
       });
-       const res = response.json()
-      
+       const res = await response.json();
 
+      
+      console.log(res.user)
+      
+      if(!res.user){
+          console.log("Error ")
+      }
+      return {success: true, token: res.user.token}
        
     
-      return { message: "Error fields" }; 
-         
-    }catch(error){
-        console.log("error login")
-        throw error;
-    }
- 
+
 
 }

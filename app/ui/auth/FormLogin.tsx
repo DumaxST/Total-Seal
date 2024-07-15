@@ -1,13 +1,29 @@
 "use client";
+import { useFormState } from 'react-dom';
+import { useEffect} from 'react';
+import { setCookie } from 'cookies-next';
 import { Button } from "@/app/components/Button";
 import { login } from "@/app/lib/actions/auth-actions";
+import { redirect } from 'next/navigation';
 
-import { useFormState } from 'react-dom';
 
-
+const initialState = {
+  success: false,
+  errors: null,
+  token:null
+}
 export const FormLogin = () => {
-  const [state, action] = useFormState(login,{message:''});
-  
+  const [state, action] = useFormState(login,initialState);
+
+  useEffect(() => {
+    if (state.success && state.token) {
+      setCookie('token', state.token) // 1 week
+      redirect('/dashboard');
+
+      // router.push('/dashboard')
+    }
+  }, [state])
+
   return (
     <form className="form" action={action}>
      

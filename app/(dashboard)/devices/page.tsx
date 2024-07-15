@@ -15,18 +15,19 @@ export default function DevicePage() {
    <div>
       <h2 className={`heading-h2 ${headingFont.className}`}>Unidades</h2>
       <CardWrapper className="mb-5">
-        
-         <FormDevice data={devicesAll}/>
+          <h1>Tabla</h1>
+         {/* <FormDevice data={devicesAll}/> */}
        
       </CardWrapper>
       <CardWrapper>
-          <TableWithFilter 
+        <h2>Equipo</h2>
+          {/* <TableWithFilter 
             data={devices} 
             columns={detailedColumns}
             showActions={true}
             textButtonAction="Ver actividad"
             linkHref="/device/12"
-            />
+            /> */}
         </CardWrapper>
 
    </div>
