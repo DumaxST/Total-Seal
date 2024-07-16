@@ -1,14 +1,15 @@
-import React from 'react'
+import React from 'react';
 
 interface ButtonProps {
-    text: string
-    className?: string,
-    children?: React.ReactNode; 
+  text: string;
+  className?: string;
+  children?: React.ReactNode;
 }
-export const Button = ({text, className}:ButtonProps) => {
+
+export const Button: React.FC<ButtonProps> = ({ text, className }) => {
   return (
-    <button type="button" className={`max-h-8 rounded	 text-white bg-secondary font-bold  py-2 px-6  focus:outline-none  text-xs  text-center flex items-center flex-row justify-center		  ${className}`}>
-      {text}     
+    <button type="button" className={`max-h-8 rounded text-white bg-secondary font-bold py-2 px-6 focus:outline-none text-xs text-center flex items-center flex-row justify-center ${className}`}>
+      {text}
     </button>
-  )
-}
+  );
+};
