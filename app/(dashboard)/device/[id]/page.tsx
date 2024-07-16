@@ -28,9 +28,6 @@ export default async function DeviceLayout({params}:Props) {
   
 
   const detailDevice = await getItemFromCookies(params.id, 'devices');
-  console.log(detailDevice)
-  
-
   return (
     <>
         

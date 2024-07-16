@@ -1,31 +1,28 @@
-"use client";
-import { useFormState } from 'react-dom';
-import { useEffect} from 'react';
-import { setCookie } from 'cookies-next';
+"use client"
+import { FormEvent} from 'react';
 import { Button } from "@/app/components/Button";
-import { login } from "@/app/lib/actions/auth-actions";
-import { redirect } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 
-const initialState = {
-  success: false,
-  errors: null,
-  token:null
-}
+
 export const FormLogin = () => {
-  const [state, action] = useFormState(login,initialState);
-
-  useEffect(() => {
-    if (state.success && state.token) {
-      setCookie('token', state.token) // 1 week
-      redirect('/dashboard');
-
-      // router.push('/dashboard')
-    }
-  }, [state])
-
+  const router = useRouter();
+  const handleSubmit = async (e:FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+   const response  = await signIn('credentials', {
+        username: formData.get('username'),
+        password: formData.get('password'),
+        redirect: false
+      });
+      if(!response?.error){
+        router.push('/main');
+        router.refresh();
+      }
+      console.log(response)
+  }
   return (
-    <form className="form" action={action}>
-     
+    <form className="form" onSubmit={handleSubmit}>
        <label htmlFor="username" className ="flex flex-col">
           Nombre de usuario
         <input
@@ -46,7 +43,7 @@ export const FormLogin = () => {
         </label>
 
         {/* <span className="tex-red-400">{}</span> */}
-        <Button>
+        <Button type='submit'>
           Acceder
         </Button>
 
