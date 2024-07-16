@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { MultiSelect, MultiSelectChangeEvent } from 'primereact/multiselect';
-import { Button } from '@/app/components/ui/Button';
+import { Button } from '@/app/components/ui/button/Button';
 import { DeviceDropdown } from "@/app/lib/definitions";
 
 interface FormDeviceProps {
