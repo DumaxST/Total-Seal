@@ -16,7 +16,6 @@ import { InputIcon } from "primereact/inputicon";
 
 import Link from 'next/link'
 
-import { Icon } from "@/app/components/ui";
 
 import styles from './table.module.css';
 import {Device, DetailDevice} from '@/app/lib';
@@ -37,7 +36,7 @@ interface TableWithFilterProps {
 }
 
 export const TableWithFilter = ( props: TableWithFilterProps) => {
-    const { data, columns,showToolbar= false, showActions = false , textButtonAction= '' , linkHref=''} = props;
+    const { data=[], columns,showToolbar= false, showActions = false , textButtonAction= '' , linkHref=''} = props;
 
     const [globalFilterValue, setGlobalFilterValue] = useState<string>('');
 

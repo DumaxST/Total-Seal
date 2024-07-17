@@ -187,3 +187,6 @@ td{
 .h-60{
   height: 75vh;
 }
+.p-progress-spinner-circle {
+  stroke:#75FA4C !important;
+}
