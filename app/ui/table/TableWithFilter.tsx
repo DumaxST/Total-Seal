@@ -16,7 +16,6 @@ import { InputIcon } from "primereact/inputicon";
 
 import Link from 'next/link'
 
-
 import styles from './table.module.css';
 import {Device, DetailDevice} from '@/app/lib';
 import { setCookie } from 'cookies-next';
@@ -36,7 +35,7 @@ interface TableWithFilterProps {
 }
 
 export const TableWithFilter = ( props: TableWithFilterProps) => {
-    const { data=[], columns,showToolbar= false, showActions = false , textButtonAction= '' , linkHref=''} = props;
+    const { data, columns,showToolbar= false, showActions = false , textButtonAction= '' , linkHref=''} = props;
 
     const [globalFilterValue, setGlobalFilterValue] = useState<string>('');
 
@@ -99,9 +98,9 @@ export const TableWithFilter = ( props: TableWithFilterProps) => {
     return (
         <Link href={`${linkHref}/${id}`} key={`${linkHref}`} className="flex justify-end" >
 
-    <button type="button" className={`max-h-8 rounded text-white bg-secondary font-bold  py-2 px-6  focus:outline-none  text-xs  text-center flex items-center flex-row justify-center`}>
+            <button type="button" className={`max-h-8 rounded	 text-white bg-secondary font-bold  py-2 px-6  focus:outline-none  text-xs  text-center flex items-center flex-row justify-center `}>
 
-            {textButtonAction}
+                {textButtonAction}
             </button>
              
         </Link>

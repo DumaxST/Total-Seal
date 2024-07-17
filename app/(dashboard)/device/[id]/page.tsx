@@ -1,11 +1,11 @@
 
 
-import {  HeaderSection } from "@/app/components/ui";
+
 
 import { CardWrapper } from "@/app/components/wrappers";
 
 import { DetailDevice } from '../../../ui/device/DetailDevice';
-
+import { HeaderSection } from '../../../ui/HeaderSection';
 import { getItemFromCookies } from "@/app/utils/cookies";
 import { Suspense } from "react";
 

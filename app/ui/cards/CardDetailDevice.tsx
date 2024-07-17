@@ -1,10 +1,9 @@
 import React from 'react'
 
-import { Icon } from "@/app/components/ui";
 
 import { headingFont, bodySecondaryFont } from "@/app/config/fonts";
-
 import styles from './cardDetails.module.css';
+import { Icon } from '../Icon';
 
 interface Status {
     status: "open" | "close" | "withContent" | "empty"
@@ -58,15 +57,12 @@ export const CardDetailDevice = ({ title, numberCard, status, type }: CardDetail
 
             <div className={`max-h-8 rounded-2xl border-0  py-2 px-6  focus:ring-4 focus:outline-none  text-sm  text-center inline-flex items-center mt-3.5  
              ${buttonStyle} ${bodySecondaryFont.className}`}>
-
-
                 <Icon
                     color={`${buttonColor}`}
                     size={30}
                     icon={icon}
                     className='pr-1.5'
                 />
-
                 {statusLabel}
             </div>
 
