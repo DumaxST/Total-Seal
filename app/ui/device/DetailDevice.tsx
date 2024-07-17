@@ -13,38 +13,18 @@ import { CardDetailDevice } from '../cards/CardDetailDevice';
 
 interface DeviceProps {
     imei: string
-    code: string, 
+    code?: string, 
     device: Device
-}
-async function getDetail(imei:string){
-    const response =  await fetch("https://lite.dumaxst.com/v1/users/settings", {
-        method: 'POST',
-        headers: {
-          'X-Api-Key': "GPCZeUzVrpsIypnhF2FX+28NVNH2ZebhnBUVLHvbn3Q=",
-          'Content-Type': 'application/json',
-          'Uuid': 'RESTFul-API',
-          "App": "RESTFul API"
-        },
-        body: JSON.stringify({
-            "imeis": [imei]
-        }),
-      });
-    
-      const data = await response.json();
-      
-    
-     
-    
-      
 }
 export const DetailDevice = ({imei,code, device}:DeviceProps) =>{
    
     const [deviceProps, setDevice] = useState<Device>(device);
+    
    const validateData = async (imei:string) => {
         const device = await validateImeiFromCookie(imei, 'devices')
         if(device){
             //Hacemos el request para traer ultima conexion
-         const response =  await getDetail(imei)
+        //  const response =  await getDetail(imei)
            // setDevice(device)
         }
    }    

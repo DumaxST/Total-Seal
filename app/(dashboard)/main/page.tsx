@@ -1,17 +1,9 @@
 
-import { Suspense } from 'react';
 import { CardWrapper } from "@/app/components/wrappers";
 import { headingFont} from "@/app/config/fonts";
-import { devicesColumns } from '@/app/lib/data';
-import TableSkeleton from '@/app/ui/auth/skeletons/TableSkeleton';
-import { useSession, getSession} from "next-auth/react";
 import { Main } from '@/app/ui';
 
-
-
-export default async function MainPage() {
-//  const devices = await getDevices(token);
- 
+export default function MainPage() {
 
   return (
     <div className="grid grid-cols-12 gap-4">

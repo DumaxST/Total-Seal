@@ -8,23 +8,10 @@ import { TableWithFilter } from "../../table/TableWithFilter";
 import { devicesColumns } from "@/app/lib/data";
 
 import { SealDevice } from "@/app/lib/definitions/device-definitions";
+import { fetchDevices } from './api/devicesApi';
 
+import { setCookie } from 'cookies-next';
 
-async function fetchDevices(token: string) {
-
-    const res = await fetch(`${process.env.NEXT_PUBLIC_MAPI_SG_URL}/seal_devices`, {
-        method: 'GET',
-        headers: {
-            'X-Api-Key': token,
-            'Content-Type': 'application/json',
-            'Uuid': 'RESTFul-API',
-            "App": 'RESTFul API'
-        }
-    })
-    const data = await res.json();
-    console.log(data)
-    return data.seal_devices
-}
 
 export const Main = () => {
 
@@ -41,6 +28,8 @@ export const Main = () => {
            setIsLoading(false)
 
            setDevices(data)
+           setCookie('devices', data);
+
         } catch (error) {
             setError("No se han podido cargar los dispositivos")
             setIsLoading(false)
