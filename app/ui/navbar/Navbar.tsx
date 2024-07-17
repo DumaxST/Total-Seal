@@ -1,8 +1,7 @@
-import React from 'react'
 import Image from 'next/image'
+import { Dropdown } from '../Dropdown';
 
-import { Dropdown } from "@/app/components/ui";
-import { headingFont} from "@/app/config/fonts";
+import { headingFont} from '@/app/config/fonts';
 
 
 import styles from './navbar.module.css';

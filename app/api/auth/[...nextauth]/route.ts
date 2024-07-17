@@ -17,8 +17,26 @@ const authOptions: NextAuthOptions = {
           password: {},
         },
         async authorize(credentials, req) {
-          return null;
-        },
+          const response = await fetch(`${process.env.NEXT_PUBLIC_HOST_URL}/login`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              username: credentials?.username,
+              password: credentials?.password
+            })
+          })
+  
+  
+          const data = await response.json();
+  
+          if(data){
+            return data.user
+          }
+          return null
+        }
+       
       }),
     ],
   };
