@@ -4,7 +4,6 @@ import { Dropdown } from 'primereact/dropdown';
 import { Button } from 'primereact/button';
 import { DeviceOption, SensorStatus , } from '@/app/lib';
 
-import { addDevice } from '@/app/utils/firebase';
 
 const initState = {
   device: { code: "12", name:" Compartimiento 1"},
@@ -59,15 +58,6 @@ export const AddDevice = () => {
     const handleSubmit = (e:React.SyntheticEvent) =>{
       e.preventDefault();
       
-        addDevice({
-            valve_box : selectedValveBox?.code,
-            name:"Compartimiento 1",
-            wafer : selectedWafer?.code,
-            dome : selectedDome?.code,
-            content : selectedContent?.code,
-            codeSeal: generateCodeSeal(selectedValveBox?.code,selectedWafer?.code, selectedDome?.code,selectedContent?.code)
-            
-        })
         setSelectedDevice(initState.device);
         setSelectedValveBox(initState.valveBox);
         setSelectedWafer(initState.wafer);
