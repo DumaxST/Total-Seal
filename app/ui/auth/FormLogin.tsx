@@ -19,7 +19,7 @@ export const FormLogin = () => {
       router.push('/main');
       router.refresh();
     }
-    console.log(response)
+    
   }
   return (
     <form className="form" onSubmit={handleSubmit}>
