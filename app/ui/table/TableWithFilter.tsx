@@ -99,9 +99,10 @@ export const TableWithFilter = ( props: TableWithFilterProps) => {
     return (
         <Link href={`${linkHref}/${id}`} key={`${linkHref}`} className="flex justify-end" >
 
-            <Button>
+    <button type="button" className={`max-h-8 rounded text-white bg-secondary font-bold  py-2 px-6  focus:outline-none  text-xs  text-center flex items-center flex-row justify-center`}>
+
             {textButtonAction}
-            </Button>
+            </button>
              
         </Link>
     );
