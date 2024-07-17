@@ -1,33 +1,18 @@
+
 import { Suspense } from 'react';
-import { TableWithFilter } from "@/app/components/ui";
 import { CardWrapper } from "@/app/components/wrappers";
 import { headingFont} from "@/app/config/fonts";
-import { cookies } from 'next/headers'
 import { devicesColumns } from '@/app/lib/data';
 import TableSkeleton from '@/app/ui/auth/skeletons/TableSkeleton';
+import { useSession, getSession} from "next-auth/react";
+import { Main } from '@/app/ui';
 
 
-async function getDevices(token:string){
-  
-  const res = await fetch("https://lite.dumaxst.com:5000/v1/seal_devices", {
-    method: 'GET',
-    headers: {
-      'X-Api-Key': "KFQ6sVywS7dG2in8FUEy27dRu3AYmlqR/HgpUOgVAVA=",
-      'Content-Type': 'application/json',
-      'Uuid': 'RESTFul-API',
-      "App": "RESTFul API"
-    }
-  })
-  const data= await res.json();
-  console.log(data)
-  return data.seal_devices
-}
+
 export default async function MainPage() {
-  const cookieStore = cookies()
-  const token = cookieStore.get('token')?.value  ??"";
+//  const devices = await getDevices(token);
  
- const devices = await getDevices(token);
-  console.log(devices)
+
   return (
     <div className="grid grid-cols-12 gap-4">
 {/* 
@@ -71,15 +56,7 @@ export default async function MainPage() {
       <div className="col-span-12">
           <CardWrapper>
             <h3 className={`${headingFont.className} pb-4 `}>Últimas alertas</h3>
-            <Suspense fallback={<TableSkeleton  columns={devicesColumns} />} >
-              <TableWithFilter 
-                data={devices} 
-                columns={devicesColumns}
-                showActions={true}
-                textButtonAction="Ver actividad"
-                linkHref="/device"
-                />
-              </Suspense>
+            <Main />
           </CardWrapper>
 
       </div>

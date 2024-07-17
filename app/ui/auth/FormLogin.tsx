@@ -1,56 +1,53 @@
-"use client";
-import { useFormState } from 'react-dom';
-import { useEffect} from 'react';
-import { setCookie } from 'cookies-next';
+"use client"
+import { FormEvent } from 'react';
 import { Button } from "@/app/components/Button";
-import { login } from "@/app/lib/actions/auth-actions";
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 
-const initialState = {
-  success: false,
-  errors: null,
-  token:null
-}
+
 export const FormLogin = () => {
-  const [state, action] = useFormState(login,initialState);
-
-  useEffect(() => {
-    if (state.success && state.token) {
-      setCookie('token', state.token) // 1 week
-      redirect('/dashboard');
-
-      // router.push('/dashboard')
+  const router = useRouter();
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const response = await signIn('credentials', {
+      username: formData.get('username'),
+      password: formData.get('password'),
+      redirect: false
+    });
+    if (!response?.error) {
+      router.push('/main');
+      router.refresh();
     }
-  }, [state])
-
+    
+  }
   return (
-    <form className="form" action={action}>
-     
-       <label htmlFor="username" className ="flex flex-col">
-          Nombre de usuario
+    <form className="form" onSubmit={handleSubmit}>
+      <label htmlFor="username" className="flex flex-col">
+        Nombre de usuario
         <input
           id="username"
           name="username"
           type="text"
           className="rounded background-gray-200 border border-slate-200 outline-transparent py-2 px-1.5 mt-1.5"
         />
-        </label>
+      </label>
 
-        <label htmlFor="password" className ="flex flex-col gap-1.5">Contraseña
+      <label htmlFor="password" className="flex flex-col gap-1.5">Contraseña
         <input
           id="password"
           name="password"
           type="password"
           className="rounded background-gray-200 border border-slate-200 outline-transparent py-2 px-1.5 mt-1.5"
         />
-        </label>
+      </label>
+      {/* TODO:
+      - add error states */}
+      <Button type='submit'>
+        Acceder
+      </Button>
 
-        {/* <span className="tex-red-400">{}</span> */}
-        <Button>
-          Acceder
-        </Button>
 
-     
     </form>
   );
 };

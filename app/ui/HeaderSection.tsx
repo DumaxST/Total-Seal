@@ -1,11 +1,11 @@
 "use client"
 import React from 'react'
 import { headingFont } from "@/app/config/fonts";
-import { Icon } from "@/app/components/ui";
 
 
 import Link from "next/link";
-import { Button } from '../../Button';
+import { Button } from '../components/Button';
+import { Icon } from './Icon';
 
 interface HeaderSectionProps {
     title: string

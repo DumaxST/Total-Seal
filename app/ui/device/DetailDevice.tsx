@@ -5,9 +5,10 @@ import React, { useEffect, useState } from 'react';
 
 import { TabView, TabPanel } from 'primereact/tabview';
 
-import { CardDetailDevice } from '@/app/components/ui';
+
 import { bodySecondaryFont, headingFont } from '@/app/config/fonts';
 import { validateImeiFromCookie } from '@/app/utils/cookies';
+import { CardDetailDevice } from '../cards/CardDetailDevice';
 
 
 interface DeviceProps {

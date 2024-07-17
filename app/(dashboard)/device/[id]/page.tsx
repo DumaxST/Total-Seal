@@ -1,11 +1,11 @@
 
 
-import {  HeaderSection } from "@/app/components/ui";
+
 
 import { CardWrapper } from "@/app/components/wrappers";
 
 import { DetailDevice } from '../../../ui/device/DetailDevice';
-
+import { HeaderSection } from '../../../ui/HeaderSection';
 import { getItemFromCookies } from "@/app/utils/cookies";
 import { Suspense } from "react";
 
@@ -28,9 +28,6 @@ export default async function DeviceLayout({params}:Props) {
   
 
   const detailDevice = await getItemFromCookies(params.id, 'devices');
-  console.log(detailDevice)
-  
-
   return (
     <>
         
