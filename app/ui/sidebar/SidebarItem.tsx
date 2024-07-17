@@ -1,9 +1,8 @@
 'use client'
-import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Icon } from "../Icon";
 
-import { Icon } from "@/app/components/ui";
 
 interface SidebarItemProps {
   path: string;

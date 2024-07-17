@@ -9,7 +9,7 @@ import { useSession,  signOut} from "next-auth/react";
 export const Dropdown = () => {
 
     const [isOpen, setIsOpen] = useState(false);
-    const { data: sesion, status } = useSession();
+    const { data: session } = useSession();
 
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
@@ -21,21 +21,7 @@ export const Dropdown = () => {
     useEffect(() => {
 
     }, [isOpen]);
-    if (status === 'loading') {
-        return (
-            <button
-                className='block px-4 py-2  text-gray-800  hover:text-white button w-full text-left'
-                disabled>
-                <Icon
-                    color="#3B83FF"
-                    size={30}
-                    icon="icon-logout"
-                    className={` rounded p-1.5`}
-                />
-                Cargando...
-            </button>
-        )
-    }
+    
 
     return (
         <div className='relative'>
@@ -48,7 +34,11 @@ export const Dropdown = () => {
                         className={` `} />
 
                 </button>
-                <p className={`${bodySecondaryFont.className}`}>Total Seal</p>
+                {/* TODO:
+                    - Update email to username
+                */}
+                <p className={`${bodySecondaryFont.className}`}>{session?.user?.email}</p>
+
 
             </div>
             {

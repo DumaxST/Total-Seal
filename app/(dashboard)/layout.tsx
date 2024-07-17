@@ -1,6 +1,6 @@
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
-import { Navbar } from '../ui';
+import { Navbar, Sidebar } from '../ui';
 import { AuthProvider } from '../ui/auth/AuthProvider';
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
@@ -18,7 +18,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
             <Navbar />
           </div>
           <div className="flex flex-row">
-            {/* <Sidebar/> */}
+            <Sidebar/>
             <div className="p-6 w-full text-slate-900">
               {children}
             </div>
