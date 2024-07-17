@@ -9,8 +9,8 @@ import { useSession,  signOut} from "next-auth/react";
 export const Dropdown = () => {
 
     const [isOpen, setIsOpen] = useState(false);
-    const { data: session } = useSession();
 
+    const { data: session } = useSession();
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
     };
@@ -34,12 +34,7 @@ export const Dropdown = () => {
                         className={` `} />
 
                 </button>
-                {/* TODO:
-                    - Update email to username
-                */}
-                <p className={`${bodySecondaryFont.className}`}>{session?.user?.email}</p>
-
-
+                <p className={`${bodySecondaryFont.className}`}>{session?.user?.username}</p>
             </div>
             {
                 isOpen && <button onClick={closeDropdown} tabIndex={-1} className='fixed inset-0 h-full w-full cursor-default' ></button>
