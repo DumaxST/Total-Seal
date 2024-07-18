@@ -75,19 +75,19 @@ export const DetailDevice = ({ imei, code, device }: DeviceProps) => {
                             <CardDetailDevice
                                 title="Caja Válvulas"
                                 numberCard="1"
-                                type="boxPrimary"
+                                type={tank.valvebox === 'Caja de Válvulas Cerrada' ? "boxSecondary" : "boxPrimary" }
                                 status={tank.valvebox === 'Caja de Válvulas Cerrada' ? 'close' : 'open'}
                             />
                             <CardDetailDevice
                                 title="Oblea"
                                 numberCard="2"
-                                type="boxSecondary"
+                                type={tank.oblea === 'Oblea Cerrada' ? "boxSecondary" : "boxPrimary" }
                                 status={tank.oblea === 'Oblea Cerrada' ? 'close' : 'open'}
                             />
                             <CardDetailDevice
                                 title="Domo"
                                 numberCard="3"
-                                type="boxSecondary"
+                                type={tank.domo === 'Domo Cerrado' ? "boxSecondary" : "boxPrimary" }
                                 status={tank.domo === 'Domo Cerrado' ? 'close' : 'open'}
                             />
                             <CardDetailDevice
