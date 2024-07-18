@@ -17,7 +17,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 export const Button = ({ variant = 'primary', children, className, ...props }: ButtonProps) => {
     const buttonClass = classNames(
-        'border-2 py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-offset-2',
+        'border-2 px-7 py-2  rounded focus:outline-none',
         VARIANT_STYLES[variant],
         className
     );

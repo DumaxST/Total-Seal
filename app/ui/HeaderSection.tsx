@@ -17,26 +17,22 @@ interface HeaderSectionProps {
 
 
 export const HeaderSection = (props: HeaderSectionProps) => {
-   
-    const { title='', showIcon, icon = '', textButton, link } = props
-  
+
+    const { title = '', showIcon, icon = '', textButton, link } = props
+
     return (
         <div className="flex flex-row justify-between mb-5">
             <div className="flex flex-row gap-5">
                 <h2 className={`heading-h2 ${headingFont.className}`}>{title}</h2>
                 {
-                    showIcon && 
-                        <Icon
-                            color=""
-                            size={30}
-                            icon={icon}
-                            className={`bg-primary  rounded p-1.5`}
-                        />
-                    
+                    showIcon &&
+                    <Icon
+                        color=""
+                        size={30}
+                        icon={icon}
+                        className={`bg-primary  rounded p-1.5`}
+                    />
                 }
-                    
-                
-                
             </div>
             <Link href={link}>
                 <Button variant="secondary">
