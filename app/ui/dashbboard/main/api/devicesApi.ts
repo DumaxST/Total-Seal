@@ -47,5 +47,5 @@ export async function getLastConnection(token:string,imei: string){
         }),
       });
         const data = await response.json();
-        return data
+        return data.devices[0]
 }

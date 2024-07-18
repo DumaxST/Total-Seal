@@ -11,6 +11,7 @@ import { validateImeiFromCookie } from '@/app/utils/cookies';
 import { CardDetailDevice } from '../cards/CardDetailDevice';
 import { useSession } from "next-auth/react"
 import { getLastConnection } from '../dashbboard/main/api/devicesApi';
+import { DeviceDetail } from '@/app/lib/definitions/detail-device-definition';
 
 interface DeviceProps {
     imei: string
@@ -20,50 +21,51 @@ interface DeviceProps {
 
 export const DetailDevice = ({ imei, code, device }: DeviceProps) => {
 
-    const [deviceProps, setDevice] = useState<Device>(device);
-    const { data: session, status } = useSession()
-    
-    const validateData = async (token:string='',imei: string = '') => {
-        console.log('token')
-        console.log(token)
-        const device = await validateImeiFromCookie(imei, 'devices')
-        console.log(device)
-        if (device) {
-            //Hacemos el request para traer ultima conexion
-            const lastConnections = await getLastConnection(token, imei);
-            //Accedemos a la posicion 0 del arreglo de ultimas conexiones
-            console.log(lastConnections[0])
-            //  const response =  await getDetail(imei)
-            // setDevice(device)
-        }
-    }
+    const [deviceProps, setDeviceProps] = useState<Device>(device);
+    const { data: session } = useSession();
 
+    function validateResponse(response: DeviceDetail) {
+        if (response.params && 'total_seal' in response.params) {
+          const totalSeal = response.params.total_seal;
+          
+          // Now you can use totalSeal to update your object
+          
+        } else {
+          console.log("total_seal not found in params");
+        }
+      }
+  
     useEffect(() => {
+        console.log(session?.user?.token)
+        const validateData = async (token:string='',imei: string = '') => {
+            const device = await validateImeiFromCookie(imei, 'devices')
+            if (device) {
+                //Hacemos el request para traer ultima conexion
+                const lastConnections = await getLastConnection(token, imei);
+                //Accedemos a la posicion 0 del arreglo de ultimas conexiones
+                console.log(lastConnections)
+                validateResponse(lastConnections)
+            }
+        }
+    
         if(session){
          const socket = new WebSocket(`${process.env.NEXT_PUBLIC_WEBSOCKET_URL}/${code}/ws`);
       
          socket.addEventListener('open', (event) => {
              console.log('Connected to WebSocket');
-             
          });
  
          socket.addEventListener('message', (event) => {
              
              const { typeMessage, imei, idConnection }: ParsedString =  parseString(event.data)
+             console.log(event)
              validateData(session?.user?.token,imei)
          });
-        
-        return () => {
-            console.log('Closing WebSocket connection');
-            socket.close();
-        };
         }
          
-    }, [code,session]);
+    }, [code, session]);
 
     return (
-
-
         <TabView className="shadow-lg" >
             {
                 deviceProps.tanks.map((tank: Tank, indx) => (
