@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 const VARIANT_STYLES = {
     primary: 'bg-blue-500 hover:bg-blue-700 text-white',
-    secondary: 'bg-gray-500 hover:bg-gray-700 text-white',
+    secondary: 'bg-white  border-blue-500 hover:bg-blue-400  hover:text-white text-blue-500',
     success: 'bg-green-500 hover:bg-green-700 text-white',
     danger: 'bg-red-500 hover:bg-red-700 text-white',
 } as const;
@@ -17,7 +17,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 export const Button = ({ variant = 'primary', children, className, ...props }: ButtonProps) => {
     const buttonClass = classNames(
-        'py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-offset-2',
+        'border-2 px-7 py-2  rounded focus:outline-none',
         VARIANT_STYLES[variant],
         className
     );

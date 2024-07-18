@@ -36,7 +36,6 @@ interface TableWithFilterProps {
 
 export const TableWithFilter = ( props: TableWithFilterProps) => {
     const { data, columns,showToolbar= false, showActions = false , textButtonAction= '' , linkHref=''} = props;
-
     const [globalFilterValue, setGlobalFilterValue] = useState<string>('');
 
     const [filters, setFilters] = useState<DataTableFilterMeta>({
@@ -91,9 +90,6 @@ export const TableWithFilter = ( props: TableWithFilterProps) => {
 
     }
    
-
-           
-
     const actionBodyTemplate = (textButtonAction:string, linkHref:string, id:string) => {
     return (
         <Link href={`${linkHref}/${id}`} key={`${linkHref}`} className="flex justify-end" >
@@ -195,10 +191,10 @@ export const TableWithFilter = ( props: TableWithFilterProps) => {
                 paginatorTemplate={template}
                 filters={filters}
                 globalFilterFields={generateFilterFields(columns)}
+                id="imei"
         >
             {
                 columns.map((column) => {
-                   
                         return(
                         <Col
                             key={column.id}

@@ -5,26 +5,12 @@ import { useSession } from "next-auth/react";
 import { ProgressSpinner } from 'primereact/progressspinner';
 
 import { TableWithFilter } from "../../table/TableWithFilter";
-import { devicesColumns } from "@/app/lib/data";
-
 import { SealDevice } from "@/app/lib/definitions/device-definitions";
 
+import { setCookie } from 'cookies-next';
+import { fetchDevices } from './api/devicesApi';
+import { devicesColumns } from '@/app/lib/constants';
 
-async function fetchDevices(token: string) {
-
-    const res = await fetch(`${process.env.NEXT_PUBLIC_MAPI_SG_URL}/seal_devices`, {
-        method: 'GET',
-        headers: {
-            'X-Api-Key': token,
-            'Content-Type': 'application/json',
-            'Uuid': 'RESTFul-API',
-            "App": 'RESTFul API'
-        }
-    })
-    const data = await res.json();
-    console.log(data)
-    return data.seal_devices
-}
 
 export const Main = () => {
 
@@ -34,19 +20,23 @@ export const Main = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     
-    const loadDevices = async () => {
-        try {
-
-           const data = await  fetchDevices(session?.user?.token ?? '');
-           setIsLoading(false)
-
-           setDevices(data)
-        } catch (error) {
-            setError("No se han podido cargar los dispositivos")
-            setIsLoading(false)
-        }
-    }
+   
     useEffect(() => {
+        const loadDevices = async () => {
+            try {
+    
+               const data = await  fetchDevices(session?.user?.token ?? '');
+            
+               setIsLoading(false)
+    
+               setDevices(data)
+               setCookie('devices', data);
+    
+            } catch (error) {
+                setError("No se han podido cargar los dispositivos")
+                setIsLoading(false)
+            }
+        }
         if (!session) {
            setIsLoading(false)
            return

@@ -1,10 +1,15 @@
-import React from 'react';
+import { getServerSession } from 'next-auth';
+import { redirect } from 'next/navigation';
 import {headingFont} from '@/app/config/fonts';
 
 import Image  from "next/image";
 
-export default function AuthLayout({children}: {children: React.ReactNode}) {
+export default async function AuthLayout({children}: {children: React.ReactNode}) {
+  const session = await getServerSession();
 
+  if (session) {
+    redirect('/main');
+  }
   return (
     <main className={`max-w-screen max-h-screen min-h-screen heroContainer`}>
     <section className="heroLeft">
