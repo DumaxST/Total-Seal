@@ -36,7 +36,7 @@ interface TableWithFilterProps {
 
 export const TableWithFilter = ( props: TableWithFilterProps) => {
     const { data, columns,showToolbar= false, showActions = false , textButtonAction= '' , linkHref=''} = props;
-
+    console.log(data)
     const [globalFilterValue, setGlobalFilterValue] = useState<string>('');
 
     const [filters, setFilters] = useState<DataTableFilterMeta>({
@@ -195,10 +195,11 @@ export const TableWithFilter = ( props: TableWithFilterProps) => {
                 paginatorTemplate={template}
                 filters={filters}
                 globalFilterFields={generateFilterFields(columns)}
+                id="imei"
         >
             {
                 columns.map((column) => {
-                   
+                    console.log(column)
                         return(
                         <Col
                             key={column.id}

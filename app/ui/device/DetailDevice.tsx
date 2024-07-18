@@ -24,12 +24,15 @@ export const DetailDevice = ({ imei, code, device }: DeviceProps) => {
     const { data: session, status } = useSession()
     
     const validateData = async (token:string='',imei: string = '') => {
+        console.log('token')
+        console.log(token)
         const device = await validateImeiFromCookie(imei, 'devices')
+        console.log(device)
         if (device) {
-          
-            const lastConnection = await getLastConnection(token, imei);
-            console.log(lastConnection)
             //Hacemos el request para traer ultima conexion
+            const lastConnections = await getLastConnection(token, imei);
+            //Accedemos a la posicion 0 del arreglo de ultimas conexiones
+            console.log(lastConnections[0])
             //  const response =  await getDetail(imei)
             // setDevice(device)
         }

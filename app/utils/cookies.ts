@@ -24,11 +24,9 @@ export async function getItemFromCookies(searchImei: string, cookieToSearch:stri
       }
 }
 export async function validateImeiFromCookie(imei:string, cookieToSearch:string){
-  console.log("cookie")
-  console.log(imei)
+
   const cookieStore = cookies();
   const cookieValue = cookieStore.get(cookieToSearch)?.value;
-  console.log(cookieValue);
 
   if (!cookieValue) {
     return null
