@@ -1,10 +1,10 @@
-import { CardWrapper } from "@/app/components/wrappers";
 
 import { DetailDevice } from '../../../ui/device/DetailDevice';
 import { HeaderSection } from '../../../ui/HeaderSection';
 import { getItemFromCookies } from "@/app/utils/cookies";
 import { getServerSession } from "next-auth/next"
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/lib/utils/sesionConfig";
+import { CardWrapper } from '@/app/ui/CardWrapper';
 
 interface Props {
   params: { id: string }

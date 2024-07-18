@@ -1,8 +1,8 @@
 import React from 'react';
-import { CardWrapper } from "@/app/components/wrappers";
 
 import { headingFont, bodySecondaryFont} from "@/app/config/fonts";
 import { Icon } from '../Icon';
+import { CardWrapper } from '../CardWrapper';
 
 interface CardWithIconProps {
     title: string

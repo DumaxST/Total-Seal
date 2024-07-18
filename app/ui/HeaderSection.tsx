@@ -4,8 +4,8 @@ import { headingFont } from "@/app/config/fonts";
 
 
 import Link from "next/link";
-import { Button } from '../components/Button';
 import { Icon } from './Icon';
+import { Button } from './Button';
 
 interface HeaderSectionProps {
     title: string

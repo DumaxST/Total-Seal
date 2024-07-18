@@ -1,8 +1,8 @@
 "use client"
 import { FormEvent } from 'react';
-import { Button } from "@/app/components/Button";
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
+import { Button } from '../Button';
 
 
 export const FormLogin = () => {

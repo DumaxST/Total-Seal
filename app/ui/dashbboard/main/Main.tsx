@@ -5,12 +5,11 @@ import { useSession } from "next-auth/react";
 import { ProgressSpinner } from 'primereact/progressspinner';
 
 import { TableWithFilter } from "../../table/TableWithFilter";
-import { devicesColumns } from "@/app/lib/data";
-
 import { SealDevice } from "@/app/lib/definitions/device-definitions";
 
 import { setCookie } from 'cookies-next';
 import { fetchDevices } from './api/devicesApi';
+import { devicesColumns } from '@/app/lib/constants';
 
 
 export const Main = () => {

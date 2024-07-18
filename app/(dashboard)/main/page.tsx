@@ -1,7 +1,7 @@
 
-import { CardWrapper } from "@/app/components/wrappers";
 import { headingFont} from "@/app/config/fonts";
 import { Main } from '@/app/ui';
+import { CardWrapper } from "@/app/ui/CardWrapper";
 
 export default function MainPage() {
 
