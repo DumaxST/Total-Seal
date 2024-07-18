@@ -8,9 +8,9 @@ import { TableWithFilter } from "../../table/TableWithFilter";
 import { devicesColumns } from "@/app/lib/data";
 
 import { SealDevice } from "@/app/lib/definitions/device-definitions";
-import { fetchDevices } from './api/devicesApi';
 
 import { setCookie } from 'cookies-next';
+import { fetchCode, fetchDevices } from './api/devicesApi';
 
 
 export const Main = () => {
@@ -25,6 +25,7 @@ export const Main = () => {
         try {
 
            const data = await  fetchDevices(session?.user?.token ?? '');
+        
            setIsLoading(false)
 
            setDevices(data)

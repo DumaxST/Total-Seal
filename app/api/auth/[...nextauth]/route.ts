@@ -3,7 +3,7 @@ import NextAuth from "next-auth"
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
     session: {
       strategy: "jwt",
     },
@@ -67,6 +67,6 @@ const authOptions: NextAuthOptions = {
         return session;
       },
     },
-  };
-const handler = NextAuth(authOptions);
-export { handler as GET, handler as POST } 
+};
+const handler= NextAuth(authOptions);
+export { handler as GET, handler as POST} 
