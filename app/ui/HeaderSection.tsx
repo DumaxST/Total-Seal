@@ -39,7 +39,7 @@ export const HeaderSection = (props: HeaderSectionProps) => {
                 
             </div>
             <Link href={link}>
-                <Button>
+                <Button variant="secondary">
                     {textButton}
                 </Button>
             </Link>

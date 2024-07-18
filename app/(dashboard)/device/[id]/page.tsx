@@ -25,6 +25,7 @@ export default async function DeviceLayout({ params }: Props) {
   const data = await response.json();
 
   const detailDevice = await getItemFromCookies(params.id, 'devices');
+  console.log(detailDevice)
   return (
     <>
       <HeaderSection
@@ -35,7 +36,7 @@ export default async function DeviceLayout({ params }: Props) {
         link="/main"
       />
       <CardWrapper>
-        <h1>Trabajo</h1>
+       
         {detailDevice !== null && <DetailDevice imei={params.id} code={data.user_preferences.code} device={detailDevice} />}
 
       </CardWrapper>
