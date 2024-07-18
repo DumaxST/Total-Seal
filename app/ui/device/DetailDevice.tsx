@@ -28,22 +28,23 @@ export const DetailDevice = ({ imei, code, device }: DeviceProps) => {
         if (response.params && 'total_seal' in response.params) {
           const totalSeal = response.params.total_seal;
           
-          // Now you can use totalSeal to update your object
-          
+        if (totalSeal) {
+          setDeviceProps(totalSeal);
+        }
         } else {
           console.log("total_seal not found in params");
         }
       }
   
     useEffect(() => {
-        console.log(session?.user?.token)
+        
         const validateData = async (token:string='',imei: string = '') => {
-            const device = await validateImeiFromCookie(imei, 'devices')
+
+            const device = await validateImeiFromCookie(imei,'devices');
             if (device) {
                 //Hacemos el request para traer ultima conexion
                 const lastConnections = await getLastConnection(token, imei);
                 //Accedemos a la posicion 0 del arreglo de ultimas conexiones
-                console.log(lastConnections)
                 validateResponse(lastConnections)
             }
         }
@@ -58,10 +59,16 @@ export const DetailDevice = ({ imei, code, device }: DeviceProps) => {
          socket.addEventListener('message', (event) => {
              
              const { typeMessage, imei, idConnection }: ParsedString =  parseString(event.data)
-             console.log(event)
              validateData(session?.user?.token,imei)
          });
+         return () => {
+            if (socket.readyState === WebSocket.OPEN) {
+              console.log('Closing WebSocket connection');
+              socket.close();
+            }
+          };
         }
+       
          
     }, [code, session]);
 

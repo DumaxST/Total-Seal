@@ -1,3 +1,5 @@
+import { Device } from "../definitions";
+
 export interface LastConnection {
     devices: DeviceDetail[];
 }
@@ -107,6 +109,7 @@ export interface Params {
     speed:                             number;
     timestamp:                         Date;
     total_distance:                    number;
+    total_seal?:                        Device;
 }
 
 export interface Shortcut {

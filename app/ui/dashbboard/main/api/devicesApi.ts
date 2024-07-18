@@ -1,3 +1,4 @@
+import { DeviceDetail, LastConnection } from '@/app/lib/definitions/detail-device-definition';
 import { getSession } from 'next-auth/react';
 
 const URLS = {
@@ -20,7 +21,8 @@ export async function fetchDevices(token: string) {
     
     return data.seal_devices
 }
-export async function getLastConnection(token:string,imei: string){
+export async function getLastConnection(token:string,imei: string):Promise<DeviceDetail>{
+
     const response =  await fetch(`${process.env.NEXT_PUBLIC_MAPI_SG_URL}/${URLS.LAST_CONNECTION}`, {
         method: 'POST',
         headers: {
@@ -33,6 +35,6 @@ export async function getLastConnection(token:string,imei: string){
             "imeis": [imei]
         }),
       });
-        const data = await response.json();
+        const data: LastConnection  = await response.json();
         return data.devices[0]
 }

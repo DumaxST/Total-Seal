@@ -165,7 +165,7 @@ export const TableWithFilter = ( props: TableWithFilterProps) => {
     
         setCookie('devices', data)
     
-  },[])
+  },[data])
     return (
         <>
             {
