@@ -7,10 +7,15 @@ import { fetchDevices } from "@/app/ui/dashbboard/main/api/devicesApi";
 import { Suspense } from "react";
 import { devicesColumns } from '@/app/lib/constants';
 import Table from '../../ui/table/Table';
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/lib/utils/sesionConfig";
 
 export default async function MainPage() {
-  
-  const devices = await fetchDevices();
+  const session = await getServerSession(authOptions);
+  if (!session) return <div>Please sign in</div>
+
+  console.log(session)
+  const devices = await fetchDevices((session.user as { token?: string }).token || '');
   
   return (
     <div className="grid grid-cols-12 gap-4">
@@ -20,7 +25,6 @@ export default async function MainPage() {
             <Suspense fallback={<SkeletonTable/>}>
                 <Table rows={devices}/>
             </Suspense>
-            
           </CardWrapper>
       </div>
     </div>
