@@ -1,4 +1,6 @@
+"use server";
 import { DeviceDetail, LastConnection } from '@/app/lib/definitions/detail-device-definition';
+import type { Session } from 'next-auth';
 import { getSession } from 'next-auth/react';
 
 const URLS = {
@@ -7,12 +9,12 @@ const URLS = {
     LAST_CONNECTION: 'devices/2/list'
 }
 
-export async function fetchDevices(token: string) {
-
+export async function fetchDevices()  {
+    
     const res = await fetch(`${process.env.NEXT_PUBLIC_MAPI_SG_URL}/${URLS.SEAL_DEVICES}`, {
         method: 'GET',
         headers: {
-            'X-Api-Key': token,
+            'X-Api-Key': 'rNagUZGIKPTrokTPgid0QGaNXtQhyZ2Rb+C1GwVU/Cc=',
             'Content-Type': 'application/json',
             'Uuid': 'RESTFul-API',
             "App": 'RESTFul API'        }

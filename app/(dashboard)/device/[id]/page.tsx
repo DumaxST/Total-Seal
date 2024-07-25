@@ -5,6 +5,7 @@ import { getItemFromCookies } from "@/app/utils/cookies";
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/app/lib/utils/sesionConfig";
 import { CardWrapper } from '@/app/ui/CardWrapper';
+import DeviceSection from '@/app/ui/device/DeviceSection';
 
 interface Props {
   params: { id: string }
@@ -23,8 +24,11 @@ export default async function DeviceLayout({ params }: Props) {
   });
 
   const data = await response.json();
+  console.log("CODE")
+  console.log(data.user_preferences.code)
 
   const detailDevice = await getItemFromCookies(params.id, 'devices');
+
   return (
     <>
       <HeaderSection
@@ -37,7 +41,7 @@ export default async function DeviceLayout({ params }: Props) {
       <CardWrapper>
        
         {detailDevice !== null && <DetailDevice imei={params.id} code={data.user_preferences.code} device={detailDevice} />}
-
+        {/* <DeviceSection /> */}
       </CardWrapper>
     </>
 

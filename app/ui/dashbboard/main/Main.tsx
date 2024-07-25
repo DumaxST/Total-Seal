@@ -14,35 +14,54 @@ import { devicesColumns } from '@/app/lib/constants';
 
 export const Main = () => {
 
-    const { data: session } = useSession();
-    
+    const { data: session,status} = useSession();
+    console.log(status)
     const [devices, setDevices] = useState<SealDevice[] | null>(null)
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    
+    const [online, setOnline] = useState<boolean>(false);
    
     useEffect(() => {
-        const loadDevices = async () => {
-            try {
-    
-               const data = await  fetchDevices(session?.user?.token ?? '');
-            
-               setIsLoading(false)
-    
-               setDevices(data)
-               setCookie('devices', data);
-    
-            } catch (error) {
-                setError("No se han podido cargar los dispositivos")
-                setIsLoading(false)
+        
+        async function getDevices(){
+            console.log("fetchDevices")
+            if (status === "authenticated") {
+               
+                try {
+                    console.log("tyr")
+                  
+                  setIsLoading(false)
+
+                 setDevices([])
+                } catch (err) {
+                  setError(err instanceof Error ? err.message : 'An error occurred')
+                } finally {
+                  setIsLoading(false)
+                }
+              }
             }
-        }
-        if (!session) {
-           setIsLoading(false)
-           return
-        }
-        loadDevices()
-    }, [session])
+        
+            getDevices()
+        // const loadDevices = async () => {
+        //     try {
+    
+        //        const data = await  fetchDevices(session?.user?.token ?? '');
+            
+        //        setIsLoading(false)
+    
+        //        setDevices(data)
+                
+        //     } catch (error) {
+        //         setError("No se han podido cargar los dispositivos")
+        //         setIsLoading(false)
+        //     }
+        // }
+        // if (!session) {
+        //    setIsLoading(false)
+        //    return
+        // }
+        // loadDevices()
+    }, [])
 
     if (isLoading) return <div className="flex justify-center "><ProgressSpinner  /></div>
     if (error) return <div>Error: {error}</div>

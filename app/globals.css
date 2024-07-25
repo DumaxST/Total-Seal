@@ -79,13 +79,11 @@ body{
 th{
   background-color: var(--tertiary);
   color: var(--primary);
-  padding: 0.5rem 1rem;
+  padding-top: .7rem;
+  padding-bottom: .7rem;
   font-size: 0.9em;
 }
-td{
-  padding: 0.5rem 1rem;
 
-}
 .p-sortable-column-icon{
   color: var(--primary);
 }
@@ -189,4 +187,12 @@ td{
 }
 .p-progress-spinner-circle {
   stroke:#75FA4C !important;
+}
+.table-primary{
+  background-color: #F9F9F9;
+  border: solid 1px #F1F1F1
+}
+.table-secondary{
+  background-color: #FFFFFF;
+  border: solid 1px #F1F1F1
 }

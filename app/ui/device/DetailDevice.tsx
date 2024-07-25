@@ -20,7 +20,8 @@ interface DeviceProps {
 }
 
 export const DetailDevice = ({ imei, code, device }: DeviceProps) => {
-
+    console.log('CODE')
+    console.log(code)
     const [deviceProps, setDeviceProps] = useState<Device>(device);
     const { data: session } = useSession();
 
@@ -38,7 +39,7 @@ export const DetailDevice = ({ imei, code, device }: DeviceProps) => {
   
     useEffect(() => {
         
-        const validateData = async (token:string='',imei: string = '') => {
+        const validateData = async (token:string='tpWavOS6EuZVK4j5HwYRCyw0/Sn2s+V+c5uTikBU8tk=',imei: string = '') => {
 
             const device = await validateImeiFromCookie(imei,'devices');
             if (device) {
@@ -50,6 +51,9 @@ export const DetailDevice = ({ imei, code, device }: DeviceProps) => {
         }
     
         if(session){
+            console.log('CODE')
+            console.log(code)
+            console.log(`${process.env.NEXT_PUBLIC_WEBSOCKET_URL}/${code}/ws`)
          const socket = new WebSocket(`${process.env.NEXT_PUBLIC_WEBSOCKET_URL}/${code}/ws`);
       
          socket.addEventListener('open', (event) => {
