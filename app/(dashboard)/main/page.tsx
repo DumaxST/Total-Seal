@@ -11,7 +11,11 @@ import { authOptions } from "@/app/lib/utils/sesionConfig";
 import Search from "@/app/ui/Search";
 
 export default async function MainPage() {
+
   const session = await getServerSession(authOptions);
+  const query ='';
+  const currentPage = 1;
+
   if (!session) return <div>Please sign in</div>
 
   const devices = await fetchDevices((session.user as { token?: string }).token || '');
@@ -26,11 +30,11 @@ export default async function MainPage() {
           <CardWrapper>
 
             <div className="flex flex-row-reverse py-5">
-              <Search placeholder="Buscar por unidad"/>
+              <Search/>
             </div>
             
-            <Suspense fallback={<SkeletonTable/>}>
-                <Table rows={devices}/>
+            <Suspense  key={query + currentPage} fallback={<SkeletonTable/>}>
+                <Table initialData={devices}/>
             </Suspense>
           </CardWrapper>
       </div>

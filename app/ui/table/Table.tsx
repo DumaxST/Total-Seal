@@ -1,11 +1,28 @@
+"use client"
 import { Device } from '@/app/lib'
 import {bodyFont} from '@/app/config/fonts';
-
+import { useState, useEffect } from 'react';
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation';
 interface Props{
-    rows: Device[]
+    initialData: Device[]
 }
-export default function Table({rows}:Props) {
+export default function Table({initialData}:Props) {
+    
+    const [data, setData] = useState(initialData);
+    const [query, setFilter] = useState('');
+   
+    const searchParams = useSearchParams();
+    console.log(searchParams.get('query'));
+
+    useEffect(()=>{
+        const currentQuery = searchParams.get('query');
+        if(currentQuery !== null){
+            setFilter(currentQuery);
+        }
+
+    }, [searchParams])
+    
     return (
         <table className='w-full'>
             <thead>
@@ -16,7 +33,7 @@ export default function Table({rows}:Props) {
             </thead>
             <tbody>
                 {
-                    rows.map((row, index) => (
+                    data.map((row, index) => (
                         <tr key={row.imei} className={`${index % 2 == 0 ? "table-primary" : "table-secondary"}`}>
                             <td className={`${bodyFont.className} pl-4 text-xs pt-4 pb-4 `}>{row.device}</td>
                             <td>
