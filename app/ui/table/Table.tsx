@@ -7,7 +7,7 @@ interface Props{
 }
 export default function Table({rows}:Props) {
     return (
-        <table className='w-full '>
+        <table className='w-full'>
             <thead>
                 <tr>
                     <th className={`${bodyFont.className} rounded-tl pl-4 text-left	`}>Unidad</th>
@@ -33,7 +33,6 @@ export default function Table({rows}:Props) {
                         </tr>
                         ))
                 }
-               
             </tbody>
         </table>
     )
