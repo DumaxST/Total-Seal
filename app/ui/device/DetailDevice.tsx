@@ -15,14 +15,25 @@ import { DeviceDetail } from '@/app/lib/definitions/detail-device-definition';
 
 interface DeviceProps {
     imei: string
-    code?: string,
-    device: Device
+    code: string,
+    device: Device,
+    devices: Device[]
 }
-
-export const DetailDevice = ({ imei, code, device }: DeviceProps) => {
+const connectSocketServer = (code:string) => {
+    const socket = new WebSocket(`${process.env.NEXT_PUBLIC_WEBSOCKET_URL}/${code}/ws`);
+    return socket
+}
+export const DetailDevice = ({ imei, code, device , devices}: DeviceProps) => {
+    
+    const [socket] = useState(connectSocketServer(code));
+    
+    const [online,setOnline] = useState(false);
 
     const [deviceProps, setDeviceProps] = useState<Device>(device);
+
     const { data: session } = useSession();
+
+    console.log(session)
 
     function validateResponse(response: DeviceDetail) {
         if (response.params && 'total_seal' in response.params) {
@@ -34,44 +45,33 @@ export const DetailDevice = ({ imei, code, device }: DeviceProps) => {
         } else {
           console.log("total_seal not found in params");
         }
-      }
-  
+    }
     useEffect(() => {
-        
-        const validateData = async (token:string='',imei: string = '') => {
+        socket.addEventListener('open', (event) => {
+            console.log('Connected to WebSocket');
+            setOnline(true);
+        });
 
-            const device = await validateImeiFromCookie(imei,'devices');
-            if (device) {
-                //Hacemos el request para traer ultima conexion
-                const lastConnections = await getLastConnection(token, imei);
-                //Accedemos a la posicion 0 del arreglo de ultimas conexiones
-                validateResponse(lastConnections)
-            }
-        }
-    
-        if(session){
-         const socket = new WebSocket(`${process.env.NEXT_PUBLIC_WEBSOCKET_URL}/${code}/ws`);
-      
-         socket.addEventListener('open', (event) => {
-             console.log('Connected to WebSocket');
-         });
- 
-         socket.addEventListener('message', (event) => {
-             
-             const { typeMessage, imei, idConnection }: ParsedString =  parseString(event.data)
-             validateData(session?.user?.token,imei)
-         });
-         return () => {
-            if (socket.readyState === WebSocket.OPEN) {
-              console.log('Closing WebSocket connection');
-              socket.close();
-            }
-          };
-        }
-       
          
-    }, [code, session]);
-
+    }, [socket])
+    useEffect(() => {
+        function validateSealDevicesByImei (imei: string) {
+            return devices.find(device => device.imei === imei)
+        }
+        socket.addEventListener('message',async (event) => {
+             
+                      const { typeMessage, imei, idConnection }: ParsedString =  parseString(event.data)
+                      console.log('TYPE MESSAGE')
+                        console.log(imei)
+                        if(validateSealDevicesByImei(imei)){
+                            const lastConnections = await getLastConnection("xSq5cdrxyBRHuYvI65SxjSfN1M/WueQe8HG6tFNPJMU=", imei);
+                            //Accedemos a la posicion 0 del arreglo de ultimas conexiones
+                            validateResponse(lastConnections)
+                        }
+                   
+                 });
+        }, [socket,devices]);
+    
     return (
         <TabView className="shadow-lg" >
             {

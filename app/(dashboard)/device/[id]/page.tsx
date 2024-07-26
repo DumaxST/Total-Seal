@@ -1,30 +1,26 @@
-
 import { DetailDevice } from '../../../ui/device/DetailDevice';
 import { HeaderSection } from '../../../ui/HeaderSection';
 import { getItemFromCookies } from "@/app/utils/cookies";
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/app/lib/utils/sesionConfig";
 import { CardWrapper } from '@/app/ui/CardWrapper';
+import DeviceSection from '@/app/ui/device/DeviceSection';
+import { fetchDevices, getUserPreferences } from '@/app/ui/dashbboard/main/api/devicesApi';
+import { SealDevice } from '@/app/lib/definitions/device-definitions';
+import { Suspense } from 'react';
+import SkeletonDetailTable from '@/app/ui/auth/skeletons/SkeletonDetailTable';
 
 interface Props {
   params: { id: string }
 }
 export default async function DeviceLayout({ params }: Props) {
-  const session = await getServerSession(authOptions)
-
-  const response = await fetch("https://lite.dumaxst.com/v1/users/settings", {
-    method: 'GET',
-    headers: {
-      'X-Api-Key': session?.user?.token ?? '',
-      'Content-Type': 'application/json',
-      'Uuid': 'RESTFul-API',
-      "App": "RESTFul API"
-    }
-  });
-
-  const data = await response.json();
-
-  const detailDevice = await getItemFromCookies(params.id, 'devices');
+  const session = await getServerSession(authOptions);
+  console.log(session)
+  if (!session) return <div>Please sign in</div>
+  const devices = await fetchDevices((session.user as { token?: string }).token || '');
+  
+  const detailDevice = devices.find((device:SealDevice) => device.imei === params.id);
+  const userPreferences = await getUserPreferences((session.user as { token?: string }).token || '');
   return (
     <>
       <HeaderSection
@@ -35,9 +31,11 @@ export default async function DeviceLayout({ params }: Props) {
         link="/main"
       />
       <CardWrapper>
-       
-        {detailDevice !== null && <DetailDevice imei={params.id} code={data.user_preferences.code} device={detailDevice} />}
+        <Suspense fallback={<SkeletonDetailTable/>}>
+         <DetailDevice imei={params.id} device={detailDevice} code={userPreferences.user_preferences.code} devices={devices}/>
 
+        </Suspense>
+     
       </CardWrapper>
     </>
 
