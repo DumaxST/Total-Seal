@@ -15,11 +15,9 @@ interface Props {
 }
 export default async function DeviceLayout({ params }: Props) {
   const session = await getServerSession(authOptions);
-  console.log(session)
   if (!session) return <div>Please sign in</div>
   const devices = await fetchDevices((session.user as { token?: string }).token || '');
-  
-  const detailDevice = devices.find((device:SealDevice) => device.imei === params.id);
+  const detailDevice = devices.seal_devices.find((device:SealDevice) => device.imei === params.id);
   const userPreferences = await getUserPreferences((session.user as { token?: string }).token || '');
   return (
     <>
@@ -32,8 +30,7 @@ export default async function DeviceLayout({ params }: Props) {
       />
       <CardWrapper>
         <Suspense fallback={<SkeletonDetailTable/>}>
-         <DetailDevice imei={params.id} device={detailDevice} code={userPreferences.user_preferences.code} devices={devices}/>
-
+         <DetailDevice imei={params.id} device={detailDevice} code={userPreferences.user_preferences.code} devices={devices.seal_devices} token={session.user.token}/>
         </Suspense>
      
       </CardWrapper>

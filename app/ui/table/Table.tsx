@@ -5,23 +5,11 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation';
 interface Props{
-    initialData: Device[]
+    data: Device[]
 }
-export default function Table({initialData}:Props) {
-    
-    const [data, setData] = useState(initialData);
-    const [query, setFilter] = useState('');
-   
-    const searchParams = useSearchParams();
-    console.log(searchParams.get('query'));
+export default function Table({data}:Props) {
 
-    useEffect(()=>{
-        const currentQuery = searchParams.get('query');
-        if(currentQuery !== null){
-            setFilter(currentQuery);
-        }
-
-    }, [searchParams])
+    if(!data) return <h1>Sin datos</h1>
     
     return (
         <table className='w-full'>

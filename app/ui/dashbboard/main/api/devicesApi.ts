@@ -1,5 +1,5 @@
 "use server";
-import { DeviceDetail, LastConnection } from '@/app/lib/definitions/detail-device-definition';
+import {  LastConnection } from '@/app/lib/definitions/detail-device-definition';
 
 
 const URLS = {
@@ -10,7 +10,6 @@ const URLS = {
 
 
 export async function fetchDevices(key:string)  {
-    
     const res = await fetch(`${process.env.NEXT_PUBLIC_MAPI_SG_URL}/${URLS.SEAL_DEVICES}`, {
         method: 'GET',
         headers: {
@@ -20,10 +19,9 @@ export async function fetchDevices(key:string)  {
             "App": 'RESTFul API'        }
     })
     const data = await res.json();
-    
-    return data.seal_devices
+    return data
 }
-export async function getLastConnection(token:string,imei: string):Promise<DeviceDetail>{
+export async function getLastConnection(token:string,imei: string){
 
     const response =  await fetch(`${process.env.NEXT_PUBLIC_MAPI_SG_URL}/${URLS.LAST_CONNECTION}`, {
         method: 'POST',
@@ -38,7 +36,7 @@ export async function getLastConnection(token:string,imei: string):Promise<Devic
         }),
       });
         const data: LastConnection  = await response.json();
-        return data.devices[0]
+        return data
 }
 export async function getUserPreferences(key:string){
 
