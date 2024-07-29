@@ -6,10 +6,8 @@ const  alerts = [
   {
     "id": "1",
     "device": "PROTANKER2",
-    "deviceImei": "111111",
     "createdAt": "2021-08-31T19:00:00.000Z",
     "codeSeal": "123",
-    "priority": "low",
     "compartment": "1",
     "event": "Evento 1"
   }

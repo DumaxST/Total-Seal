@@ -9,7 +9,7 @@ interface Alert{
     device:string;
     createdAt: string;
     codeSeal: string;
-    priority: Priority;
+    priority?: Priority;
     compartment: string;
     event: string;
 }
