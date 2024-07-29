@@ -1,5 +1,5 @@
 
-import { headingFont} from "@/app/config/fonts";
+import { headingFont } from "@/app/config/fonts";
 import SkeletonTable from "@/app/ui/auth/skeletons/SkelonTable";
 import { CardWrapper } from "@/app/ui/CardWrapper";
 import { fetchDevices } from "@/app/ui/dashbboard/main/api/devicesApi";
@@ -12,31 +12,25 @@ import Search from "@/app/ui/Search";
 
 export default async function MainPage() {
 
-    const session = await getServerSession(authOptions);
-    if(!session) return <div>Please sign in</div>
+  const session = await getServerSession(authOptions);
+  if (!session) return <div>Please sign in</div>
 
-    const devices = await fetchDevices((session.user as { token?: string }).token || '');
-  
- 
-  const query ='';
-  const currentPage = 1;
- 
+  const devices = await fetchDevices((session.user as { token?: string }).token || '');
+
   return (
     <div className="grid grid-cols-12 gap-4">
       <div className="col-span-12">
-         <h2 className={`${headingFont.className} pb-4`}>Últimas alertas</h2>
+        <h2 className={`${headingFont.className} pb-4`}>Últimas alertas</h2>
       </div>
       <div className="col-span-12">
-          <CardWrapper>
-            {/* <div className="flex flex-row-reverse py-5">
-              <Search/>
-            </div> */}
+        <CardWrapper>
 
-            <Suspense fallback={<SkeletonTable/>}>
-              
-              <Table data={devices.seal_devices}/>
-            </Suspense>
-          </CardWrapper>
+
+          <Suspense fallback={<SkeletonTable />}>
+
+            <Table data={devices.seal_devices} />
+          </Suspense>
+        </CardWrapper>
       </div>
     </div>
   );
