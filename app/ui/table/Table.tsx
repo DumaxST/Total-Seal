@@ -1,13 +1,18 @@
+"use client"
 import { Device } from '@/app/lib'
 import {bodyFont} from '@/app/config/fonts';
-
+import { useState, useEffect } from 'react';
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation';
 interface Props{
-    rows: Device[]
+    data: Device[]
 }
-export default function Table({rows}:Props) {
+export default function Table({data}:Props) {
+
+    if(!data) return <h1>Sin datos</h1>
+    
     return (
-        <table className='w-full '>
+        <table className='w-full'>
             <thead>
                 <tr>
                     <th className={`${bodyFont.className} rounded-tl pl-4 text-left	`}>Unidad</th>
@@ -16,7 +21,7 @@ export default function Table({rows}:Props) {
             </thead>
             <tbody>
                 {
-                    rows.map((row, index) => (
+                    data.map((row, index) => (
                         <tr key={row.imei} className={`${index % 2 == 0 ? "table-primary" : "table-secondary"}`}>
                             <td className={`${bodyFont.className} pl-4 text-xs pt-4 pb-4 `}>{row.device}</td>
                             <td>
@@ -33,7 +38,6 @@ export default function Table({rows}:Props) {
                         </tr>
                         ))
                 }
-               
             </tbody>
         </table>
     )

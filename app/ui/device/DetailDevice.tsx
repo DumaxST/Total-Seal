@@ -2,76 +2,72 @@
 import { Device, ParsedString, Tank } from '@/app/lib/definitions';
 import { parseString } from '@/app/utils/main';
 import React, { useEffect, useState } from 'react';
-
 import { TabView, TabPanel } from 'primereact/tabview';
-
-
 import { bodySecondaryFont, headingFont } from '@/app/config/fonts';
-import { validateImeiFromCookie } from '@/app/utils/cookies';
 import { CardDetailDevice } from '../cards/CardDetailDevice';
 import { useSession } from "next-auth/react"
 import { getLastConnection } from '../dashbboard/main/api/devicesApi';
-import { DeviceDetail } from '@/app/lib/definitions/detail-device-definition';
 
 interface DeviceProps {
     imei: string
     code: string,
     device: Device,
-    devices: Device[]
+    devices: Device[],
+    token: string
 }
-const connectSocketServer = (code:string) => {
+const connectSocketServer = (code: string) => {
     const socket = new WebSocket(`${process.env.NEXT_PUBLIC_WEBSOCKET_URL}/${code}/ws`);
     return socket
 }
-export const DetailDevice = ({ imei, code, device , devices}: DeviceProps) => {
-    
+export const DetailDevice = ({ imei, code, device, devices, token }: DeviceProps) => {
+
     const [socket] = useState(connectSocketServer(code));
-    
-    const [online,setOnline] = useState(false);
+
+    const [online, setOnline] = useState(false);
 
     const [deviceProps, setDeviceProps] = useState<Device>(device);
 
     const { data: session } = useSession();
 
-    console.log(session)
+   
 
-    function validateResponse(response: DeviceDetail) {
-        if (response.params && 'total_seal' in response.params) {
-          const totalSeal = response.params.total_seal;
-          
-        if (totalSeal) {
-          setDeviceProps(totalSeal);
-        }
-        } else {
-          console.log("total_seal not found in params");
-        }
-    }
+
     useEffect(() => {
         socket.addEventListener('open', (event) => {
-            console.log('Connected to WebSocket');
             setOnline(true);
         });
 
-         
+
     }, [socket])
+
     useEffect(() => {
-        function validateSealDevicesByImei (imei: string) {
+        function validateResponse(response: any) {
+            const params = response.devices[0].params
+    
+            if ('total_seal' in params ) {
+               setDeviceProps(params.total_seal)
+            }
+    
+        }
+    
+        function validateSealDevicesByImei(imei: string) {
             return devices.find(device => device.imei === imei)
         }
-        socket.addEventListener('message',async (event) => {
-             
-                      const { typeMessage, imei, idConnection }: ParsedString =  parseString(event.data)
-                      console.log('TYPE MESSAGE')
-                        console.log(imei)
-                        if(validateSealDevicesByImei(imei)){
-                            const lastConnections = await getLastConnection("xSq5cdrxyBRHuYvI65SxjSfN1M/WueQe8HG6tFNPJMU=", imei);
-                            //Accedemos a la posicion 0 del arreglo de ultimas conexiones
-                            validateResponse(lastConnections)
-                        }
-                   
-                 });
-        }, [socket,devices]);
-    
+        socket.addEventListener('message', async (event) => {
+
+            const { typeMessage, imei, idConnection }: ParsedString = parseString(event.data)
+
+            if (validateSealDevicesByImei(imei)) {
+
+                const lastConnections = await getLastConnection(token, imei);
+
+                validateResponse(lastConnections)
+            }
+
+        });
+        
+    }, [socket, devices, token]);
+
     return (
         <TabView className="shadow-lg" >
             {
@@ -82,19 +78,19 @@ export const DetailDevice = ({ imei, code, device , devices}: DeviceProps) => {
                             <CardDetailDevice
                                 title="Caja Válvulas"
                                 numberCard="1"
-                                type={tank.valvebox === 'Caja de Válvulas Cerrada' ? "boxSecondary" : "boxPrimary" }
+                                type={tank.valvebox === 'Caja de Válvulas Cerrada' ? "boxSecondary" : "boxPrimary"}
                                 status={tank.valvebox === 'Caja de Válvulas Cerrada' ? 'close' : 'open'}
                             />
                             <CardDetailDevice
                                 title="Oblea"
                                 numberCard="2"
-                                type={tank.oblea === 'Oblea Cerrada' ? "boxSecondary" : "boxPrimary" }
+                                type={tank.oblea === 'Oblea Cerrada' ? "boxSecondary" : "boxPrimary"}
                                 status={tank.oblea === 'Oblea Cerrada' ? 'close' : 'open'}
                             />
                             <CardDetailDevice
                                 title="Domo"
                                 numberCard="3"
-                                type={tank.domo === 'Domo Cerrado' ? "boxSecondary" : "boxPrimary" }
+                                type={tank.domo === 'Domo Cerrado' ? "boxSecondary" : "boxPrimary"}
                                 status={tank.domo === 'Domo Cerrado' ? 'close' : 'open'}
                             />
                             <CardDetailDevice
@@ -112,8 +108,5 @@ export const DetailDevice = ({ imei, code, device , devices}: DeviceProps) => {
                 ))
             }
         </TabView>
-
-
-
     )
 }
