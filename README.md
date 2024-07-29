@@ -5,3 +5,5 @@
 crear variables de entorno
 3.Instalar dependencias```npm install ```
 4.Levantar la BD ``` docker compose up -d````
+5.Corres las migraciones de prisma con ```npx prisma migrate dev````
+6.Corres el proyecto con  ```npm run dev````
