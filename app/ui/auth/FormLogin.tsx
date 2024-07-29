@@ -16,7 +16,7 @@ export const FormLogin = () => {
       redirect: false
     });
     if (!response?.error) {
-      router.push('/main');
+      router.push('/dashboard');
       router.refresh();
     }
     

@@ -2,16 +2,19 @@ import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import { Navbar, Sidebar } from '../ui';
 import { AuthProvider } from '../ui/auth/AuthProvider';
+import { WebSocketProvider } from '../lib/context/WebsocketContext';
+import { getUserPreferences } from '../ui/dashbboard/main/api/devicesApi';
+import { useSession,  signOut} from "next-auth/react";
+import { authOptions } from '../lib/utils/sesionConfig';
 
-export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const session = await getServerSession();
-
-  if (!session) {
-    redirect('/auth/login');
-  }
-
-  return (
-    <AuthProvider>
+interface Props {
+  children: React.ReactNode;
+}
+const MainContent = async({ children }: Props) => {
+  const session = await getServerSession(authOptions);
+  const userPreferences = await getUserPreferences(session?.user.token);
+  return(
+    <WebSocketProvider  code={userPreferences?.user_preferences?.code}>
       <div className="bg-slate-100 overflow-y-scroll w-screen h-screen antialiased ">
         <div className="flex flex-col">
           <div>
@@ -25,6 +28,21 @@ export default async function DashboardLayout({ children }: { children: React.Re
           </div>
         </div>
       </div>
+    </WebSocketProvider>
+  )
+}
+export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
+  const session = await getServerSession();
+  
+  if (!session) {
+    redirect('/auth/login');
+
+  }
+  return (
+    <AuthProvider>
+      <MainContent>
+        {children}
+      </MainContent>
     </AuthProvider>
   );
 } 
