@@ -3,21 +3,31 @@ import { useState, useEffect, useRef } from 'react';
 interface WebSocketContextType {
     connectionStatus: 'connected' | 'disconnected' | 'connecting';
     handleDisconnect: () => void;
-    handleOnMessage: (message: MessageEvent) => void;
+    subscribeToMessage: (callback: (message: string) => void) => () => void ;
+
 }
 
 
-const useWebSocket = (url:string | null ) => {
+const useWebSocket = (url:string | null ): WebSocketContextType => {
 
     const [connectionStatus, setConnectionStatus] = useState<'connected' | 'disconnected' | 'connecting'>('connecting');
     const ws = useRef<WebSocket | null>(null);
     const manualDisconnect = useRef(false);
     const isReconnecting = useRef(false);
     const reconnectTimeout = useRef<NodeJS.Timeout | null>(null);
+    const messageCallback = useRef< ((message: string) => void)[]>([]);
 
-    const handleOnMessage= (message: MessageEvent) => {
-        return message
+    const onMessage= (message: string) => {
+        messageCallback.current.forEach(callback => callback(message));
+
     }
+    const subscribeToMessage = (callback: (message: string) => void) => {
+        messageCallback.current.push(callback);
+        return () => {
+            messageCallback.current = messageCallback.current.filter(cb => cb !== callback);
+        }
+    }
+
     const connect = () => {
         if (!url) return;
 
@@ -33,7 +43,11 @@ const useWebSocket = (url:string | null ) => {
             console.log('WebSocket connected');
         };
         
-        ws.current.onmessage = ( message) => handleOnMessage(message)
+        ws.current.onmessage = ( message) =>{
+            console.log(message , 'message')
+            onMessage(message.data)
+           
+        }
 
         ws.current.onerror = (event) => {
             setConnectionStatus('disconnected');
@@ -92,7 +106,7 @@ const useWebSocket = (url:string | null ) => {
     };
     
 
-    return { connectionStatus , handleDisconnect, handleOnMessage};
+    return { connectionStatus , handleDisconnect, subscribeToMessage };
 };
 
 export default useWebSocket;

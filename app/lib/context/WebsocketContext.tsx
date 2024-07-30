@@ -5,7 +5,7 @@ import useWebSocket from '../services/websocket';
 type WebSocketContextType = {
     connectionStatus: 'connected' | 'disconnected' | 'connecting';
     handleDisconnect: () => void;
-    handleOnMessage: (message: MessageEvent) => void;
+    subscribeToMessage: (callback: (message: string) => void) => () => void ;
 };
 
 const WebSocketContext = createContext<WebSocketContextType | undefined>(undefined);
@@ -17,7 +17,6 @@ type WebSocketProviderProps = {
 };
 
 export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ children, code }) => {
-    console.log(code)
     //const {preferences} = useUserPreferences();
     const url = `${process.env.NEXT_PUBLIC_WEBSOCKET_URL}/${code}/ws`;
 
@@ -27,7 +26,7 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ children, 
         return <WebSocketContext.Provider value={{ 
             connectionStatus: 'connecting', 
             handleDisconnect: webSocketHook.handleDisconnect,
-            handleOnMessage: webSocketHook.handleOnMessage
+            subscribeToMessage: webSocketHook.subscribeToMessage
         }}>
             {children}
         </WebSocketContext.Provider>
@@ -36,7 +35,7 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ children, 
     return <WebSocketContext.Provider value={{ 
         connectionStatus: webSocketHook.connectionStatus, 
         handleDisconnect: webSocketHook.handleDisconnect,
-        handleOnMessage: webSocketHook.handleOnMessage
+        subscribeToMessage: webSocketHook.subscribeToMessage
     }}>
         {children}
     </WebSocketContext.Provider>

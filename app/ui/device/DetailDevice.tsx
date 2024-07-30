@@ -7,7 +7,8 @@ import { bodySecondaryFont, headingFont } from '@/app/config/fonts';
 import { CardDetailDevice } from '../cards/CardDetailDevice';
 import { useSession } from "next-auth/react"
 import { getLastConnection } from '../dashbboard/main/api/devicesApi';
-
+import { useWebSocketContext } from '@/app/lib/context/WebsocketContext';
+import { Message } from 'primereact/message';
 interface DeviceProps {
     imei: string
    
@@ -17,13 +18,43 @@ interface DeviceProps {
 }
 
 export const DetailDevice = ({ imei,  device, devices, token }: DeviceProps) => {
+    const { subscribeToMessage } = useWebSocketContext();
+    
+    useEffect(()=>{
+        function validateResponse(response: any) {
+            const params = response.devices[0].params
+    
+            if ('total_seal' in params ) {
+               setDeviceProps(params.total_seal)
+            }
+    
+        }
+    
+        function validateSealDevicesByImei(imei: string) {
+            return devices.find(device => device.imei === imei)
+        }
+        const handleMessage = async(message:string) =>{
+            console.log({message})
+            const { typeMessage, imei, idConnection }: ParsedString = parseString(message)
 
+            if (validateSealDevicesByImei(imei)) {
 
-    const [online, setOnline] = useState(false);
+                const lastConnections = await getLastConnection(token, imei);
 
+                validateResponse(lastConnections)
+            }
+        }
+        
+        const unsubscribe = subscribeToMessage(handleMessage)
+
+        return () => {
+            unsubscribe()
+        }
+
+    },[subscribeToMessage])
+  
     const [deviceProps, setDeviceProps] = useState<Device>(device);
 
-    const { data: session } = useSession();
     useEffect(() => {
         function validateResponse(response: any) {
             const params = response.devices[0].params
