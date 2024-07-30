@@ -8,7 +8,7 @@ export default async function AuthLayout({children}: {children: React.ReactNode}
   const session = await getServerSession();
 
   if (session) {
-    redirect('/main');
+    redirect('/dashboard');
   }
   return (
     <main className={`max-w-screen max-h-screen min-h-screen heroContainer`}>
