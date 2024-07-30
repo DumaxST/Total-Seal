@@ -8,7 +8,6 @@ import { Suspense } from "react";
 import Table from '../../ui/table/Table';
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/lib/utils/sesionConfig";
-import Search from "@/app/ui/Search";
 
 export default async function MainPage() {
 

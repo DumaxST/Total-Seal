@@ -7,38 +7,53 @@ import { bodySecondaryFont, headingFont } from '@/app/config/fonts';
 import { CardDetailDevice } from '../cards/CardDetailDevice';
 import { useSession } from "next-auth/react"
 import { getLastConnection } from '../dashbboard/main/api/devicesApi';
-
+import { useWebSocketContext } from '@/app/lib/context/WebsocketContext';
+import { Message } from 'primereact/message';
 interface DeviceProps {
     imei: string
-    code: string,
+   
     device: Device,
     devices: Device[],
     token: string
 }
-const connectSocketServer = (code: string) => {
-    const socket = new WebSocket(`${process.env.NEXT_PUBLIC_WEBSOCKET_URL}/${code}/ws`);
-    return socket
-}
-export const DetailDevice = ({ imei, code, device, devices, token }: DeviceProps) => {
 
-    const [socket] = useState(connectSocketServer(code));
+export const DetailDevice = ({ imei,  device, devices, token }: DeviceProps) => {
+    const { subscribeToMessage } = useWebSocketContext();
+    
+    useEffect(()=>{
+        function validateResponse(response: any) {
+            const params = response.devices[0].params
+    
+            if ('total_seal' in params ) {
+               setDeviceProps(params.total_seal)
+            }
+    
+        }
+    
+        function validateSealDevicesByImei(imei: string) {
+            return devices.find(device => device.imei === imei)
+        }
+        const handleMessage = async(message:string) =>{
+            console.log({message})
+            const { typeMessage, imei, idConnection }: ParsedString = parseString(message)
 
-    const [online, setOnline] = useState(false);
+            if (validateSealDevicesByImei(imei)) {
 
+                const lastConnections = await getLastConnection(token, imei);
+
+                validateResponse(lastConnections)
+            }
+        }
+        
+        const unsubscribe = subscribeToMessage(handleMessage)
+
+        return () => {
+            unsubscribe()
+        }
+
+    },[subscribeToMessage])
+  
     const [deviceProps, setDeviceProps] = useState<Device>(device);
-
-    const { data: session } = useSession();
-
-   
-
-
-    useEffect(() => {
-        socket.addEventListener('open', (event) => {
-            setOnline(true);
-        });
-
-
-    }, [socket])
 
     useEffect(() => {
         function validateResponse(response: any) {
@@ -53,20 +68,9 @@ export const DetailDevice = ({ imei, code, device, devices, token }: DeviceProps
         function validateSealDevicesByImei(imei: string) {
             return devices.find(device => device.imei === imei)
         }
-        socket.addEventListener('message', async (event) => {
-
-            const { typeMessage, imei, idConnection }: ParsedString = parseString(event.data)
-
-            if (validateSealDevicesByImei(imei)) {
-
-                const lastConnections = await getLastConnection(token, imei);
-
-                validateResponse(lastConnections)
-            }
-
-        });
+       
         
-    }, [socket, devices, token]);
+    }, [devices, token]);
 
     return (
         <TabView className="shadow-lg" >
