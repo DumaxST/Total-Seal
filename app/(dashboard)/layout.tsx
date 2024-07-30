@@ -4,7 +4,6 @@ import { Navbar, Sidebar } from '../ui';
 import { AuthProvider } from '../ui/auth/AuthProvider';
 import { WebSocketProvider } from '../lib/context/WebsocketContext';
 import { getUserPreferences } from '../ui/dashbboard/main/api/devicesApi';
-import { useSession,  signOut} from "next-auth/react";
 import { authOptions } from '../lib/utils/sesionConfig';
 
 interface Props {

@@ -1,15 +1,29 @@
 import { headingFont } from "@/app/config/fonts";
 import { CardWithIcon } from "@/app/ui/cards/CardWithIcon";
 import { CardWrapper } from "@/app/ui/CardWrapper";
-import { TableDevices } from '../../ui/devices/TableDevices';
-const  alerts = [
+import { Alert, TableDevices } from '../../ui/devices/TableDevices';
+const  alerts:Alert[] = [
   {
-    "id": "1",
-    "device": "PROTANKER2",
-    "createdAt": "2021-08-31T19:00:00.000Z",
-    "codeSeal": "123",
-    "compartment": "1",
-    "event": "Evento 1"
+    id: "1",
+    device: "PROTANKER2",
+    idDevice: "860186054123977",
+    createdAt: "19/03/2023 | 06:35:23",
+    codeSeal: "169253",
+    compartment: "1",
+    event: "Evento 1",
+    priority: 'high',
+    
+  },
+  {
+    id: "1",
+    device: "PEMEX01426",
+    idDevice: "866770059347576",
+    createdAt: "19/03/2023 | 06:35:23",
+    codeSeal: "169252",
+    compartment: "1",
+    event: "Evento 1",
+    priority: 'low',
+
   }
 ]
 export default function DashboardPage() {
@@ -19,21 +33,21 @@ export default function DashboardPage() {
           <div className="grid grid-cols-subgrid gap-4 col-span-4">
             <div className="col-start-1 col-end-3">
               <CardWithIcon
-                title="30"
+                title="2"
                 subtitle="Unidades"
                 icon="unidades"
               />
             </div>
             <div className="col-start-3 col-end-6">
               <CardWithIcon
-                title="25"
+                title="2"
                 subtitle="Remolque"
                 icon="unidad-pipa"
               />
             </div>
             <div className="col-start-1 col-end-3">
             <CardWithIcon
-              title="18"
+              title="2"
               subtitle="Remolques con contenido"
               icon="contenido"
             />
@@ -55,9 +69,10 @@ export default function DashboardPage() {
     
           <div className="col-span-8">
               <CardWrapper>
+                <h3 className={`${headingFont.className} pb-4 `}>Últimas alertas</h3>
                 <TableDevices alerts={alerts}/>
               </CardWrapper>
-                {/* <h3 className={`${headingFont.className} pb-4 `}>Últimas alertas</h3>
+                {/* 
                 <Suspense fallback={<TableSkeleton  columns={devicesColumns} />} >
                   <TableWithFilter 
                     data={devices} 
