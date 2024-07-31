@@ -1,14 +1,24 @@
 'use server'
 
 import { prismaDb } from "../db/prisma"
- 
-export const getLastsAlert = async()=>{
+
+interface PaginationOptions{
+    take : number;
+    page : number;
+
+}
+export const getPaginatedAlerts = async({take, page}: PaginationOptions)=>{
+    if ( isNaN(Number(page))) page = 1;
+    if ( page < 1 ) page = 1;
+
     try {
-        const lastAlerts = await prismaDb.alert.findMany({})
+        const lastAlerts = await prismaDb.alert.findMany({
+            take:take,
+            skip: (page - 1 ) * take,
+        })
         return lastAlerts
     } catch (error) {
-        console.log(error)
-        return []
+       throw new Error('No se pudo cargar las alertas')
     }
 
 }

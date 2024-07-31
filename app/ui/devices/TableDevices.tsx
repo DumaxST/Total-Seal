@@ -37,8 +37,6 @@ export const TableDevices = ({alerts}:Props) => {
     </Link>
   )
 
-  
-
   return (
     <DataTable 
     value={alerts} 
