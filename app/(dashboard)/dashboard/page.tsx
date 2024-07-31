@@ -1,32 +1,41 @@
 import { headingFont } from "@/app/config/fonts";
 import { CardWithIcon } from "@/app/ui/cards/CardWithIcon";
 import { CardWrapper } from "@/app/ui/CardWrapper";
-import { Alert, TableDevices } from '../../ui/devices/TableDevices';
-const  alerts:Alert[] = [
-  {
-    id: "1",
-    device: "PROTANKER2",
-    idDevice: "860186054123977",
-    createdAt: "19/03/2023 | 06:35:23",
-    codeSeal: "169253",
-    compartment: "1",
-    event: "Evento 1",
-    priority: 'high',
-    
-  },
-  {
-    id: "1",
-    device: "PEMEX01426",
-    idDevice: "866770059347576",
-    createdAt: "19/03/2023 | 06:35:23",
-    codeSeal: "169252",
-    compartment: "1",
-    event: "Evento 1",
-    priority: 'low',
+import {TableDevices } from '../../ui/devices/TableDevices';
+import { getLastsAlert } from "@/app/lib/actions/alert-action";
+import { Suspense } from "react";
+import TableSkeleton from "@/app/ui/auth/skeletons/TableSkeleton";
+import { devicesColumns } from "@/app/lib/constants";
+import SkeletonTable from '@/app/ui/auth/skeletons/SkelonTable';
+import { Alert } from "@/app/lib/definitions/alert-definition";
 
-  }
-]
-export default function DashboardPage() {
+// const  alerts:Alert[] = [
+//   {
+//     id: "1",
+//     device: "PROTANKER2",
+//     idDevice: "860186054123977",
+//     createdAt: "19/03/2023 | 06:35:23",
+//     codeSeal: "169253",
+//     compartment: "1",
+//     event: "Evento 1",
+//     priority: 'high',
+    
+//   },
+//   {
+//     id: "1",
+//     device: "PEMEX01426",
+//     idDevice: "866770059347576",
+//     createdAt: "19/03/2023 | 06:35:23",
+//     codeSeal: "169252",
+//     compartment: "1",
+//     event: "Evento 1",
+//     priority: 'low',
+
+//   }
+// ]
+export default async function DashboardPage() {
+  const alerts = await getLastsAlert();
+  
   return (
     <div className="grid grid-cols-12 gap-4">
      
@@ -68,24 +77,15 @@ export default function DashboardPage() {
           </div> 
     
           <div className="col-span-8">
+
               <CardWrapper>
                 <h3 className={`${headingFont.className} pb-4 `}>Últimas alertas</h3>
-                <TableDevices alerts={alerts}/>
+                {/* TODO: -refactor loading state */}
+                <Suspense fallback={<p>loading....</p>} >
+                  <TableDevices alerts={alerts}/>
+                </Suspense>
               </CardWrapper>
-                {/* 
-                <Suspense fallback={<TableSkeleton  columns={devicesColumns} />} >
-                  <TableWithFilter 
-                    data={devices} 
-                    columns={devicesColumns}
-                    showActions={true}
-                    textButtonAction="Ver actividad"
-                    linkHref="/device"
-                    />
-                  </Suspense>
-              </CardWrapper> */}
-    
           </div>
-    
         </div>
   );
 }

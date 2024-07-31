@@ -23,10 +23,7 @@ export default async function MainPage() {
       </div>
       <div className="col-span-12">
         <CardWrapper>
-
-
           <Suspense fallback={<SkeletonTable />}>
-
             <Table data={devices.seal_devices} />
           </Suspense>
         </CardWrapper>

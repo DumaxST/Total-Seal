@@ -11,7 +11,7 @@ interface Props {
 export default function Table({ data }: Props) {
     const [devices, setDevices] = useState<Device[]>(data);
 
-    if (!devices) return <h1>Sin datos</h1>
+    
     const handleSearch = (term: string) => {
         if (term) {
             const search = devices.filter((device) => device.device.toLowerCase().includes(term.toLowerCase()));
