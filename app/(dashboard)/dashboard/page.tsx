@@ -6,6 +6,7 @@ import { getPaginatedAlerts } from "@/app/lib/actions/alert-action";
 import { Suspense } from "react";
 import { Alert } from "@/app/lib/definitions/alert-definition";
 import { redirect} from "next/navigation";
+import { Pagination } from "@/app/ui";
 
 interface Props{
   searchParams:{
@@ -16,7 +17,7 @@ interface Props{
 export default async function DashboardPage({searchParams}:Props) {
  
   const page = searchParams.page ? parseInt(searchParams.page) : 1;
-  const take = searchParams.take ? parseInt(searchParams.take) : 2;
+  const take = searchParams.take ? parseInt(searchParams.take) : 10;
 
   const {currentPage, totalPages, alerts} = await getPaginatedAlerts({take:take, page:page});
   console.log(currentPage, totalPages)
@@ -70,6 +71,11 @@ export default async function DashboardPage({searchParams}:Props) {
                 {/* TODO: -refactor loading state */}
                 <Suspense fallback={<p>loading....</p>} >
                   <TableDevices alerts={alerts}/>
+                  <div className="flex justify-between mt-8">
+                  <p className="text-tertiary">Mostrando 1 a 10 de 30 entradas</p>
+                  <Pagination/>
+
+                  </div>
                 </Suspense>
               </CardWrapper>
           </div>

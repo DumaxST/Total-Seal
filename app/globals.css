@@ -196,3 +196,6 @@ th{
   background-color: #FFFFFF;
   border: solid 1px #F1F1F1
 }
+.text-tertiary{
+  color: var(--tertiary);
+}
