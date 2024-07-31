@@ -4,10 +4,8 @@ import { CardWrapper } from "@/app/ui/CardWrapper";
 import {TableDevices } from '../../ui/devices/TableDevices';
 import { getPaginatedAlerts } from "@/app/lib/actions/alert-action";
 import { Suspense } from "react";
-import TableSkeleton from "@/app/ui/auth/skeletons/TableSkeleton";
-import { devicesColumns } from "@/app/lib/constants";
-import SkeletonTable from '@/app/ui/auth/skeletons/SkelonTable';
 import { Alert } from "@/app/lib/definitions/alert-definition";
+import { redirect} from "next/navigation";
 
 interface Props{
   searchParams:{
@@ -20,7 +18,11 @@ export default async function DashboardPage({searchParams}:Props) {
   const page = searchParams.page ? parseInt(searchParams.page) : 1;
   const take = searchParams.take ? parseInt(searchParams.take) : 2;
 
-  const alerts: Alert[] = await getPaginatedAlerts({take:take, page:page});
+  const {currentPage, totalPages, alerts} = await getPaginatedAlerts({take:take, page:page});
+  console.log(currentPage, totalPages)
+  if(alerts.length === 0){
+    redirect('/');
+  }
   
   return (
     <div className="grid grid-cols-12 gap-4">

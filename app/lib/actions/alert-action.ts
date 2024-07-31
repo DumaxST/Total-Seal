@@ -12,11 +12,19 @@ export const getPaginatedAlerts = async({take, page}: PaginationOptions)=>{
     if ( page < 1 ) page = 1;
 
     try {
-        const lastAlerts = await prismaDb.alert.findMany({
+        const alerts = await prismaDb.alert.findMany({
             take:take,
             skip: (page - 1 ) * take,
         })
-        return lastAlerts
+
+        const totalCount = await prismaDb.alert.count({})
+        const totalPages = Math.ceil(totalCount / take)
+        
+        return {
+            currentPage: page,
+            totalPages,
+            alerts
+        }
     } catch (error) {
        throw new Error('No se pudo cargar las alertas')
     }
