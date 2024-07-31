@@ -1,4 +1,4 @@
-type Priority = 'LOW'|'HIGHT';
+type PriorityAlert = 'LOW'|'HIGH';
 type Compartment = 'ONE'|'TWO'|'THREE' ;
 
 export interface Alert{
@@ -7,7 +7,7 @@ export interface Alert{
     idDevice:string;
     createdAt: Date;
     codeSeal: string;
-    priority: Priority;
+    priority: PriorityAlert;
     compartment: Compartment;
     event: string;
 }

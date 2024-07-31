@@ -16,7 +16,7 @@ enum PriorityAlert{
   LOW
   HIGH
 }
-enum Compartiment{
+enum Compartment{
   ONE
   TWO
   THREE
@@ -29,7 +29,7 @@ model Alert{
   createdAt   DateTime @default(now())
   codeSeal String
   priority PriorityAlert
-  compartiment Compartiment
+  compartment Compartment
   event String
 
   @@index([idDevice])

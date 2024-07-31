@@ -9,30 +9,6 @@ import { devicesColumns } from "@/app/lib/constants";
 import SkeletonTable from '@/app/ui/auth/skeletons/SkelonTable';
 import { Alert } from "@/app/lib/definitions/alert-definition";
 
-// const  alerts:Alert[] = [
-//   {
-//     id: "1",
-//     device: "PROTANKER2",
-//     idDevice: "860186054123977",
-//     createdAt: "19/03/2023 | 06:35:23",
-//     codeSeal: "169253",
-//     compartment: "1",
-//     event: "Evento 1",
-//     priority: 'high',
-    
-//   },
-//   {
-//     id: "1",
-//     device: "PEMEX01426",
-//     idDevice: "866770059347576",
-//     createdAt: "19/03/2023 | 06:35:23",
-//     codeSeal: "169252",
-//     compartment: "1",
-//     event: "Evento 1",
-//     priority: 'low',
-
-//   }
-// ]
 export default async function DashboardPage() {
   const alerts = await getLastsAlert();
   

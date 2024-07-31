@@ -5,7 +5,7 @@ import { bodyFont } from "@/app/config/fonts";
 import { Tag } from "primereact/tag";
 import Link from "next/link";
 import { Alert } from "@/app/lib/definitions/alert-definition";
-
+import { formatDate } from "@/app/lib/utils/date-utils"; 
 interface Props{
     alerts: Alert[]
 }
@@ -13,14 +13,14 @@ export const TableDevices = ({alerts}:Props) => {
   
   const priorityLabel ={
     LOW: "Baja",
-    HIGHT: "Alta"
+    HIGH: "Alta"
   };
 
   const deviceBodyTemplate = (rowData:Alert) => (
     <span  className={`${bodyFont.className} text-xs`}>{rowData.device}</span>
   );
   const dateBodyTemplate = (rowData:Alert) =>(
-    <span  className={`${bodyFont.className} text-xs`}>{rowData.createdAt.toString()}</span>
+    <span  className={`${bodyFont.className} text-xs`}>{ formatDate(rowData.createdAt)}</span>
   );
   const priorityBodyTemplate = (rowData:Alert) => (
     <Tag  className={`${bodyFont.className} text-xs`} severity={rowData.priority === 'LOW'?  "success" : "danger"} value={priorityLabel[rowData.priority]}/>
@@ -36,10 +36,8 @@ export const TableDevices = ({alerts}:Props) => {
       </button>
     </Link>
   )
+
   
-  if (alerts.length === 0) {
-    return <div className="flex justify-center">Sin alertas registradas</div>
-  }
 
   return (
     <DataTable 
