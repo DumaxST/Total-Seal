@@ -2,13 +2,14 @@
 import { Device, ParsedString, Tank } from '@/app/lib/definitions';
 import { parseString } from '@/app/utils/main';
 import React, { useEffect, useState } from 'react';
-import { TabView, TabPanel } from 'primereact/tabview';
+import { TabView, TabPanel, TabPanelHeaderTemplateOptions } from 'primereact/tabview';
 import { bodySecondaryFont, headingFont } from '@/app/config/fonts';
 import { CardDetailDevice } from '../cards/CardDetailDevice';
 import { useSession } from "next-auth/react"
 import { getLastConnection } from '../dashbboard/main/api/devicesApi';
 import { useWebSocketContext } from '@/app/lib/context/WebsocketContext';
-import { Message } from 'primereact/message';
+import { clsx } from 'clsx';
+
 interface DeviceProps {
     imei: string
    
@@ -44,7 +45,8 @@ export const DetailDevice = ({ imei,  device, devices, token }: DeviceProps) => 
                 validateResponse(lastConnections)
             }
         }
-        
+       
+    
         const unsubscribe = subscribeToMessage(handleMessage)
 
         return () => {
@@ -55,28 +57,27 @@ export const DetailDevice = ({ imei,  device, devices, token }: DeviceProps) => 
   
     const [deviceProps, setDeviceProps] = useState<Device>(device);
 
-    useEffect(() => {
-        function validateResponse(response: any) {
-            const params = response.devices[0].params
+   
     
-            if ('total_seal' in params ) {
-               setDeviceProps(params.total_seal)
-            }
-    
-        }
-    
-        function validateSealDevicesByImei(imei: string) {
-            return devices.find(device => device.imei === imei)
-        }
-       
-        
-    }, [devices, token]);
-
+    const tabHeaderTemplate = (options: TabPanelHeaderTemplateOptions,title:number) => {
+        return (
+            <div className={`flex align-items-center gap-2 p-3 rounded-t-lg border border-[#F4F4F4] ${bodySecondaryFont.className}`} style={{ cursor: 'pointer' }} onClick={options.onClick}>
+                <span className={
+                    clsx(
+                        "white-space-nowrap",
+                        {
+                            "font-bold ": options.selected === true
+                        }
+                    )
+                }>Compartimento {title}</span>
+            </div>
+        );
+    };
     return (
         <TabView className="shadow-lg" >
             {
                 deviceProps.tanks.map((tank: Tank, indx) => (
-                    <TabPanel key={tank.tanknumber} header={`Tanque ${tank.tanknumber}`}>
+                    <TabPanel key={tank.tanknumber}  headerTemplate={(e)=>tabHeaderTemplate(e,tank.tanknumber)}>
                         <div className="grid lg:grid-cols-5 md:grid-cols-2 gap-4">
 
                             <CardDetailDevice
