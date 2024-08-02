@@ -70,7 +70,7 @@ export default async function DashboardPage({searchParams}:Props) {
               <CardWrapper>
                 <h3 className={`${headingFont.className} pb-4 `}>Últimas alertas</h3>
                 {/* TODO: -refactor loading state */}
-                <Suspense fallback={<p>loading....</p>} >
+                <Suspense fallback={ <SkeletonDashBoardTable/>} >
                   <TableDevices alerts={alerts}/>
                   <div className="flex justify-between mt-8">
                   <p className="text-tertiary">{`Mostrando ${page == 1 ? '1' : page } a ${page == 1 ? take : (page * take ) } de ${totalCount} entradas`}</p>
@@ -78,15 +78,7 @@ export default async function DashboardPage({searchParams}:Props) {
                   </div>
                 </Suspense>
               </CardWrapper>
-      </div>
-
-      <div className="col-span-12">
-        <CardWrapper>
-          <SkeletonDashBoardTable/>
-
-          </CardWrapper>
-      </div>
-        
+      </div> 
 
         </div>
   );
