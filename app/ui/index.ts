@@ -5,3 +5,5 @@ export * from "./table/TableWithFilter";
 
 export * from "./devices/TableDevices";
 export * from "./pagination/Pagination";
+
+export * from "./skeletons/SkeletonDashbboardTable/SkeletonDashBoardTable";

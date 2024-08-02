@@ -1,6 +1,6 @@
 
 import { headingFont } from "@/app/config/fonts";
-import SkeletonTable from "@/app/ui/auth/skeletons/SkelonTable";
+import SkeletonTable from "@/app/ui/skeletons/SkelonTable";
 import { CardWrapper } from "@/app/ui/CardWrapper";
 import { fetchDevices } from "@/app/ui/dashbboard/main/api/devicesApi";
 import { Suspense } from "react";

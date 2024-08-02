@@ -6,7 +6,7 @@ import { getPaginatedAlerts } from "@/app/lib/actions/alert-action";
 import { Suspense } from "react";
 import { Alert } from "@/app/lib/definitions/alert-definition";
 import { redirect} from "next/navigation";
-import { Pagination } from "@/app/ui";
+import { Pagination, SkeletonDashBoardTable } from "@/app/ui";
 
 interface Props{
   searchParams:{
@@ -63,9 +63,9 @@ export default async function DashboardPage({searchParams}:Props) {
                 <HorizontalBar/>
               </CardWrapper>
              </div> */}
-          </div> 
+      </div> 
     
-          <div className="col-span-8">
+      <div className="col-span-8">
 
               <CardWrapper>
                 <h3 className={`${headingFont.className} pb-4 `}>Últimas alertas</h3>
@@ -75,11 +75,19 @@ export default async function DashboardPage({searchParams}:Props) {
                   <div className="flex justify-between mt-8">
                   <p className="text-tertiary">{`Mostrando ${page == 1 ? '1' : page } a ${page == 1 ? take : (page * take ) } de ${totalCount} entradas`}</p>
                   <Pagination totalPages={totalPages}/>
-
                   </div>
                 </Suspense>
               </CardWrapper>
-          </div>
+      </div>
+
+      <div className="col-span-12">
+        <CardWrapper>
+          <SkeletonDashBoardTable/>
+
+          </CardWrapper>
+      </div>
+        
+
         </div>
   );
 }

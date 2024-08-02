@@ -8,7 +8,7 @@ import DeviceSection from '@/app/ui/device/DeviceSection';
 import { fetchDevices } from '@/app/ui/dashbboard/main/api/devicesApi';
 import { SealDevice } from '@/app/lib/definitions/device-definitions';
 import { Suspense } from 'react';
-import SkeletonDetailTable from '@/app/ui/auth/skeletons/SkeletonDetailTable';
+import SkeletonDetailTable from '@/app/ui/skeletons/SkeletonDetailTable';
 
 interface Props {
   params: { id: string }
