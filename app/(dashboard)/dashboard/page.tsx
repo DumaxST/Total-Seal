@@ -20,7 +20,6 @@ export default async function DashboardPage({searchParams}:Props) {
   const take = searchParams.take ? parseInt(searchParams.take) : 10;
 
   const {currentPage, totalPages,totalCount, alerts} = await getPaginatedAlerts({take:take, page:page});
-  console.log(currentPage, totalPages)
   
   if(alerts.length === 0){
     redirect('/');
