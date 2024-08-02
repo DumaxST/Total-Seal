@@ -17,16 +17,16 @@ export const TableDevices = ({alerts}:Props) => {
   };
 
   const deviceBodyTemplate = (rowData:Alert) => (
-    <span  className={`${bodyFont.className} text-xs`}>{rowData.device}</span>
+    <span  className={`${bodyFont.className} text-xs black-200`}>{rowData.device}</span>
   );
   const dateBodyTemplate = (rowData:Alert) =>(
-    <span  className={`${bodyFont.className} text-xs`}>{ formatDate(rowData.createdAt)}</span>
+    <span  className={`${bodyFont.className} text-xs black-200`}>{ formatDate(rowData.createdAt)}</span>
   );
   const priorityBodyTemplate = (rowData:Alert) => (
-    <Tag  className={`${bodyFont.className} text-xs`} severity={rowData.priority === 'LOW'?  "success" : "danger"} value={priorityLabel[rowData.priority]}/>
+    <Tag  className={`${bodyFont.className} text-xs `} severity={rowData.priority === 'LOW'?  "success" : "danger"} value={priorityLabel[rowData.priority]}/>
   )
   const codeSealBodyTemplate = (rowData:Alert) => (
-    <span  className={`${bodyFont.className} text-xs`}>{rowData.codeSeal}</span>
+    <span  className={`${bodyFont.className} text-xs black-200`}>{rowData.codeSeal}</span>
   )
 
   const actionBodyTemplate = (rowData:Alert) => (

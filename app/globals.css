@@ -29,6 +29,8 @@
   --gray-200: #F7F7F7;
   --gray-300: #E8E8E8;
 
+  --black-200: #272727;
+
  
 }
 body{
@@ -198,4 +200,7 @@ th{
 }
 .text-tertiary{
   color: var(--tertiary);
+}
+.table-primary{
+  color: var(--black-200);
 }

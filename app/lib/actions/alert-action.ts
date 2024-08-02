@@ -23,6 +23,7 @@ export const getPaginatedAlerts = async({take, page}: PaginationOptions)=>{
         return {
             currentPage: page,
             totalPages,
+            totalCount,
             alerts
         }
     } catch (error) {

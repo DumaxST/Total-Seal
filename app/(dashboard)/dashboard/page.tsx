@@ -19,8 +19,9 @@ export default async function DashboardPage({searchParams}:Props) {
   const page = searchParams.page ? parseInt(searchParams.page) : 1;
   const take = searchParams.take ? parseInt(searchParams.take) : 10;
 
-  const {currentPage, totalPages, alerts} = await getPaginatedAlerts({take:take, page:page});
+  const {currentPage, totalPages,totalCount, alerts} = await getPaginatedAlerts({take:take, page:page});
   console.log(currentPage, totalPages)
+  
   if(alerts.length === 0){
     redirect('/');
   }
@@ -72,8 +73,8 @@ export default async function DashboardPage({searchParams}:Props) {
                 <Suspense fallback={<p>loading....</p>} >
                   <TableDevices alerts={alerts}/>
                   <div className="flex justify-between mt-8">
-                  <p className="text-tertiary">Mostrando 1 a 10 de 30 entradas</p>
-                  <Pagination/>
+                  <p className="text-tertiary">{`Mostrando ${page == 1 ? '1' : page } a ${page == 1 ? take : (page * take ) } de ${totalCount} entradas`}</p>
+                  <Pagination totalPages={totalPages}/>
 
                   </div>
                 </Suspense>
