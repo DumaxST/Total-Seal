@@ -1,7 +1,7 @@
 'use server'
 
+import { Alert } from "@prisma/client";
 import { prismaDb } from "../db/prisma"
-import { Alert } from "../definitions/alert-definition";
 
 interface PaginationOptions{
     take : number;
