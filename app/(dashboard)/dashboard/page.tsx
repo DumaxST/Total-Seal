@@ -68,7 +68,6 @@ export default async function DashboardPage({searchParams}:Props) {
 
               <CardWrapper>
                 <h3 className={`${headingFont.className} pb-4 `}>Últimas alertas</h3>
-                {/* TODO: -refactor loading state */}
                 <Suspense fallback={ <SkeletonDashBoardTable/>} >
                   <TableDevices alerts={alerts}/>
                   <div className="flex justify-between mt-8">

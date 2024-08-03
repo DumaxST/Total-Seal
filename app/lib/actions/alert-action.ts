@@ -1,13 +1,14 @@
 'use server'
 
 import { prismaDb } from "../db/prisma"
+import { Alert } from "../definitions/alert-definition";
 
 interface PaginationOptions{
     take : number;
     page : number;
 
 }
-export const getPaginatedAlerts = async({take, page}: PaginationOptions)=>{
+export const getPaginatedAlerts = async({take, page}: PaginationOptions):Promise<{currentPage:number,totalPages:number,totalCount:number, alerts:Alert[] }>=>{
     if ( isNaN(Number(page))) page = 1;
     if ( page < 1 ) page = 1;
 
