@@ -38,7 +38,8 @@ export const getPaginatedAlerts = async({take, page}: PaginationOptions)=>{
             totalCount,
             alerts
         }
-    } catch (error) {
+    } catch (error:any) {
+        console.log(error)
        throw new Error('No se pudo cargar las alertas')
     }
 
