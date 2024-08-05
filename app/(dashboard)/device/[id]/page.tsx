@@ -9,6 +9,8 @@ import { fetchDevices } from '@/app/ui/dashbboard/main/api/devicesApi';
 import { SealDevice } from '@/app/lib/definitions/device-definitions';
 import { Suspense } from 'react';
 import SkeletonDetailTable from '@/app/ui/skeletons/SkeletonDetailTable';
+import TableDevice from '@/app/ui/device/tableDevice/TableDevice';
+import { getAlertsByDeviceId } from '@/app/lib/actions/alert-action';
 
 interface Props {
   params: { id: string }
@@ -18,6 +20,9 @@ export default async function DeviceLayout({ params }: Props) {
   if (!session) return <div>Please sign in</div>
   const devices = await fetchDevices((session.user as { token?: string }).token || '');
   const detailDevice = devices.seal_devices.find((device:SealDevice) => device.imei === params.id);
+
+  const alertsDevice = await getAlertsByDeviceId(params.id);
+
   return (
     <>
       <HeaderSection
@@ -31,7 +36,9 @@ export default async function DeviceLayout({ params }: Props) {
         <Suspense fallback={<SkeletonDetailTable/>}>
          <DetailDevice imei={params.id} device={detailDevice} devices={devices.seal_devices} token={session.user.token}/>
         </Suspense>
-     
+        <Suspense fallback={<p>Cargando</p>}>
+          <TableDevice detailAlert={alertsDevice}/>
+        </Suspense>
       </CardWrapper>
     </>
 

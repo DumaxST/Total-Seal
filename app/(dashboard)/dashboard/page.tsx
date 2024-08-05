@@ -22,7 +22,7 @@ export default async function DashboardPage({searchParams}:Props) {
   const {currentPage, totalPages,totalCount, alerts} = await getPaginatedAlerts({take:take, page:page});
   
   if(alerts.length === 0){
-    redirect('/');
+   // redirect('/');
   }
   
   return (
@@ -65,7 +65,6 @@ export default async function DashboardPage({searchParams}:Props) {
       </div> 
     
       <div className="col-span-8">
-
               <CardWrapper>
                 <h3 className={`${headingFont.className} pb-4 `}>Últimas alertas</h3>
                 <Suspense fallback={ <SkeletonDashBoardTable/>} >

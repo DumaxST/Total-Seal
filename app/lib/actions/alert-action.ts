@@ -38,8 +38,34 @@ export const getPaginatedAlerts = async({take, page}: PaginationOptions)=>{
             totalCount,
             alerts
         }
-    } catch (error) {
+    } catch (error:any) {
+        console.log(error)
        throw new Error('No se pudo cargar las alertas')
     }
 
+}
+
+export const getAlertsByDeviceId = async (idDevice: string) => {
+    try {
+        const alertsTmp = await prismaDb.alert.findMany({
+            where: {
+                idDevice: idDevice
+            }
+        })
+        return alertsTmp.map((alert) => {
+            return {
+                id: alert.id,
+                device: alert.device,
+                idDevice: alert.idDevice,
+                createdAt: alert.createdAt,
+                codeSeal: alert.codeSeal,
+                priority: alert.priority,
+                compartment: alert.compartment,
+                event: alert.event
+            }
+        })
+    
+    } catch (error) {
+        throw new Error('No se pudo cargar las alertas')
+    }
 }

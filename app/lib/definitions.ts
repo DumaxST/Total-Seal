@@ -65,6 +65,7 @@ export interface Tank {
     productstatus:string;
 }
 export interface Device {
+    datetime: Date;
     imei: string;
     report :string;
     device:string;
