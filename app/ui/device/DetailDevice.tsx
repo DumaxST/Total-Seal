@@ -9,6 +9,8 @@ import { useSession } from "next-auth/react"
 import { getLastConnection } from '../dashbboard/main/api/devicesApi';
 import { useWebSocketContext } from '@/app/lib/context/WebsocketContext';
 import { clsx } from 'clsx';
+import { CardWrapper } from '../CardWrapper';
+import { formatDate } from '@/app/lib/utils/date-utils';
 
 interface DeviceProps {
     imei: string
@@ -19,6 +21,7 @@ interface DeviceProps {
 }
 
 export const DetailDevice = ({ imei,  device, devices, token }: DeviceProps) => {
+    console.log({device})
     const { subscribeToMessage } = useWebSocketContext();
     
     useEffect(()=>{
@@ -74,7 +77,8 @@ export const DetailDevice = ({ imei,  device, devices, token }: DeviceProps) => 
         );
     };
     return (
-        <TabView className="shadow-lg" >
+        <CardWrapper>
+             <TabView className="" >
             {
                 deviceProps.tanks.map((tank: Tank, indx) => (
                     <TabPanel key={tank.tanknumber}  headerTemplate={(e)=>tabHeaderTemplate(e,tank.tanknumber)}>
@@ -113,5 +117,9 @@ export const DetailDevice = ({ imei,  device, devices, token }: DeviceProps) => 
                 ))
             }
         </TabView>
+        <p className={`${bodySecondaryFont.className} text-center mt-5 text-base`}>  <b> Última actividad: </b>{ formatDate( new Date(device.datetime))}</p>
+
+        </CardWrapper>
+       
     )
 }

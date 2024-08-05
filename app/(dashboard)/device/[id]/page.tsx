@@ -31,7 +31,6 @@ export default async function DeviceLayout({ params }: Props) {
         <Suspense fallback={<SkeletonDetailTable/>}>
          <DetailDevice imei={params.id} device={detailDevice} devices={devices.seal_devices} token={session.user.token}/>
         </Suspense>
-     
       </CardWrapper>
     </>
 
