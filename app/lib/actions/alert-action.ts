@@ -1,6 +1,5 @@
 'use server'
 
-import { Alert } from "@prisma/client";
 import { prismaDb } from "../db/prisma"
 
 interface PaginationOptions{
@@ -18,7 +17,7 @@ export const getPaginatedAlerts = async({take, page}: PaginationOptions)=>{
             take:take,
             skip: (page - 1 ) * take,
         })
-        const alerts = alertsTmp.map((alert: Alert ) => {
+        const alerts = alertsTmp.map((alert ) => {
             return {
                 id: alert.id,
                 device: alert.device,
