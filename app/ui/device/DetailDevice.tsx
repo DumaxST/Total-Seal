@@ -21,7 +21,7 @@ interface DeviceProps {
 }
 
 export const DetailDevice = ({ imei,  device, devices, token }: DeviceProps) => {
-    console.log({device})
+   
     const { subscribeToMessage } = useWebSocketContext();
     
     useEffect(()=>{

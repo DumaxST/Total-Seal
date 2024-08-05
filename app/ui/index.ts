@@ -7,3 +7,6 @@ export * from "./devices/TableDevices";
 export * from "./pagination/Pagination";
 
 export * from "./skeletons/SkeletonDashbboardTable/SkeletonDashBoardTable";
+
+
+export * from "./device/tableDevice/TableDevice";
