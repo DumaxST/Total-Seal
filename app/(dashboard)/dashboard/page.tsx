@@ -1,50 +1,47 @@
 import { headingFont } from "@/app/config/fonts";
 import { CardWithIcon } from "@/app/ui/cards/CardWithIcon";
 import { CardWrapper } from "@/app/ui/CardWrapper";
-import { Alert, TableDevices } from '../../ui/devices/TableDevices';
-const  alerts:Alert[] = [
-  {
-    id: "1",
-    device: "PROTANKER2",
-    idDevice: "860186054123977",
-    createdAt: "19/03/2023 | 06:35:23",
-    codeSeal: "169253",
-    compartment: "1",
-    event: "Evento 1",
-    priority: 'high',
-    
-  },
-  {
-    id: "1",
-    device: "PEMEX01426",
-    idDevice: "866770059347576",
-    createdAt: "19/03/2023 | 06:35:23",
-    codeSeal: "169252",
-    compartment: "1",
-    event: "Evento 1",
-    priority: 'low',
+import {TableDevices } from '../../ui/devices/TableDevices';
+import { getPaginatedAlerts } from "@/app/lib/actions/alert-action";
+import { Suspense } from "react";
+import { Alert } from "@/app/lib/definitions/alert-definition";
+import { redirect} from "next/navigation";
+import { Pagination, SkeletonDashBoardTable } from "@/app/ui";
 
+interface Props{
+  searchParams:{
+    take?: string;
+    page?: string;
   }
-]
-export default function DashboardPage() {
+}
+export default async function DashboardPage({searchParams}:Props) {
+ 
+  const page = searchParams.page ? parseInt(searchParams.page) : 1;
+  const take = searchParams.take ? parseInt(searchParams.take) : 10;
+
+  const {currentPage, totalPages,totalCount, alerts} = await getPaginatedAlerts({take:take, page:page});
+  
+  if(alerts.length === 0){
+    redirect('/');
+  }
+  
   return (
     <div className="grid grid-cols-12 gap-4">
-     
-          <div className="grid grid-cols-subgrid gap-4 col-span-4">
-            <div className="col-start-1 col-end-3">
+      <div className="grid grid-cols-subgrid gap-4 col-span-4">
+        <div className="col-start-1 col-end-3">
               <CardWithIcon
                 title="2"
                 subtitle="Unidades"
                 icon="unidades"
               />
-            </div>
-            <div className="col-start-3 col-end-6">
+        </div>
+        <div className="col-start-3 col-end-6">
               <CardWithIcon
                 title="2"
                 subtitle="Remolque"
                 icon="unidad-pipa"
               />
-            </div>
+        </div>
             <div className="col-start-1 col-end-3">
             <CardWithIcon
               title="2"
@@ -65,27 +62,22 @@ export default function DashboardPage() {
                 <HorizontalBar/>
               </CardWrapper>
              </div> */}
-          </div> 
+      </div> 
     
-          <div className="col-span-8">
+      <div className="col-span-8">
+
               <CardWrapper>
                 <h3 className={`${headingFont.className} pb-4 `}>Últimas alertas</h3>
-                <TableDevices alerts={alerts}/>
+                <Suspense fallback={ <SkeletonDashBoardTable/>} >
+                  <TableDevices alerts={alerts}/>
+                  <div className="flex justify-between mt-8">
+                    <p className="text-tertiary">{`Mostrando ${page == 1 ? '1' : page } a ${page == 1 ? take : (page * take ) } de ${totalCount} entradas`}</p>
+                    <Pagination totalPages={totalPages}/>
+                  </div>
+                </Suspense>
               </CardWrapper>
-                {/* 
-                <Suspense fallback={<TableSkeleton  columns={devicesColumns} />} >
-                  <TableWithFilter 
-                    data={devices} 
-                    columns={devicesColumns}
-                    showActions={true}
-                    textButtonAction="Ver actividad"
-                    linkHref="/device"
-                    />
-                  </Suspense>
-              </CardWrapper> */}
-    
-          </div>
-    
+      </div> 
+
         </div>
   );
 }

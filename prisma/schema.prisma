@@ -15,23 +15,23 @@ datasource db {
 }
 enum PriorityAlert{
   LOW
-  MEDIUM
   HIGH
 }
-enum Compartiment{
-  one
-  two
-  three
+enum Compartment{
+  ONE
+  TWO
+  THREE
 }
 
 model Alert{
   id         String   @id @default(uuid())
   device    String
+  idDevice String
   createdAt   DateTime @default(now())
   codeSeal String
   priority PriorityAlert
-  compartiment Compartiment
+  compartment Compartment
   event String
 
-  @@index([device])
+  @@index([idDevice])
 }

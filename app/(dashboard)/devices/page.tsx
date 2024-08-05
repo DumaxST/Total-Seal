@@ -1,6 +1,6 @@
 
 import { headingFont } from "@/app/config/fonts";
-import SkeletonTable from "@/app/ui/auth/skeletons/SkelonTable";
+import SkeletonTable from "@/app/ui/skeletons/SkelonTable";
 import { CardWrapper } from "@/app/ui/CardWrapper";
 import { fetchDevices } from "@/app/ui/dashbboard/main/api/devicesApi";
 import { Suspense } from "react";
@@ -23,10 +23,7 @@ export default async function MainPage() {
       </div>
       <div className="col-span-12">
         <CardWrapper>
-
-
           <Suspense fallback={<SkeletonTable />}>
-
             <Table data={devices.seal_devices} />
           </Suspense>
         </CardWrapper>
