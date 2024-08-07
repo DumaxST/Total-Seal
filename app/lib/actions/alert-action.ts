@@ -1,21 +1,11 @@
 'use server'
 
 import { prismaDb } from "../db/prisma"
+import { Alert, PriorityAlert, Compartment } from "@/app/lib/definitions/alert-definition"
 
 interface PaginationOptions {
   take: number;
   page: number;
-}
-
-interface Alert {
-  id: string;
-  device: string;
-  idDevice: string;
-  createdAt: Date;
-  codeSeal: string;
-  priority: string;
-  compartment: string;
-  event: string;
 }
 
 export const getPaginatedAlerts = async ({ take, page }: PaginationOptions) => {
@@ -35,8 +25,8 @@ export const getPaginatedAlerts = async ({ take, page }: PaginationOptions) => {
         idDevice: alert.idDevice,
         createdAt: alert.createdAt,
         codeSeal: alert.codeSeal,
-        priority: alert.priority,
-        compartment: alert.compartment,
+        priority: alert.priority as PriorityAlert, // Asegurar el tipo correcto
+        compartment: alert.compartment as Compartment, // Asegurar el tipo correcto
         event: alert.event
       }
     });
@@ -71,8 +61,8 @@ export const getAlertsByDeviceId = async (idDevice: string) => {
         idDevice: alert.idDevice,
         createdAt: alert.createdAt,
         codeSeal: alert.codeSeal,
-        priority: alert.priority,
-        compartment: alert.compartment,
+        priority: alert.priority as PriorityAlert, // Asegurar el tipo correcto
+        compartment: alert.compartment as Compartment, // Asegurar el tipo correcto
         event: alert.event
       }
     });
