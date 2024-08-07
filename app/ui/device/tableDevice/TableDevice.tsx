@@ -23,7 +23,7 @@ export default function TableDevice({ detailAlert }: Props) {
   const dt = useRef<DataTable<Alert[]>>(null);
 
   const exportCSV = (selectionOnly:any) => {
-    // dt.current.exportCSV({ selectionOnly });
+     dt?.current?.exportCSV({ selectionOnly });
 };
  const saveAsExcelFile = (buffer:any, fileName:any) => {
         import('file-saver').then((module) => {
@@ -97,10 +97,10 @@ const exportExcel = () => {
       <button type="button" onClick={()=>exportPdf(detailAlert)} data-pr-tooltip="PDF"  className={`${bodyFont.className} pt-4 pb-4 pl-4  max-h-8 rounded	 text-white bg-secondary font-bold  py-2 px-6  focus:outline-none  text-xs  text-center flex items-center flex-row justify-center `}>
           PDF
       </button> 
-      {/* <button type="button" onClick={exportExcel} data-pr-tooltip="CSV"  className={`${bodyFont.className} pt-4 pb-4 pl-4  max-h-8 rounded	 text-white bg-secondary font-bold  py-2 px-6  focus:outline-none  text-xs  text-center flex items-center flex-row justify-center `}>
+      <button type="button" onClick={exportExcel} data-pr-tooltip="CSV"  className={`${bodyFont.className} pt-4 pb-4 pl-4  max-h-8 rounded	 text-white bg-secondary font-bold  py-2 px-6  focus:outline-none  text-xs  text-center flex items-center flex-row justify-center `}>
           Excel
       </button>
-      */}
+     
       
     </div>
 );
