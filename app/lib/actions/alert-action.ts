@@ -18,7 +18,7 @@ export const getPaginatedAlerts = async ({ take, page }: PaginationOptions) => {
       skip: (page - 1) * take,
     });
 
-    const alerts: Alert[] = alertsTmp.map((alert) => {
+    const alerts: Alert[] = alertsTmp.map((alert: any) => { // Usa "any" temporalmente para alert
       return {
         id: alert.id,
         device: alert.device,
@@ -54,7 +54,7 @@ export const getAlertsByDeviceId = async (idDevice: string) => {
       }
     });
 
-    const alerts: Alert[] = alertsTmp.map((alert) => {
+    const alerts: Alert[] = alertsTmp.map((alert: any) => { // Usa "any" temporalmente para alert
       return {
         id: alert.id,
         device: alert.device,
