@@ -38,26 +38,27 @@ export default function TableDevice({ detailAlert }: Props) {
             }
         });
     };
-const exportPdf = () => {
-  import('jspdf').then((jsPDF) => {
+const exportPdf = (detailAlert:any) => {
+  console.log(detailAlert)
+  import('jspdf').then((module) => {
     import('jspdf-autotable').then((autoTable) => {
-      const doc = new jsPDF.default('p', 'pt');
-  
+      var doc = new module.default('p', 'pt');
+
+
       const exportColumns: ColumnMeta[] = [
         { field: 'createdAt', header: 'Fecha' },
         { field: 'codeSeal', header: 'Código de Sello' },
         { field: 'compartment', header: 'Compartimento' },
-    ];
-  
-      const detailAlert = [
-        { id: 1, message: 'Low disk space', severity: 'low' },
-        { id: 2, message: 'CPU usage high', severity: 'medium' },
-        { id: 3, message: 'Security breach detected', severity: 'high' }
       ];
   
+      let info :any[]= [];
+      detailAlert.forEach((alert:Alert) =>{
+        info.push([formatDate(alert.createdAt), alert.codeSeal, compartmentLabel[alert.compartment]]);
+      })
+      console.log(info)
       autoTable.default(doc, {
         columns: exportColumns,
-        body: detailAlert
+        body: info
       });
   
       doc.save('alerts.pdf');
@@ -95,7 +96,7 @@ const exportExcel = () => {
         <button type="button" onClick={() => exportCSV(false)} data-pr-tooltip="CSV"  className={`${bodyFont.className} pt-4 pb-4 pl-4  max-h-8 rounded	 text-white bg-secondary font-bold  py-2 px-6  focus:outline-none  text-xs  text-center flex items-center flex-row justify-center `}>
           CSV
       </button>
-      <button type="button" onClick={exportPdf} data-pr-tooltip="PDF"  className={`${bodyFont.className} pt-4 pb-4 pl-4  max-h-8 rounded	 text-white bg-secondary font-bold  py-2 px-6  focus:outline-none  text-xs  text-center flex items-center flex-row justify-center `}>
+      <button type="button" onClick={()=>exportPdf(detailAlert)} data-pr-tooltip="PDF"  className={`${bodyFont.className} pt-4 pb-4 pl-4  max-h-8 rounded	 text-white bg-secondary font-bold  py-2 px-6  focus:outline-none  text-xs  text-center flex items-center flex-row justify-center `}>
           PDF
       </button> 
       {/* <button type="button" onClick={exportExcel} data-pr-tooltip="CSV"  className={`${bodyFont.className} pt-4 pb-4 pl-4  max-h-8 rounded	 text-white bg-secondary font-bold  py-2 px-6  focus:outline-none  text-xs  text-center flex items-center flex-row justify-center `}>
