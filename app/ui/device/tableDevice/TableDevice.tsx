@@ -39,7 +39,6 @@ export default function TableDevice({ detailAlert }: Props) {
         });
     };
 const exportPdf = (detailAlert:any) => {
-  console.log(detailAlert)
   import('jspdf').then((module) => {
     import('jspdf-autotable').then((autoTable) => {
       var doc = new module.default('p', 'pt');
@@ -55,7 +54,6 @@ const exportPdf = (detailAlert:any) => {
       detailAlert.forEach((alert:Alert) =>{
         info.push([formatDate(alert.createdAt), alert.codeSeal, compartmentLabel[alert.compartment]]);
       })
-      console.log(info)
       autoTable.default(doc, {
         columns: exportColumns,
         body: info
