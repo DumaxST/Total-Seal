@@ -1,4 +1,5 @@
 "use client"
+import React, { useRef } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { bodyFont } from '@/app/config/fonts';
@@ -8,6 +9,10 @@ import { formatDate } from '@/app/lib/utils/date-utils';
 interface Props {
   detailAlert: Alert[]
 }
+interface ColumnMeta {
+  field: string;
+  header: string;
+}
 export default function TableDevice({ detailAlert }: Props) {
 
   const compartmentLabel = {
@@ -15,6 +20,63 @@ export default function TableDevice({ detailAlert }: Props) {
     TWO: 2,
     THREE: 3,
   };
+  const dt = useRef<DataTable<Alert[]>>(null);
+
+  const exportCSV = (selectionOnly:any) => {
+    // dt.current.exportCSV({ selectionOnly });
+};
+ const saveAsExcelFile = (buffer:any, fileName:any) => {
+        import('file-saver').then((module) => {
+            if (module && module.default) {
+                let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+                let EXCEL_EXTENSION = '.xlsx';
+                const data = new Blob([buffer], {
+                    type: EXCEL_TYPE
+                });
+
+                module.default.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+            }
+        });
+    };
+const exportPdf = () => {
+  import('jspdf').then((jsPDF) => {
+    import('jspdf-autotable').then((autoTable) => {
+      const doc = new jsPDF.default('p', 'pt');
+  
+      const exportColumns: ColumnMeta[] = [
+        { field: 'createdAt', header: 'Fecha' },
+        { field: 'codeSeal', header: 'Código de Sello' },
+        { field: 'compartment', header: 'Compartimento' },
+    ];
+  
+      const detailAlert = [
+        { id: 1, message: 'Low disk space', severity: 'low' },
+        { id: 2, message: 'CPU usage high', severity: 'medium' },
+        { id: 3, message: 'Security breach detected', severity: 'high' }
+      ];
+  
+      autoTable.default(doc, {
+        columns: exportColumns,
+        body: detailAlert
+      });
+  
+      doc.save('alerts.pdf');
+    });
+  });
+};
+
+const exportExcel = () => {
+    import('xlsx').then((xlsx) => {
+        const worksheet = xlsx.utils.json_to_sheet(detailAlert);
+        const workbook = { Sheets: { data: worksheet }, SheetNames: ['data'] };
+        const excelBuffer = xlsx.write(workbook, {
+            bookType: 'xlsx',
+            type: 'array'
+        });
+
+        saveAsExcelFile(excelBuffer, 'devices');
+    });
+};
 
   const dateBodyTemplate = (rowData: Alert) => (
     <span className={`${bodyFont.className} text-xs black-200`}>{formatDate(rowData.createdAt)}</span>
@@ -23,22 +85,44 @@ export default function TableDevice({ detailAlert }: Props) {
   const codeSealBodyTemplate = (rowData: Alert) => (
     <span className={`${bodyFont.className} text-xs black-200`}>{rowData.codeSeal}</span>
   )
-  
+
   const compartmentLabelBodyTemplate = (rowData: Alert) => (
     <span className={`${bodyFont.className} text-xs black-200`}>{compartmentLabel[rowData.compartment]}</span>
   )
 
+  const header = (
+    <div className="flex align-items-center justify-content-end gap-2">
+        <button type="button" onClick={() => exportCSV(false)} data-pr-tooltip="CSV"  className={`${bodyFont.className} pt-4 pb-4 pl-4  max-h-8 rounded	 text-white bg-secondary font-bold  py-2 px-6  focus:outline-none  text-xs  text-center flex items-center flex-row justify-center `}>
+          CSV
+      </button>
+      <button type="button" onClick={exportPdf} data-pr-tooltip="PDF"  className={`${bodyFont.className} pt-4 pb-4 pl-4  max-h-8 rounded	 text-white bg-secondary font-bold  py-2 px-6  focus:outline-none  text-xs  text-center flex items-center flex-row justify-center `}>
+          PDF
+      </button> 
+      {/* <button type="button" onClick={exportExcel} data-pr-tooltip="CSV"  className={`${bodyFont.className} pt-4 pb-4 pl-4  max-h-8 rounded	 text-white bg-secondary font-bold  py-2 px-6  focus:outline-none  text-xs  text-center flex items-center flex-row justify-center `}>
+          Excel
+      </button>
+      */}
+      
+    </div>
+);
+
   return (
-    <DataTable
-      value={detailAlert}
-      stripedRows
-      size="small"
-      className='mt-6'
-      tableStyle={{ minWidth: "47rem" }}
-      emptyMessage="Sin alertas registradas">
-      <Column field="createdAt" sortable header="Fecha" body={dateBodyTemplate} headerClassName={`${bodyFont.className}   rounded-tl text-xs text-left `} />
-      <Column field="codeSeal" sortable header="Código de Sello" body={codeSealBodyTemplate} headerClassName={`${bodyFont.className}  text-xs pl-4 text-left `} />
-      <Column field="compartment" sortable header="Compartimento" body={compartmentLabelBodyTemplate} headerClassName={`${bodyFont.className} rounded-tr text-xs pl-4 text-left `} />
-    </DataTable>
+    <>
+
+      <DataTable
+        value={detailAlert}
+        stripedRows
+        size="small"
+        className='mt-6'
+        tableStyle={{ minWidth: "47rem" }}
+        header={header}
+        ref={dt} 
+        emptyMessage="Sin alertas registradas">
+        <Column field="createdAt" sortable header="Fecha" body={dateBodyTemplate} headerClassName={`${bodyFont.className}   rounded-tl text-xs text-left `} />
+        <Column field="codeSeal" sortable header="Código de Sello" body={codeSealBodyTemplate} headerClassName={`${bodyFont.className}  text-xs pl-4 text-left `} />
+        <Column field="compartment" sortable header="Compartimento" body={compartmentLabelBodyTemplate} headerClassName={`${bodyFont.className} rounded-tr text-xs pl-4 text-left `} />
+      </DataTable>
+    </>
+
   )
 }
