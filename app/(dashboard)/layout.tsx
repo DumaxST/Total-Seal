@@ -9,18 +9,19 @@ import { authOptions } from '../lib/utils/sesionConfig';
 interface Props {
   children: React.ReactNode;
 }
-const MainContent = async({ children }: Props) => {
+const MainContent = async ({ children }: Props) => {
   const session = await getServerSession(authOptions);
+  console.log(session)
   const userPreferences = await getUserPreferences(session?.user.token);
-  return(
-    <WebSocketProvider  code={userPreferences?.user_preferences?.code}>
+  return (
+    <WebSocketProvider code={userPreferences?.user_preferences?.code}>
       <div className="bg-slate-100 overflow-y-scroll w-screen h-screen antialiased ">
         <div className="flex flex-col">
           <div>
             <Navbar />
           </div>
           <div className="flex flex-row">
-            <Sidebar/>
+            <Sidebar />
             <div className="p-6 w-full text-slate-900">
               {children}
             </div>
@@ -32,7 +33,7 @@ const MainContent = async({ children }: Props) => {
 }
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const session = await getServerSession();
-  
+
   if (!session) {
     redirect('/auth/login');
 
