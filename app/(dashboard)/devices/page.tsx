@@ -15,7 +15,7 @@ export default async function MainPage() {
   if (!session) return <div>Please sign in</div>
 
   const devices = await fetchDevices((session.user as { token?: string }).token || '');
-
+  console.log(devices)
   return (
     <div className="grid grid-cols-12 gap-4">
       <div className="col-span-12">
@@ -24,8 +24,11 @@ export default async function MainPage() {
       <div className="col-span-12">
         <CardWrapper>
           <Suspense fallback={<SkeletonTable />}>
-            <Table data={devices.seal_devices} />
+            {
+              devices?.seal_devices !== null ? <Table data={devices.seal_devices} /> : <p>Sin unidades </p>
+            }
           </Suspense>
+
         </CardWrapper>
       </div>
     </div>

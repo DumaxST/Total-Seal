@@ -10,16 +10,23 @@ export const FormLogin = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const response = await signIn('credentials', {
-      username: formData.get('username'),
-      password: formData.get('password'),
-      redirect: false
-    });
-    if (!response?.error) {
-      router.push('/dashboard');
-      router.refresh();
+    try {
+      const response = await signIn('credentials', {
+        username: formData.get('username'),
+        password: formData.get('password'),
+        redirect: false
+      });
+      if (!response?.error) {
+        router.push('/dashboard');
+        router.refresh();
+      }
+      console.log(response)
+    } catch (error) {
+      console.log(error)
     }
-    
+
+
+
   }
   return (
     <form className="form" onSubmit={handleSubmit}>
@@ -43,12 +50,12 @@ export const FormLogin = () => {
       </label>
       {/* TODO:
       - add error states */}
-    
+
       <Button type='submit'>
         Acceder
-      </Button>   
-  
-           
+      </Button>
+
+
 
 
     </form>
