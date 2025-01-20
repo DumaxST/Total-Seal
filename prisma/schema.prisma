@@ -9,29 +9,49 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url = env("POSTGRES_URL_NO_SSL") // uses connection pooling
+  provider  = "postgresql"
+  url       = env("POSTGRES_URL_NO_SSL") // uses connection pooling
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
-} 
-enum PriorityAlert{
+}
+
+enum PriorityAlert {
   LOW
   HIGH
 }
-enum Compartment{
+
+enum Compartment {
   ONE
   TWO
   THREE
 }
 
-model Alert{
-  id         String   @id @default(uuid())
-  device    String
-  idDevice String
-  createdAt   DateTime @default(now())
-  codeSeal String
-  priority PriorityAlert
+model Alert {
+  id          String        @id @default(uuid())
+  device      String
+  idDevice    String
+  createdAt   DateTime      @default(now())
+  codeSeal    String
+  priority    PriorityAlert
   compartment Compartment
-  event String
+  event       String
 
   @@index([idDevice])
+}
+
+model Notification {
+  id            String @id @default(uuid())
+  //is the id for de tank
+  imei          String
+  deviceName    String @default("unknown")
+  //Is the number of compartment where succed the action  
+  tankNumber    Int
+  seal          String
+  valvebox      String
+  oblea         String
+  domo          String
+  productStatus String
+  userId        Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

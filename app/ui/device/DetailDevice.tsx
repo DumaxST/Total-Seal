@@ -30,7 +30,7 @@ export const DetailDevice = ({ imei, device, devices, token }: DeviceProps) => {
 
             if ('total_seal' in params) {
                 setDeviceProps(params.total_seal)
-
+                console.log(params.total_seal)
             }
 
         }
@@ -38,8 +38,9 @@ export const DetailDevice = ({ imei, device, devices, token }: DeviceProps) => {
         function validateSealDevicesByImei(imei: string) {
             return devices.find(device => device.imei === imei)
         }
+
         const handleMessage = async (message: string) => {
-            console.log({ message })
+
             const { typeMessage, imei, idConnection }: ParsedString = parseString(message)
 
             if (validateSealDevicesByImei(imei)) {
@@ -62,7 +63,7 @@ export const DetailDevice = ({ imei, device, devices, token }: DeviceProps) => {
     const [deviceProps, setDeviceProps] = useState<Device>(device);
 
 
-
+    console.log(deviceProps)
     const tabHeaderTemplate = (options: TabPanelHeaderTemplateOptions, title: number) => {
         return (
             <div className={`flex align-items-center gap-2 p-3 rounded-t-lg border border-[#F4F4F4] ${bodySecondaryFont.className}`} style={{ cursor: 'pointer' }} onClick={options.onClick}>
@@ -81,42 +82,43 @@ export const DetailDevice = ({ imei, device, devices, token }: DeviceProps) => {
         <CardWrapper>
             <TabView className="" >
                 {
-                    deviceProps.tanks.map((tank: Tank, indx) => (
-                        <TabPanel key={tank.tanknumber} headerTemplate={(e) => tabHeaderTemplate(e, tank.tanknumber)}>
-                            <div className="grid lg:grid-cols-5 md:grid-cols-2 gap-4">
+                    deviceProps.tanks.map((tank: Tank, indx) => {
+                        return (
+                            <TabPanel key={tank.tanknumber} headerTemplate={(e) => tabHeaderTemplate(e, tank.tanknumber)}>
+                                <div className="grid lg:grid-cols-5 md:grid-cols-2 gap-4">
 
-                                <CardDetailDevice
-                                    title="Caja Válvulas"
-                                    numberCard="1"
-                                    type={tank.valvebox === 'Caja de Válvulas Cerrada' ? "boxSecondary" : "boxPrimary"}
-                                    status={tank.valvebox === 'Caja de Válvulas Cerrada' ? 'close' : 'open'}
-                                />
-                                <CardDetailDevice
-                                    title="Oblea"
-                                    numberCard="2"
-                                    type={tank.oblea === 'Oblea Cerrada' ? "boxSecondary" : "boxPrimary"}
-                                    status={tank.oblea === 'Oblea Cerrada' ? 'close' : 'open'}
-                                />
-                                <CardDetailDevice
-                                    title="Domo"
-                                    numberCard="3"
-                                    type={tank.domo === 'Domo Cerrado' ? "boxSecondary" : "boxPrimary"}
-                                    status={tank.domo === 'Domo Cerrado' ? 'close' : 'open'}
-                                />
-                                <CardDetailDevice
-                                    title="Contenido"
-                                    type="boxTertiary"
-                                    status={tank.productstatus === 'Con Producto' ? 'with_content' : 'empty'}
-                                    numberCard="4" />
+                                    <CardDetailDevice
+                                        title="Caja Válvulas"
+                                        numberCard="1"
+                                        type={tank.valvebox === 'Caja de Válvulas Cerrada' ? "boxSecondary" : "boxPrimary"}
+                                        status={tank.valvebox === 'Caja de Válvulas Cerrada' ? 'close' : 'open'}
+                                    />
+                                    <CardDetailDevice
+                                        title="Oblea"
+                                        numberCard="2"
+                                        type={tank.oblea === 'Oblea Cerrada' ? "boxSecondary" : "boxPrimary"}
+                                        status={tank.oblea === 'Oblea Cerrada' ? 'close' : 'open'}
+                                    />
+                                    <CardDetailDevice
+                                        title="Domo"
+                                        numberCard="3"
+                                        type={tank.domo === 'Domo Cerrado' ? "boxSecondary" : "boxPrimary"}
+                                        status={tank.domo === 'Domo Cerrado' ? 'close' : 'open'}
+                                    />
+                                    <CardDetailDevice
+                                        title="Contenido"
+                                        type="boxTertiary"
+                                        status={tank.productstatus === 'Con Producto' ? 'with_content' : 'empty'}
+                                        numberCard="4" />
 
-                                <div className={`py-4 ps-4 pe-4 border-b border-black border-solid text-center`}>
-                                    <h2 className={`text-sm ${headingFont.className}`}>Código de Sello</h2>
-                                    <p className={` text-4xl	 ${bodySecondaryFont.className}`}>{tank.seal}</p>
+                                    <div className={`py-4 ps-4 pe-4 border-b border-black border-solid text-center`}>
+                                        <h2 className={`text-sm ${headingFont.className}`}>Código de Sello</h2>
+                                        <p className={` text-4xl	 ${bodySecondaryFont.className}`}>{tank.seal}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </TabPanel>
-                    ))
-                }
+                            </TabPanel>
+                        )
+                    })}
             </TabView>
             <p className={`${bodySecondaryFont.className} text-center mt-5 text-base`}>  <b> Última actividad: </b>{formatDate(new Date(device.datetime))}</p>
 

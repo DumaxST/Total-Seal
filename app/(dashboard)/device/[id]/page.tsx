@@ -19,8 +19,8 @@ export default async function DeviceLayout({ params }: Props) {
   const session = await getServerSession(authOptions);
   if (!session) return <div>Please sign in</div>
   const devices = await fetchDevices((session.user as { token?: string }).token || '');
-  const detailDevice = devices.seal_devices.find((device:SealDevice) => device.imei === params.id);
-
+  const detailDevice = devices.seal_devices.find((device: SealDevice) => device.imei === params.id);
+  console.log(session)
   const alertsDevice = await getAlertsByDeviceId(params.id);
 
   return (
@@ -33,11 +33,11 @@ export default async function DeviceLayout({ params }: Props) {
         link="/dashboard"
       />
       <CardWrapper>
-        <Suspense fallback={<SkeletonDetailTable/>}>
-         <DetailDevice imei={params.id} device={detailDevice} devices={devices.seal_devices} token={session.user.token}/>
+        <Suspense fallback={<SkeletonDetailTable />}>
+          <DetailDevice imei={params.id} device={detailDevice} devices={devices.seal_devices} token={session.user.token} />
         </Suspense>
         <Suspense fallback={<p>Cargando</p>}>
-          <TableDevice detailAlert={alertsDevice}/>
+          <TableDevice detailAlert={alertsDevice} />
         </Suspense>
       </CardWrapper>
     </>
