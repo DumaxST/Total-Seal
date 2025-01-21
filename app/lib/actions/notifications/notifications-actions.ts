@@ -19,7 +19,6 @@ export const getNotificationByDeviceAndUser = async (userId: number, idDevice: s
                 userId: userId
             }
         })
-        console.log(data)
 
         return data
     } catch (error) {

@@ -24,7 +24,7 @@ export const TableDevices = ({ notifications }: Props) => {
   )
 
   const actionBodyTemplate = (rowData: Notification) => (
-    <Link href={`/device/${rowData.id}`} key={`/device`} >
+    <Link href={`/device/${rowData.imei}`} key={`/device`} >
       <button type="button" className={`${bodyFont.className} pt-4 pb-4 pl-4  max-h-8 rounded	 text-white bg-secondary font-bold  py-2 px-6  focus:outline-none  text-xs  text-center flex items-center flex-row justify-center `}>
         Ver actividad
       </button>

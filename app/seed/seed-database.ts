@@ -9,7 +9,6 @@ async function main() {
     const notificationsDB = await prismaDb.notification.createMany({
         data: notifications
     })
-    console.log(notificationsDB)
     console.log('Seed ejecutado correctamente');
 
 }
