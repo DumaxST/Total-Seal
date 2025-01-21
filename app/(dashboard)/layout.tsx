@@ -11,7 +11,6 @@ interface Props {
 }
 const MainContent = async ({ children }: Props) => {
   const session = await getServerSession(authOptions);
-  console.log(session)
   const userPreferences = await getUserPreferences(session?.user.token);
   return (
     <WebSocketProvider code={userPreferences?.user_preferences?.code}>

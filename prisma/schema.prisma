@@ -37,3 +37,21 @@ model Alert {
 
   @@index([idDevice])
 }
+
+model Notification {
+  id            String @id @default(uuid())
+  //is the id for de tank
+  imei          String
+  deviceName    String @default("unknown")
+  //Is the number of compartment where succed the action  
+  tankNumber    Int
+  seal          String
+  valvebox      String
+  oblea         String
+  domo          String
+  productStatus String
+  userId        Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

@@ -1,9 +1,14 @@
 # TOTAL SEAL
 
 1.Clonas el repositorio
+<<<<<<< HEAD
+2.Crear una copia del ```.env-template``` renombrarlo como  ```.env```` y
+crear variables de entorno
+=======
 
 2.Crear una copia del `.env-template`, renombrarlo como ```.env```` y
 creas variables de entorno
+>>>>>>> development
 
 3.Instalar dependencias
 
@@ -11,6 +16,22 @@ creas variables de entorno
 
 4.Levantar la BD
 
+<<<<<<< HEAD
+    ``` docker compose up -d```
+
+5.Corres las migraciones de prisma con:
+
+    ```npx prisma migrate dev```
+
+6.Corres el proyecto con  
+    ```npm run dev```
+
+## Comandos adicionales
+
+Hay un comando para hacer seed de la bd solo tienes que ejecutar;
+
+    ```npm run seed```
+=======
     ``` docker compose up -d````
 
 5.Corres las migraciones de prisma con
@@ -39,3 +60,4 @@ Existen 2 comandos importantes
     ```shell
     npx prisma migrate dev --name Alerts
     ```
+>>>>>>> development

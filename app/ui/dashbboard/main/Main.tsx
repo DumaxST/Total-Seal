@@ -14,9 +14,8 @@ import { devicesColumns } from '@/app/lib/constants';
 
 export const Main = () => {
 
-    const { data: session,status} = useSession();
-    console.log(session)
+    const { data: session, status } = useSession();
     return (
-           <h1>Hola</h1>
+        <h1>Hola</h1>
     )
 }
