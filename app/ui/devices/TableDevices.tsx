@@ -13,7 +13,7 @@ export const TableDevices = ({ notifications }: Props) => {
 
 
   const deviceBodyTemplate = (rowData: Notification) => (
-    <span className={`${bodyFont.className} text-xs black-200`}>{rowData.seal}</span>
+    <span className={`${bodyFont.className} text-xs black-200`}>{rowData.deviceName}</span>
   );
   const dateBodyTemplate = (rowData: Notification) => (
     <span className={`${bodyFont.className} text-xs black-200`}>{formatDate(rowData.createdAt)}</span>
