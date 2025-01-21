@@ -15,11 +15,7 @@ interface ColumnMeta {
 }
 export default function TableDevice({ detailAlert }: Props) {
 
-  const compartmentLabel = {
-    ONE: 1,
-    TWO: 2,
-    THREE: 3,
-  };
+
   const dt = useRef<DataTable<Notification[]>>(null);
 
   const exportCSV = (selectionOnly: any) => {
@@ -52,6 +48,7 @@ export default function TableDevice({ detailAlert }: Props) {
 
         let info: any[] = [];
         detailAlert.forEach((alert: Notification) => {
+          info.push([formatDate(alert.createdAt), alert.seal, alert.tankNumber])
           // info.push([formatDate(alert.createdAt), alert.seal, compartmentLabel[alert.tankNumber ?? 1]]);
         })
         autoTable.default(doc, {
@@ -115,7 +112,7 @@ export default function TableDevice({ detailAlert }: Props) {
         className='mt-6'
         tableStyle={{ minWidth: "47rem" }}
         header={header}
-        // DataTable ref={dt}
+        ref={dt}
         emptyMessage="Sin alertas registradas">
         <Column field="createdAt" sortable header="Fecha" body={dateBodyTemplate} headerClassName={`${bodyFont.className}   rounded-tl text-xs text-left `} />
         <Column field="codeSeal" sortable header="Código de Sello" body={codeSealBodyTemplate} headerClassName={`${bodyFont.className}  text-xs pl-4 text-left `} />
