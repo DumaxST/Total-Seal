@@ -2,17 +2,28 @@ import { prismaDb } from "../../db/prisma"
 
 export const getAllNotificationsByUser = async () => {
     try {
-        const data = await prismaDb.notification.findMany();
-        const filterNotification = data.map(notification => {
-            return {
-                id: notification.id,
-                seal: notification.seal,
-                createdAt: notification.createdAt,
-                deviceName: notification.deviceName
-            }
-        })
-        return filterNotification
+        return await prismaDb.notification.findMany();
+
+
     } catch (error) {
         console.log(error)
     }
+}
+
+export const getNotificationByDeviceAndUser = async (userId: number, idDevice: string) => {
+
+    try {
+        const data = await prismaDb.notification.findMany({
+            where: {
+                imei: idDevice,
+                userId: userId
+            }
+        })
+        console.log(data)
+
+        return data
+    } catch (error) {
+        console.log(error)
+    }
+
 }

@@ -9,6 +9,6 @@ export interface Notification {
     oblea?: string;
     domo?: string;
     productStatus?: string;
-    userId?: string;
+    userId?: number;
     createdAt: Date;
 }
