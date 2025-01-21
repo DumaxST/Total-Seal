@@ -21,9 +21,10 @@ export default async function DeviceLayout({ params }: Props) {
   if (!session) return <div>Please sign in</div>
   const devices = await fetchDevices((session.user as { token?: string }).token || '');
   const detailDevice = devices.seal_devices.find((device: SealDevice) => device.imei === params.id);
+  console.log(typeof params.id)
   console.log(session)
   // const alertsDevice = await getAlertsByDeviceId(params.id);
-  const alert = await getNotificationByDeviceAndUser(1020, '860186054123977') ?? []
+  const alert = await getNotificationByDeviceAndUser(session.user.id, params.id) ?? []
   console.log(alert)
   const alertsDevice = []
   return (
