@@ -30,7 +30,6 @@ export const DetailDevice = ({ imei, device, devices, token }: DeviceProps) => {
 
             if ('total_seal' in params) {
                 setDeviceProps(params.total_seal)
-                console.log(params.total_seal)
             }
 
         }
@@ -63,7 +62,6 @@ export const DetailDevice = ({ imei, device, devices, token }: DeviceProps) => {
     const [deviceProps, setDeviceProps] = useState<Device>(device);
 
 
-    console.log(deviceProps)
     const tabHeaderTemplate = (options: TabPanelHeaderTemplateOptions, title: number) => {
         return (
             <div className={`flex align-items-center gap-2 p-3 rounded-t-lg border border-[#F4F4F4] ${bodySecondaryFont.className}`} style={{ cursor: 'pointer' }} onClick={options.onClick}>
