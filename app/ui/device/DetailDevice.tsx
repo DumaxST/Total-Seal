@@ -11,25 +11,42 @@ import { useWebSocketContext } from '@/app/lib/context/WebsocketContext';
 import { clsx } from 'clsx';
 import { CardWrapper } from '../CardWrapper';
 import { formatDate } from '@/app/lib/utils/date-utils';
+import { newNotification } from '@/app/lib/actions/notifications/notifications-actions';
 
 interface DeviceProps {
     imei: string
-
+    userId: number
     device: Device,
     devices: Device[],
     token: string
 }
 
-export const DetailDevice = ({ imei, device, devices, token }: DeviceProps) => {
-
+export const DetailDevice = ({ userId, imei, device, devices, token }: DeviceProps) => {
     const { subscribeToMessage } = useWebSocketContext();
 
     useEffect(() => {
-        function validateResponse(response: any) {
+        async function validateResponse(response: any) {
             const params = response.devices[0].params
 
             if ('total_seal' in params) {
                 setDeviceProps(params.total_seal)
+                await newNotification(
+                    device.imei,
+                    device.device,
+                    1,
+                    device.tanks[0].valvebox,
+                    device.tanks[0].seal,
+
+                    device.tanks[0].oblea,
+                    device.tanks[0].domo,
+                    device.tanks[0].productstatus,
+                    userId
+
+
+
+
+
+                )
             }
 
         }
@@ -60,7 +77,6 @@ export const DetailDevice = ({ imei, device, devices, token }: DeviceProps) => {
     }, [subscribeToMessage])
 
     const [deviceProps, setDeviceProps] = useState<Device>(device);
-
 
     const tabHeaderTemplate = (options: TabPanelHeaderTemplateOptions, title: number) => {
         return (

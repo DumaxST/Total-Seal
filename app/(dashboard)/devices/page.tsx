@@ -15,7 +15,6 @@ export default async function MainPage() {
   if (!session) return <div>Please sign in</div>
 
   const devices = await fetchDevices((session.user as { token?: string }).token || '');
-  console.log(devices)
   return (
     <div className="grid grid-cols-12 gap-4">
       <div className="col-span-12">
